@@ -16,6 +16,7 @@ interface ChatStore {
   setActiveSessionId: (id: string | null) => void;
   setMessages: (messages: ChatMessage[]) => void;
   addMessage: (msg: Omit<ChatMessage, 'id' | 'timestamp'>) => void;
+  appendChunk: (chunk: string) => void;
   setAgentState: (state: AgentState) => void;
   setPhase: (phase: Phase) => void;
   completePhase: (phase: Phase) => void;
@@ -56,20 +57,41 @@ export const useChatStore = create<ChatStore>()(
               ...msg,
               id: `msg-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
               timestamp: Date.now(),
-            },
+            }
           ],
         })),
+
+      appendChunk: (chunk) =>
+        set((state) => {
+          const messages = [...state.messages];
+          const lastMsg = messages[messages.length - 1];
+          if (lastMsg && lastMsg.sender === 'agent') {
+            lastMsg.text += chunk;
+          } else {
+            messages.push({
+              id: `msg-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
+              sender: 'agent',
+              text: chunk,
+              timestamp: Date.now(),
+              phase: state.currentPhase,
+            });
+          }
+          return { messages };
+        }),
 
       setAgentState: (agentState) => set({ agentState }),
 
       setPhase: (currentPhase) => set({ currentPhase }),
 
       completePhase: (phase) =>
-        set((state) => ({
-          completedPhases: state.completedPhases.includes(phase)
-            ? state.completedPhases
-            : [...state.completedPhases, phase],
-        })),
+        set((state) => {
+          const phases = state.completedPhases || [];
+          return {
+            completedPhases: phases.includes(phase)
+              ? phases
+              : [...phases, phase],
+          };
+        }),
 
       setPersonaResult: (personaResult) => set({ personaResult }),
 

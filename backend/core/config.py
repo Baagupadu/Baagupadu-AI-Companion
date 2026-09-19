@@ -18,6 +18,11 @@ class Config:
     OLLAMA_CHAT_MODEL = os.getenv("OLLAMA_CHAT_MODEL", "llama3.1")
     OLLAMA_LOGIC_MODEL = os.getenv("OLLAMA_LOGIC_MODEL", "qwen2.5")
 
+    # vLLM Production Models
+    VLLM_BASE_URL = os.getenv("VLLM_BASE_URL", "http://localhost:8000/v1")
+    VLLM_API_KEY = os.getenv("VLLM_API_KEY", "dummy")
+    VLLM_CHAT_MODEL = os.getenv("VLLM_CHAT_MODEL", "meta-llama/Meta-Llama-3.1-8B-Instruct")
+
     # Knowledge Base Path (relative to the project root)
     PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
     

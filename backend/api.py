@@ -4,6 +4,7 @@ import json
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from fastapi import FastAPI, Depends, HTTPException, Request, BackgroundTasks
+from fastapi.responses import StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -13,6 +14,9 @@ from sqlalchemy.orm.attributes import flag_modified
 from sqlalchemy.sql import func
 from langchain_core.messages import HumanMessage, AIMessage
 
+from slowapi import Limiter, _rate_limit_exceeded_handler
+from slowapi.util import get_remote_address
+from slowapi.errors import RateLimitExceeded
 from backend.core.config import config
 from backend.database import get_db, init_db, AsyncSessionLocal
 from backend.models import User, ProfileState, Conversation, Message, LongTermMemory, AuditLog
@@ -25,10 +29,22 @@ from backend.agent.agents.guardrail_agent import GuardrailAgent
 
 app = FastAPI(title="Baagupadu AI Coach API")
 
+ENVIRONMENT = os.getenv("ENVIRONMENT", "development")
+
+# Rate Limiter Setup
+limiter = Limiter(key_func=get_remote_address)
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
+
+# Rate Limit Configurations
+CHAT_RATE_LIMIT = "10000/minute" if ENVIRONMENT == "development" else "15/minute"
+
 # Setup CORS
+allowed_origins = ["*"] if ENVIRONMENT == "development" else [os.getenv("FRONTEND_URL", "https://baagupadu.com")]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -186,8 +202,10 @@ async def run_evaluation_background(user_msg: str, ai_msg: str, conversation_id:
         print(f"Background Evaluation Error: {e}", flush=True)
 
 @app.post("/api/chat")
+@limiter.limit(CHAT_RATE_LIMIT)
 async def chat_endpoint(
-    request: ChatRequest, 
+    request: Request,
+    chat_request: ChatRequest, 
     background_tasks: BackgroundTasks,
     user_id: str = Depends(verify_token), 
     db: AsyncSession = Depends(get_db)
@@ -210,14 +228,14 @@ async def chat_endpoint(
     # --- SECURITY: Prompt Shield ---
     print("Running Prompt Shield...", flush=True)
     guardrail = GuardrailAgent()
-    check_result = await guardrail.check_input(request.message)
+    check_result = await guardrail.check_input(chat_request.message)
     
     if not check_result.is_safe:
         # Log the blocked attempt
         audit = AuditLog(
             user_id=user_id,
             action="GUARDRAIL_BLOCK",
-            details={"blocked_input": request.message, "reason": check_result.reason}
+            details={"blocked_input": chat_request.message, "reason": check_result.reason}
         )
         db.add(audit)
         await db.commit()
@@ -231,7 +249,7 @@ async def chat_endpoint(
     audit = AuditLog(
         user_id=user_id,
         action="USER_MESSAGE",
-        details={"message_length": len(request.message)}
+        details={"message_length": len(chat_request.message)}
     )
     db.add(audit)
     # --------------------------------
@@ -260,7 +278,7 @@ async def chat_endpoint(
         await db.refresh(db_profile)
 
     # 3. Save User Message
-    user_msg = Message(conversation_id=conversation.id, role="user", content=request.message)
+    user_msg = Message(conversation_id=conversation.id, role="user", content=chat_request.message)
     db.add(user_msg)
     await db.commit()
 
@@ -272,43 +290,50 @@ async def chat_endpoint(
         "life_stage_data": db_profile.life_stage_data or {},
         "persona": db_profile.persona or {},
         "guidance": db_profile.guidance or {},
-        "_voice_mode": request.is_voice_session,
+        "_voice_mode": chat_request.is_voice_session,
     }
 
     try:
-        print("Invoking agent.chat_async...", flush=True)
-        # The agent internally fetches context via pgvector and saves new insights
-        response = await agent.chat_async(request.message, profile_dict, request.session_id, db)
-        
-        current_phase = profile_dict.get("session_progress", {}).get("current_phase", "trust")
-        chat_completed = profile_dict.get("session_progress", {}).get("completed", False)
+        print("Invoking agent.chat_stream...", flush=True)
 
-        # 4. Update short-term profile state
-        print("Updating profile state...", flush=True)
-        db_profile.session_progress = dict(profile_dict.get("session_progress", {}))
-        db_profile.persona = dict(profile_dict.get("persona", {}))
-        db_profile.guidance = dict(profile_dict.get("guidance", {}))
-        
-        flag_modified(db_profile, "session_progress")
-        flag_modified(db_profile, "persona")
-        flag_modified(db_profile, "guidance")
-        
-        # 5. Save AI Message
-        ai_msg = Message(conversation_id=conversation.id, role="ai", content=response)
-        db.add(ai_msg)
-        
-        print("Agent finished, committing DB...", flush=True)
-        db.add(db_profile)
-        await db.commit()
+        async def event_generator():
+            final_response = ""
+            current_phase = profile_dict.get("session_progress", {}).get("current_phase", "trust")
+            chat_completed = profile_dict.get("session_progress", {}).get("completed", False)
+            
+            # The agent internally fetches context via pgvector and saves new insights
+            async for chunk_data in agent.chat_stream(chat_request.message, profile_dict, chat_request.session_id, db):
+                if chunk_data["type"] == "token":
+                    final_response += chunk_data["content"]
+                    yield f"data: {json.dumps({'chunk': chunk_data['content']})}\n\n"
+                elif chunk_data["type"] == "metadata":
+                    current_phase = chunk_data.get("current_phase", current_phase)
+            
+            # 4. Update short-term profile state
+            print("Updating profile state...", flush=True)
+            db_profile.session_progress = dict(profile_dict.get("session_progress", {}))
+            db_profile.persona = dict(profile_dict.get("persona", {}))
+            db_profile.guidance = dict(profile_dict.get("guidance", {}))
+            
+            flag_modified(db_profile, "session_progress")
+            flag_modified(db_profile, "persona")
+            flag_modified(db_profile, "guidance")
+            
+            # 5. Save AI Message
+            ai_msg = Message(conversation_id=conversation.id, role="ai", content=final_response)
+            db.add(ai_msg)
+            
+            print("Agent finished, committing DB...", flush=True)
+            db.add(db_profile)
+            await db.commit()
 
-        print("Returning response...", flush=True)
-        background_tasks.add_task(run_extraction_background, request.message, response, conversation.id)
-        background_tasks.add_task(run_evaluation_background, request.message, response, conversation.id)
-        return {
-            "response": response,
-            "current_phase": current_phase,
-            "chat_completed": chat_completed,
-        }
+            print("Returning response...", flush=True)
+            background_tasks.add_task(run_extraction_background, chat_request.message, final_response, conversation.id)
+            background_tasks.add_task(run_evaluation_background, chat_request.message, final_response, conversation.id)
+            
+            yield f"data: {json.dumps({'done': True, 'current_phase': current_phase, 'chat_completed': chat_completed})}\n\n"
+
+        return StreamingResponse(event_generator(), media_type="text/event-stream")
     except Exception as e:
         import traceback
         err = traceback.format_exc()
@@ -394,6 +419,46 @@ async def reset_chat(user_id: str = Depends(verify_token), db: AsyncSession = De
     await db.commit()
         
     return {"status": "success", "message": "Conversation context cleared and restarted"}
+
+@app.delete("/api/profile")
+async def delete_account(user_id: str = Depends(verify_token), db: AsyncSession = Depends(get_db)):
+    """Hard-delete all data for DPDP Act Compliance (Right to Erasure)"""
+    # 1. Verify user
+    user_result = await db.execute(select(User).where(User.id == user_id))
+    user = user_result.scalars().first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    # 2. Get all conversations to cascade delete (or rely on DB cascading if set up, but let's be explicit)
+    conv_result = await db.execute(select(Conversation).where(Conversation.user_id == user_id))
+    conversations = conv_result.scalars().all()
+    conv_ids = [c.id for c in conversations]
+
+    if conv_ids:
+        # We must cast the IDs to string if they are UUIDs or keep them as integers if they are ints depending on the schema.
+        # SQLAlchemy select 'in_' handles types if correct.
+        
+        # Delete ProfileStates
+        from sqlalchemy import delete
+        await db.execute(delete(ProfileState).where(ProfileState.conversation_id.in_(conv_ids)))
+        
+        # Delete Messages
+        await db.execute(delete(Message).where(Message.conversation_id.in_(conv_ids)))
+        
+        # Delete LongTermMemory (Vectors)
+        await db.execute(delete(LongTermMemory).where(LongTermMemory.conversation_id.in_(conv_ids)))
+        
+        # Delete Conversations
+        await db.execute(delete(Conversation).where(Conversation.id.in_(conv_ids)))
+
+    # Delete Audit Logs
+    await db.execute(delete(AuditLog).where(AuditLog.user_id == user_id))
+    
+    # Delete User
+    await db.execute(delete(User).where(User.id == user_id))
+    
+    await db.commit()
+    return {"status": "success", "message": "All user data has been permanently deleted"}
 
 @app.get("/api/roadmap")
 async def get_roadmap(user_id: str = Depends(verify_token), db: AsyncSession = Depends(get_db)):

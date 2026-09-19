@@ -4,7 +4,7 @@ import { useCallback } from 'react';
 import { useChatStore } from '@/lib/store/chatStore';
 import { useUserProfileStore } from '@/stores/userProfileStore';
 import { useAuth } from '@clerk/nextjs';
-import { chatWithSahayam } from '@/lib/api';
+import { chatWithSahayamStream } from '@/lib/api';
 
 export function useDemoChat() {
   const {
@@ -13,6 +13,7 @@ export function useDemoChat() {
     setPhase,
     completePhase,
     setShowVisualization,
+    appendChunk,
     currentPhase,
     activeSessionId,
     setActiveSessionId,
@@ -41,14 +42,20 @@ export function useDemoChat() {
         }
         
         // Fetch from backend using api.ts which passes the token and session ID
-        const data = await chatWithSahayam(text, sessionId, token, isVoiceSession);
-        let reply = data.response;
+        let accumulatedReply = '';
+        const data = await chatWithSahayamStream(text, sessionId, token, isVoiceSession, (chunk) => {
+          if (accumulatedReply.length === 0) {
+            setAgentState('typing');
+          }
+          accumulatedReply += chunk;
+          appendChunk(chunk);
+        });
+        
+        let reply = accumulatedReply;
 
         // Force a re-fetch of the profile from the backend to instantly sync new health metrics
         await loadProfile(token);
 
-        setAgentState('typing');
-        
         // Sync phase with backend
         const backendPhase = data.current_phase || 'discovery';
         if (backendPhase !== currentPhase) {
@@ -68,13 +75,6 @@ export function useDemoChat() {
         } else {
            setAgentState('idle');
         }
-
-        // Add the agent's message
-        addMessage({
-          sender: 'agent',
-          text: reply,
-          phase: backendPhase,
-        });
 
       } catch (error) {
         console.error("Error communicating with backend:", error);

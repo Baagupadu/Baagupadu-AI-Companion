@@ -9,7 +9,6 @@ from backend.knowledge_base.loader import KnowledgeBaseLoader
 import asyncio
 from sqlalchemy.future import select
 from sqlalchemy.orm import aliased
-from backend.agent.agents.shadow_agents import ShadowEngine
 from backend.models import KnowledgeBaseChunk, MemoryNode, MemoryEdge
 
 embedder = SentenceTransformer("nomic-ai/nomic-embed-text-v1.5", trust_remote_code=True)
@@ -53,7 +52,6 @@ class PlannerOutput(BaseModel):
 
 class PlannerAgent(BaseAgent):
     def __init__(self):
-        self.shadow_engine = ShadowEngine()
         super().__init__(purpose="logic", structured_output_model=PlannerOutput)
 
     async def invoke(self, state: AgentState) -> Dict[str, Any]:
@@ -209,22 +207,6 @@ class PlannerAgent(BaseAgent):
                 "If they are still giving one-word answers, plan a response where the Executor: (1) casually validates what they just said, and (2) asks ONE very light, everyday small-talk question.\n\n"
             )
 
-        shadow_instruction = ""
-        if user_input and user_msg_count > 0:
-            shadow_results = await self.shadow_engine.analyze(user_input)
-            empath_hyp = shadow_results.get("empath_hypothesis", "")
-            skeptic_hyp = shadow_results.get("skeptic_hypothesis", "")
-            if empath_hyp or skeptic_hyp:
-                shadow_instruction = (
-                    "👥 SHADOW AGENT HYPOTHESES (INTERNAL USE ONLY):\n"
-                    "Your background shadow agents have analyzed the user's last message. Here are their psychological hypotheses:\n"
-                    f"- The Empath thinks: {empath_hyp}\n"
-                    f"- The Skeptic thinks: {skeptic_hyp}\n\n"
-                    "CRITICAL RULE: Use these hypotheses to UNDERSTAND the user deeply, but NEVER interrogate them about it. "
-                    "Do NOT ask 'Are you avoiding this?' or 'What made you think that?'. Act like a total human friend who just happens to be incredibly perceptive. "
-                    "Incorporate this deep understanding smoothly into your proposed plan without breaking the 'friendly companion' UX.\n\n"
-                )
-
         prompt = (
             "You are the Strategic Planner for Sahayam — a warm AI companion whose PRIMARY goal is "
             "to understand the user as a complete HUMAN BEING, not just guide their career.\n\n"
@@ -236,20 +218,19 @@ class PlannerAgent(BaseAgent):
             f"{coverage_str}"
             f"{kb_context}"
             f"{graph_context}"
-            f"{shadow_instruction}"
             f"{resistance_rule}"
             f"CURRENT PHASE: {current_phase}\n"
             f"MESSAGE NUMBER: {user_msg_count}\n"
-            "DYNAMIC OPEN-UP DETECTION: If the current phase is 'trust', your goal is to make them comfortable. The moment they share a genuine feeling, fear, or personal detail, you MUST transition the new_phase to 'exploration'. Do not wait for a specific message count.\n"
+            "DYNAMIC OPEN-UP DETECTION: If the current phase is 'trust', your ONLY goal is to build a baseline of friendship. DO NOT rush this. Wait until they are genuinely comfortable. The moment they share a deep genuine feeling, fear, or personal detail, you MUST transition the new_phase to 'exploration'. Do not transition until a baseline of friendship is established.\n"
             f"RECENT CONVERSATION:\n{recent_history}\n\n"
             "PLANNING RULES:\n"
-            "1. PERSON FIRST (FOUNDATION): Gathering the user persona in extreme detail is the absolute prerequisite for everything else. Career advice will be built on this foundation later. Right now, focus ONLY on mapping their psychology, habits, and life story.\n"
-            "2. NON-LINEAR EXPLORATION: Do NOT force a chronological life-story (childhood -> teenage -> adult). Follow the user's energy! If they mention a current hobby, explore that. If they mention a past regret, explore that. Let the situation dictate the topic.\n"
-            "3. FOLLOW THE USER'S LEAD: Do NOT force a linear path. If they bring up a memory, a feeling, "
-            "a project, a frustration — go there. Let their energy guide the exploration.\n"
-            "4. ACTIVE LISTENING & NO INTERROGATION: When proposing a plan, DO NOT command the Executor to ask 'Why?' or blindly interrogate the user. Instead, direct the Executor to extract the core essence/emotion, validate it, and ONLY ask for confirmation if absolutely necessary. Otherwise, just validate and flow.\n"
-            "5. KEEP MOVING: If you've explored one thread enough, plan to gently transition to a new thread.\n"
-            "5. AVOID LISTS & INTERVIEWS: Do not output plans that result in bullet points or '20 questions'. If you need information, get it conversationally.\n"
+            "1. PERSON FIRST (FOUNDATION): Gathering the user persona in extreme detail is the absolute prerequisite for everything else. Right now, focus ONLY on mapping their psychology, habits, and life story.\n"
+            "2. NO PREMATURE CAREER ADVICE: Do NOT provide career advice, book recommendations, frameworks, or solutions during the 'trust' or 'exploration' phases. Your ONLY job is to map their brain and personality as a friend. Save advice for later.\n"
+            "3. NON-LINEAR EXPLORATION: Do NOT force a chronological life-story (childhood -> teenage -> adult). Follow the user's energy! If they mention a current hobby, explore that. If they mention a past regret, explore that. Let the situation dictate the topic.\n"
+            "4. FOLLOW THE USER'S LEAD: Do NOT force a linear path. If they bring up a memory, a feeling, a project, a frustration — go there. Let their energy guide the exploration.\n"
+            "5. CONVERSATIONAL STEALTH EXTRACTION: When proposing a plan, DO NOT command the Executor to ask a questionnaire. Direct the Executor to act like a friend, extract the core essence, validate it, and weave ONE casual curiosity-driven question into the flow to pull the deeper motivation out of them stealthily.\n"
+            "6. KEEP MOVING: If you've explored one thread enough, plan to gently transition to a new thread.\n"
+            "7. AVOID LISTS & INTERVIEWS: Do not output plans that result in bullet points or '20 questions'. If you need information, get it conversationally.\n"
             "6. NO PREACHING: Give space. Let them figure it out. Do not rush to 'fix' them.\n"
             "7. TOOL USE (GROUNDING): If the user asks a factual question about careers, salaries, or the real world, output a `search_query` so the system can fetch live internet data to ground the response.\n"
             "8. REACT LOOP (DEFLECTION HANDLING): If the user dodges a question, gives a non-answer, or resists, set `is_deflection=True`. Write a `reflection_thought` analyzing why they resisted. Then, use that reflection to form a `proposed_plan` that retreats and validates them instead of pushing harder.\n"

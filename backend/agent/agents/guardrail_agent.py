@@ -36,5 +36,8 @@ class GuardrailAgent:
             return result
         except Exception as e:
             print(f"GuardrailAgent Error: {e}")
-            # Fail open if the guardrail crashes, or fail closed? We fail open to not block users on LLM timeout.
+            import os
+            ENVIRONMENT = os.getenv("ENVIRONMENT", "development")
+            if ENVIRONMENT == "production":
+                return GuardrailOutput(is_safe=False, reason="Guardrail failed to execute. Failing closed for security.")
             return GuardrailOutput(is_safe=True, reason="Guardrail failed to execute.")

@@ -62,12 +62,8 @@ services:
       sh -c "
         echo 'Waiting for Ollama to start...';
         sleep 5;
-        echo 'Pulling Llama 3.1 8B...';
-        curl -X POST http://ollama:11434/api/pull -d '{\"name\": \"llama3.1:8b\"}';
-        echo 'Pulling Qwen 2.5 7B...';
-        curl -X POST http://ollama:11434/api/pull -d '{\"name\": \"qwen2.5:7b\"}';
-        echo 'Pulling Phi-3 Mini (Judge)...';
-        curl -X POST http://ollama:11434/api/pull -d '{\"name\": \"phi3:mini\"}';
+        echo 'Pulling Llama 3.1 Latest...';
+        curl -X POST http://ollama:11434/api/pull -d '{\"name\": \"llama3.1:latest\"}';
         echo 'Models pulled successfully!';
       "
 
@@ -75,14 +71,19 @@ services:
     build: 
       context: ./backend
       dockerfile: Dockerfile
+    user: root
     ports:
       - "8000:8000"
     environment:
       - LLM_PROVIDER=ollama
-      - OLLAMA_BASE_URL=http://ollama:11434
-      - OLLAMA_CHAT_MODEL=llama3.1:8b
-      - OLLAMA_LOGIC_MODEL=qwen2.5:7b
-      - OLLAMA_JUDGE_MODEL=phi3:mini
+      - OLLAMA_BASE_URL=http://ollama:11434/v1
+      - OLLAMA_CHAT_MODEL=llama3.1:latest
+      - OLLAMA_LOGIC_MODEL=llama3.1:latest
+      # --- Production Settings (College Server) ---
+      # To use production, uncomment these and change LLM_PROVIDER to 'vllm'
+      # - VLLM_BASE_URL=http://<COLLEGE_SERVER_IP>:8000/v1
+      # - VLLM_API_KEY=your_secure_api_key
+      # - VLLM_CHAT_MODEL=meta-llama/Meta-Llama-3.1-8B-Instruct
       - DATABASE_URL=postgresql+asyncpg://postgres:password@db/baagupadu
     volumes:
       - ./gems:/gems
@@ -96,6 +97,7 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+    user: root
     ports:
       - "3000:3000"
     environment:

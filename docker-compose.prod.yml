@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  db:
+    # Unbind ports from the public internet (0.0.0.0)
+    # The database will still be accessible internally to other services in the docker network
+    ports: []
+    # If you need local machine access only in prod, uncomment below:
+    # ports:
+    #   - "127.0.0.1:5433:5432"
+
+  adminer:
+    # Remove public access to Adminer in production
+    ports: []
+    # Or bind to localhost if accessing via SSH tunnel:
+    # ports:
+    #   - "127.0.0.1:8080:8080"
+
+  backend:
+    # Enforce non-root user built into the Dockerfile
+    user: "appuser"
+    environment:
+      - ENVIRONMENT=production
+      # Note: Ensure CLERK_JWKS_URL and FRONTEND_URL are set in the production environment (.env)
+    # Optional: in production, you might not want to mount the local ./gems volume if it's already built-in, 
+    # but if you do, ensure appuser has permissions, or rely on the Dockerfile COPY.
+
+  frontend:
+    # Enforce non-root user built into the Dockerfile
+    user: "node"
+    environment:
+      - ENVIRONMENT=production

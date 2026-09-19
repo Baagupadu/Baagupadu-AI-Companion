@@ -12,6 +12,9 @@ RUN apt-get update && apt-get install -y \
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Create a non-root user
+RUN useradd -m appuser
+
 # Copy the rest of the application
 COPY . .
 
@@ -21,5 +24,11 @@ EXPOSE 8000
 # The entrypoint script will handle DB migrations and KB ingestion before starting the server
 COPY entrypoint.sh /app/entrypoint.sh
 RUN chmod +x /app/entrypoint.sh
+
+# Change ownership of the app directory to the non-root user
+RUN chown -R appuser:appuser /app
+
+# Switch to the non-root user
+USER appuser
 
 CMD ["/app/entrypoint.sh"]

@@ -120,30 +120,42 @@ class ExecutorAgent(BaseAgent):
         # RAG + LTM (Isolated to Executor only)
         ltm_context = ""
         kb_context = ""
-        if db and user_input:
+        cached_q_emb = None
+        if user_input:
             try:
-                query_embedding = await asyncio.to_thread(embedder.encode, user_input)
-                query_embedding = query_embedding.tolist()
-                # 1. Vector Search
-                vector_result = await db.execute(
-                    select(LongTermMemory)
-                    .where(LongTermMemory.conversation_id == profile.get("conversation_id"))
-                    .order_by(LongTermMemory.embedding.cosine_distance(query_embedding))
-                    .limit(10)
-                )
-                vector_memories = vector_result.scalars().all()
-
-                # 2. Keyword Search (FTS)
                 from sqlalchemy import func
-                keyword_result = await db.execute(
-                    select(LongTermMemory)
-                    .where(
-                        LongTermMemory.conversation_id == profile.get("conversation_id"),
-                        func.to_tsvector('english', LongTermMemory.content).op('@@')(func.plainto_tsquery('english', user_input))
+                from backend.database import AsyncSessionLocal
+                
+                async with AsyncSessionLocal() as session:
+                    db = session
+
+                    async def get_keyword_memories():
+                        keyword_result = await db.execute(
+                            select(LongTermMemory)
+                            .where(
+                                LongTermMemory.conversation_id == profile.get("conversation_id"),
+                                func.to_tsvector('english', LongTermMemory.content).op('@@')(func.plainto_tsquery('english', user_input))
+                            )
+                            .limit(10)
+                        )
+                        return keyword_result.scalars().all()
+
+                    async def get_vector_memories():
+                        nonlocal cached_q_emb
+                        cached_q_emb = await asyncio.to_thread(embedder.encode, user_input)
+                        query_embedding = cached_q_emb.tolist()
+                        vector_result = await db.execute(
+                            select(LongTermMemory)
+                            .where(LongTermMemory.conversation_id == profile.get("conversation_id"))
+                            .order_by(LongTermMemory.embedding.cosine_distance(query_embedding))
+                            .limit(10)
+                        )
+                        return vector_result.scalars().all()
+
+                    keyword_memories, vector_memories = await asyncio.gather(
+                        get_keyword_memories(),
+                        get_vector_memories()
                     )
-                    .limit(10)
-                )
-                keyword_memories = keyword_result.scalars().all()
 
                 # 3. Reciprocal Rank Fusion (RRF)
                 k = 60
@@ -183,8 +195,10 @@ class ExecutorAgent(BaseAgent):
         few_shot_context = ""
         if user_input and len(few_shot_examples) > 0 and len(few_shot_embeddings) > 0:
             try:
-                # We already computed query_embedding above for LTM RAG
-                q_emb = await asyncio.to_thread(embedder.encode, user_input)
+                if cached_q_emb is not None:
+                    q_emb = cached_q_emb
+                else:
+                    q_emb = await asyncio.to_thread(embedder.encode, user_input)
                 
                 # Compute cosine similarities
                 from numpy.linalg import norm
@@ -308,11 +322,12 @@ class ExecutorAgent(BaseAgent):
             "- It's okay to be a little playful, a little real, occasionally a little direct.\n"
             "- EARNED PRAISE ONLY: Do not act like a generic cheerleader. Do not praise the user for every message or say 'Oh that's really great!' for ordinary answers. Only praise or validate when the user has genuinely achieved something, shared a win, or when it truly fits the emotional situation. Be a genuine friend.\n\n"
             "CONVERSATION RULES (CRITICAL):\n"
-            "1. ONE QUESTION MAX: Ask a MAXIMUM of one focused question per response, and ONLY if absolutely necessary.\n"
-            "2. ACTIVE LISTENING & OPTIONAL CONFIRMATION: If the user gives a short answer, DO NOT blindly interrogate them with 'Why?' or 'What is causing that?'. Instead, extract the underlying essence/emotion of what they said. If you understand it perfectly, just VALIDATE it like a real friend (e.g. 'Man, I totally get that. That pressure is brutal.') and DO NOT ask a question. If you genuinely need clarification, state your interpretation and ask for a casual confirmation (e.g. 'Sounds like it is mostly fear of the unknown, right?').\n"
+            "1. ONE QUESTION MAX: Ask a MAXIMUM of one focused question per response. Never ask multiple questions at once.\n"
+            "2. CONVERSATIONAL STEALTH EXTRACTION: If you need to understand the user's deep persona (their drives, goals, fears), DO NOT ask them direct interview-style questions. Act like a friend hanging out. Weave your curiosity naturally into the conversation. Validate what they said first, then gently ask a casual follow-up to pull the deeper motivation out of them without them feeling interrogated.\n"
             "3. NO MULTIPLE CHOICE: Do NOT end questions with options like 'is it X, or something else entirely?'. Just ask the question naturally and leave it open-ended.\n"
             "4. NO REPETITION: Never parrot back what the user just said. Add new energy or insight.\n"
-            "5. NO JARGON: No psychological terms, no coaching frameworks, no corporate language.\n"
+            "5. NO FORMATTING OR LISTS: You are texting a friend. Friends DO NOT use markdown, bullet points (* or -), or numbered lists (1. 2. 3.). NEVER output a list or questionnaire. Write in natural paragraphs.\n"
+            "6. NO JARGON: No psychological terms, no coaching frameworks, no corporate language.\n"
             "6. CURRENT SESSION CALLBACKS ONLY: When recalling details or referencing what the user shared, reference facts and memories shared during THIS conversation naturally (e.g. 'You mentioned earlier you worked on...'). Do not invent or pull facts outside this conversation.\n"
             "7. CASUAL ICE-BREAKERS IN TRUST PHASE: In the early phase, focus on casual connection and friendly check-ins before digging into deeper self-discovery.\n\n"
             f"{first_message_instruction}"
@@ -333,11 +348,17 @@ class ExecutorAgent(BaseAgent):
             "- NEVER output character names or prefixes like 'Sahayam:' or 'User:'.\n"
             "- NEVER output stage directions, meta-commentary, or descriptions like '*smiles*' or 'Let's get back into the scenario'.\n"
             "- NEVER output parenthetical disclaimers like '(By the way, I am here to listen...)'.\n"
+            "- NEVER output bullet points, numbered lists, or bold markdown. Just natural text.\n"
             "- JUST SPEAK DIRECTLY. Output ONLY the actual words you would send in a text message.\n\n"
             "YOUR RESPONSE:\n"
             "Write your response directly. Keep it natural, warm, human. "
             "If the plan asks you to explore something, do it conversationally — like a friend asking "
-            "out of genuine curiosity, not like a form to fill in.\n"
+            "out of genuine curiosity, not like a form to fill in.\n\n"
+            "RESPONSE FORMAT TEMPLATE:\n"
+            "You MUST structure every response in this exact rhythmic flow (do not actually output the brackets):\n"
+            "1. [Validation/Reaction]: Instantly react to what they just said with empathy or excitement (1-2 sentences max).\n"
+            "2. [Insight]: Share a brief thought, observation, or relate to their situation based on their persona (1-3 sentences max).\n"
+            "3. [Casual Handoff]: (Optional) End with ONE casual, stealthy question to keep the conversation moving (1 sentence max).\n"
         )
         try:
             # Generate a single response directly for maximum speed and UX
