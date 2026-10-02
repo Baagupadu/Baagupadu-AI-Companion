@@ -255,7 +255,7 @@ class ExecutorAgent(BaseAgent):
             trust_instruction = (
                 "🌱 TRUST & RAPPORT BUILDING ACTIVE:\n"
                 "You are in the early friendship stage. Keep everything very casual, warm, and zero-pressure.\n"
-                "- If the user says 'yes', 'ready', 'sure', or gives a brief confirmation/greeting, match their vibe warmly and ask an easy, everyday ice-breaker (e.g. 'How has your day been going so far?' or 'What kind of things have been keeping you busy lately?').\n"
+                "- If the user says 'yes', 'ready', 'sure', or gives a brief confirmation/greeting, match their vibe warmly and YOU MUST ASK an easy, everyday ice-breaker question (e.g. 'How has your day been going so far?' or 'What kind of things have been keeping you busy lately?'). DO NOT just validate and end the message.\n"
                 "- DO NOT ask heavy, analytical, career-heavy, or psychological questions yet. Warm up together like two close friends hanging out.\n\n"
             )
 
@@ -358,7 +358,7 @@ class ExecutorAgent(BaseAgent):
             "You MUST structure every response in this exact rhythmic flow (do not actually output the brackets):\n"
             "1. [Validation/Reaction]: Instantly react to what they just said with empathy or excitement (1-2 sentences max).\n"
             "2. [Insight]: Share a brief thought, observation, or relate to their situation based on their persona (1-3 sentences max).\n"
-            "3. [Casual Handoff]: (Optional) End with ONE casual, stealthy question to keep the conversation moving (1 sentence max).\n"
+            "3. [Casual Handoff]: End with ONE casual, stealthy question to keep the conversation moving (1 sentence max). THIS IS MANDATORY UNLESS THE USER TOLD YOU TO STOP ASKING QUESTIONS.\n"
         )
         try:
             # Generate a single response directly for maximum speed and UX

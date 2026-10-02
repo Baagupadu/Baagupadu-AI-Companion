@@ -42,3 +42,6 @@ Thumbs.db
 
 # LangGraph API
 .langgraph_api
+
+# Large AI Models
+*.gguf
