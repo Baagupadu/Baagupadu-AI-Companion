@@ -1,3 +1,10 @@
+---
+id: okf-prompts-childhood_exploration
+name: "Childhood Exploration"
+type: prompts
+description: OKF Document containing logic and rules for Childhood Exploration.
+---
+
 # Childhood Exploration Phase — Sahayam's Guiding Framework
 
 ---

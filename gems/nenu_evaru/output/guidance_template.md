@@ -1,3 +1,10 @@
+---
+id: okf-output-guidance_template
+name: "Guidance Template"
+type: output
+description: OKF Document containing logic and rules for Guidance Template.
+---
+
 # Guidance Template — Baagupadu Career Roadmap Output
 
 ## 📋 About This File

@@ -1,3 +1,10 @@
+---
+id: okf-inference-inference_engine
+name: "Inference Engine"
+type: inference
+description: OKF Document containing logic and rules for Inference Engine.
+---
+
 # Inference Engine — Sahayam's Reasoning & Analysis Guide
 
 ---

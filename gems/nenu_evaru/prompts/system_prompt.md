@@ -1,3 +1,10 @@
+---
+id: okf-prompts-system_prompt
+name: "System Prompt"
+type: prompts
+description: OKF Document containing logic and rules for System Prompt.
+---
+
 # Nenu Evaru? - System Prompt (Detailed Version)
 
 ## 🎯 DOCUMENT CONTROL

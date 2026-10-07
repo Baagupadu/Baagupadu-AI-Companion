@@ -1,3 +1,10 @@
+---
+id: okf-prompts-trait_inference
+name: "Trait Inference"
+type: prompts
+description: OKF Document containing logic and rules for Trait Inference.
+---
+
 # Trait Inference — Complete Guide for Sahayam
 
 ## 📋 About This File
