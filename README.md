@@ -79,13 +79,27 @@ cd Baagupadu-Career-Guidance-Coach-Assistant-Gem
 ```
 
 ### Step 2: Set up Local AI Models (Ollama)
-Open a new terminal window and pull the required models. Note: This will download several gigabytes of data.
+
+**For the Main Branch (Base Models):**
+Open a new terminal window and pull the required models:
 ```bash
 ollama run llama3.1:8b  # The empathetic conversational agent
 ollama run qwen2.5:7b   # The strict logic and planning agent
 ollama run phi3:mini    # The lightweight, unbiased background judge
 ```
 *Leave the Ollama application running in the background.*
+
+**For the Distillation Branch (`feature/distillation-pipeline`):**
+If you are working on the fine-tuned distillation branch, do NOT use the base `llama3.1` model. Instead, download our custom fine-tuned 5GB `.gguf` model directly from HuggingFace:
+```bash
+# Run this from the root directory to download the model into the backend folder
+curl -L -o backend/llama-3-8b-Instruct.Q4_K_M.gguf https://huggingface.co/ReddyPindi/Baagupadu-Llama-3-8B-Q4/resolve/main/llama-3-8b-Instruct.Q4_K_M.gguf?download=true
+```
+Then, use the included `Modelfile` to load it into your local Ollama:
+```bash
+cd backend
+ollama create baagupadu_model -f Modelfile
+```
 
 ### Step 3: Set up PostgreSQL with `pgvector`
 We use `pgvector` for Semantic RAG. You must enable it in your database.
