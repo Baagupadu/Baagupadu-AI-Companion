@@ -55,16 +55,24 @@ services:
     #           capabilities: [gpu]
 
   ollama-puller:
-    image: curlimages/curl:latest
+    image: ollama/ollama:latest
     depends_on:
       - ollama
+    volumes:
+      - ./backend/Modelfile:/models/Modelfile
+      - ./backend/llama-3-8b-Instruct.Q4_K_M.gguf:/models/llama-3-8b-Instruct.Q4_K_M.gguf
+    environment:
+      - OLLAMA_HOST=http://ollama:11434
     command: >
       sh -c "
         echo 'Waiting for Ollama to start...';
         sleep 5;
-        echo 'Pulling Llama 3.1 Latest...';
-        curl -X POST http://ollama:11434/api/pull -d '{\"name\": \"llama3.1:latest\"}';
-        echo 'Models pulled successfully!';
+        echo 'Pulling Qwen 2.5 (Planner) and Phi-3 (Judge)...';
+        ollama pull qwen2.5:7b;
+        ollama pull phi3:mini;
+        echo 'Creating Baagupadu custom model from local GGUF...';
+        ollama create baagupadu_model -f /models/Modelfile;
+        echo 'All AI models are ready!';
       "
 
   backend:
@@ -77,8 +85,8 @@ services:
     environment:
       - LLM_PROVIDER=ollama
       - OLLAMA_BASE_URL=http://ollama:11434/v1
-      - OLLAMA_CHAT_MODEL=llama3.1:latest
-      - OLLAMA_LOGIC_MODEL=llama3.1:latest
+      - OLLAMA_CHAT_MODEL=baagupadu_model
+      - OLLAMA_LOGIC_MODEL=qwen2.5:7b
       # --- Production Settings (College Server) ---
       # To use production, uncomment these and change LLM_PROVIDER to 'vllm'
       # - VLLM_BASE_URL=http://<COLLEGE_SERVER_IP>:8000/v1

@@ -26,7 +26,7 @@
 
 ## 1. Introduction
 ### 1.1 Purpose of the SRS
-This Software Requirements Specification (SRS) details the functional, non-functional, security, privacy, and AI-specific requirements for the Baagupadu mentoring ecosystem. It provides the definitive baseline for development, testing, and validation, conforming to ISO/IEC/IEEE 29148:2018 and ISO/IEC 25010:2023.
+This Software Requirements Specification (SRS) details the functional, non-functional, security, privacy, and AI-specific requirements for the Baagupadu AI Companion ecosystem. It provides the definitive baseline for development, testing, and validation, conforming to ISO/IEC/IEEE 29148:2018 and ISO/IEC 25010:2023.
 
 ### 1.2 Product Purpose
 Baagupadu ("To Prosper & Better Oneself") is an AI-powered mentoring and career guidance ecosystem. It acts as an empathetic, context-aware psychological AI mentor ("Sahayam") that guides users through a six-phase self-discovery journey to produce a synthesized persona and career roadmap. The system is classified as an educational support platform and non-clinical mentoring tool.
