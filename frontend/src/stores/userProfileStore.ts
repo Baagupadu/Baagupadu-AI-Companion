@@ -1,6 +1,6 @@
 import { create } from 'zustand';
-import { fetchProfile } from '@/lib/api';
-import type { HealthMetrics } from '@/types';
+import { fetchProfile } from '../lib/api';
+import type { HealthMetrics } from '../types';
 
 interface UserProfile {
   user_id?: string;

@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { chatWithSahayamStream } from '@/lib/api';
+import { chatWithSahayamStream } from '../lib/api';
 
 describe('chatWithSahayamStream SSE Client', () => {
   beforeEach(() => {

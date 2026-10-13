@@ -40,5 +40,12 @@ def get_llm(purpose: str = "chat") -> BaseChatModel:
                 api_key=config.VLLM_API_KEY,
                 base_url=config.VLLM_BASE_URL
             )
+    elif provider == "openai":
+        from langchain_openai import ChatOpenAI
+        return ChatOpenAI(
+            model=os.getenv("OPENAI_CHAT_MODEL", "gpt-4o-mini"),
+            temperature=0.7,
+            api_key=config.OPENAI_API_KEY or "dummy_key_for_testing"
+        )
     else:
-        raise ValueError(f"Unsupported LLM_PROVIDER: {provider}. Options are 'ollama' or 'vllm'.")
+        raise ValueError(f"Unsupported LLM_PROVIDER: {provider}. Options are 'ollama', 'vllm', or 'openai'.")

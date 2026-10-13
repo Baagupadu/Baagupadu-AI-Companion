@@ -25,7 +25,11 @@ if os.path.exists(few_shot_path):
         few_shot_examples = json.load(f)
         # Precompute embeddings for the user inputs to make semantic matching O(1) latency
         if few_shot_examples:
-            few_shot_embeddings = embedder.encode([ex["user_input"] for ex in few_shot_examples])
+            try:
+                few_shot_embeddings = embedder.encode([ex["user_input"] for ex in few_shot_examples])
+            except Exception as exc:
+                print(f"Warning: could not precompute few-shot embeddings: {exc}", flush=True)
+                few_shot_embeddings = []
 
 
 def _get_profile_context(profile: dict) -> str:
