@@ -7,8 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "vitest run",
-    "test:watch": "vitest"
+    "test": "vitest run -c vitest.config.mjs",
+    "test:watch": "vitest -c vitest.config.mjs"
   },
   "dependencies": {
     "@clerk/nextjs": "^7.5.17",

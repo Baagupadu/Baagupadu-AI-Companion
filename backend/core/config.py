@@ -5,8 +5,8 @@ from dotenv import load_dotenv
 load_dotenv(override=True)
 
 class Config:
-    # Default to 'openai' but can be changed via environment variable
-    LLM_PROVIDER = os.getenv("LLM_PROVIDER", "openai").lower()
+    # Default to 'ollama' matching .env.example, but can be changed via environment variable
+    LLM_PROVIDER = os.getenv("LLM_PROVIDER", "ollama").lower()
     
     # API Keys
     OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
