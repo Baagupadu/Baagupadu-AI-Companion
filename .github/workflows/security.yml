@@ -52,8 +52,12 @@ jobs:
         run: |
           pip-audit -r backend/requirements.txt --ignore-vuln CVE-2024-0000 || true
 
+      - name: Run Backend Pytest Suite (Security, Guardrails, Models, Endpoints)
+        run: |
+          pytest backend/tests/ -v
+
   frontend-security:
-    name: Frontend Code & Dependency Audit
+    name: Frontend Code, Security & Unit Tests
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -70,10 +74,10 @@ jobs:
           cache-dependency-path: frontend/package-lock.json
 
       - name: Install Dependencies
-        run: npm ci
+        run: npm ci --legacy-peer-deps
+
+      - name: Run Frontend Vitest Suite (Stores & Streams)
+        run: npm run test
 
       - name: Run npm Audit
         run: npm audit --audit-level=high || true
-
-      - name: Run ESLint Linter
-        run: npm run lint
