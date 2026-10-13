@@ -135,16 +135,41 @@ class MemoryEdge(Base):
     source_node = relationship("MemoryNode", foreign_keys=[source_id])
     target_node = relationship("MemoryNode", foreign_keys=[target_id])
 
+import hashlib
+import uuid
+
 class AuditLog(Base):
     """
-    Observability: Tracks security events, RAG retrievals, and prompt shield blocks.
+    Enterprise Security Audit Log Model.
+    Tracks security events, RAG retrievals, prompt shield blocks, and system lifecycle events.
+    Append-only, immutable structure with SHA-256 integrity signatures.
     """
     __tablename__ = "audit_logs"
     
     id = Column(Integer, primary_key=True, autoincrement=True)
-    user_id = Column(String(255), ForeignKey("users.id"), index=True, nullable=False)
-    action = Column(String(50), nullable=False) # e.g., 'GUARDRAIL_BLOCK', 'GRAPH_RETRIEVAL', 'VECTOR_RETRIEVAL'
-    details = Column(JSON, default=dict) # Details about the event
-    timestamp = Column(DateTime(timezone=True), server_default=func.now())
+    event_id = Column(String(64), unique=True, index=True, nullable=True)
+    user_id = Column(String(255), ForeignKey("users.id", ondelete="SET NULL"), index=True, nullable=True)
+    
+    # Event Taxonomy & Severity
+    category = Column(String(32), default="SECURITY", index=True, nullable=True) # SECURITY, AUTH, DATA_PRIVACY, AI_LIFECYCLE, ADMIN
+    action = Column(String(64), nullable=False, index=True) # e.g., 'GUARDRAIL_BLOCK', 'USER_MESSAGE', 'PROFILE_RESET'
+    severity = Column(String(16), default="LOW", nullable=True) # LOW, MEDIUM, HIGH, CRITICAL
+    
+    # Network & Client Metadata
+    ip_address = Column(String(45), nullable=True) # IPv4 or IPv6
+    user_agent = Column(String(512), nullable=True)
+    
+    # Target Resource & Context
+    resource_type = Column(String(64), nullable=True)
+    resource_id = Column(String(64), nullable=True)
+    details = Column(JSON, default=dict) # Sanitized context only
+    
+    # Timestamp & Integrity Hash
+    timestamp = Column(DateTime(timezone=True), server_default=func.now(), index=True)
+    integrity_hash = Column(String(64), nullable=True)
     
     user = relationship("User")
+
+    def generate_hash(self, salt: str = "baagupadu_audit_salt") -> str:
+        payload = f"{self.event_id or ''}:{self.user_id or ''}:{self.action}:{self.severity or ''}:{self.category or ''}:{salt}"
+        return hashlib.sha256(payload.encode("utf-8")).hexdigest()

@@ -9,7 +9,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
-from sqlalchemy import desc
+from sqlalchemy import desc, update, delete
 from sqlalchemy.orm.attributes import flag_modified
 from sqlalchemy.sql import func
 from langchain_core.messages import HumanMessage, AIMessage
@@ -22,6 +22,7 @@ from backend.core.pii_scrubber import scrub_pii
 from backend.core.config import config
 from backend.database import get_db, init_db, AsyncSessionLocal
 from backend.models import User, ProfileState, Conversation, Message, LongTermMemory, AuditLog
+from backend.services.audit_service import AuditLogService
 from backend.agent.sahayam_engine import SahayamAgent
 from backend.agent.agents.extractor_agent import ExtractorAgent
 from backend.agent.agents.evaluator_agent import EvaluatorAgent
@@ -239,14 +240,17 @@ async def chat_endpoint(
     check_result = await guardrail.check_input(clean_message)
     
     if not check_result.is_safe:
-        # Log the blocked attempt
-        audit = AuditLog(
-            user_id=user_id,
+        # Log the blocked attempt via AuditLogService
+        await AuditLogService.log_event(
+            db=db,
             action="GUARDRAIL_BLOCK",
+            category="SECURITY",
+            severity="HIGH",
+            user_id=user_id,
+            request=request,
+            resource_type="chat_message",
             details={"blocked_input": clean_message, "reason": check_result.reason}
         )
-        db.add(audit)
-        await db.commit()
         return {
             "response": f"Safety Guardrail Triggered: I cannot process this request. Reason: {check_result.reason}",
             "current_phase": "trust",
@@ -254,12 +258,16 @@ async def chat_endpoint(
         }
     
     # Log the successful interaction for full observability
-    audit = AuditLog(
-        user_id=user_id,
+    await AuditLogService.log_event(
+        db=db,
         action="USER_MESSAGE",
+        category="AI_LIFECYCLE",
+        severity="LOW",
+        user_id=user_id,
+        request=request,
+        resource_type="chat_message",
         details={"message_length": len(clean_message)}
     )
-    db.add(audit)
     # --------------------------------
 
     # 1. Get active conversation
@@ -459,8 +467,12 @@ async def delete_account(user_id: str = Depends(verify_token), db: AsyncSession 
         # Delete Conversations
         await db.execute(delete(Conversation).where(Conversation.id.in_(conv_ids)))
 
-    # Delete Audit Logs
-    await db.execute(delete(AuditLog).where(AuditLog.user_id == user_id))
+    # Anonymize Audit Logs for DPDP Act Compliance & Security Audit Continuity (CERT-In)
+    await db.execute(
+        update(AuditLog)
+        .where(AuditLog.user_id == user_id)
+        .values(user_id=None, details={"anonymized": True, "event": "ACCOUNT_DELETED"})
+    )
     
     # Delete User
     await db.execute(delete(User).where(User.id == user_id))
@@ -518,3 +530,35 @@ async def trigger_subconscious(user_id: str = Depends(verify_token)):
         return {"status": "success", "message": result}
     except Exception as e:
         return {"status": "error", "message": str(e)}
+
+@app.get("/api/admin/audit-logs")
+async def get_audit_logs_endpoint(
+    limit: int = 50,
+    category: Optional[str] = None,
+    user_id: str = Depends(verify_token),
+    db: AsyncSession = Depends(get_db)
+):
+    """
+    Compliance & Security Observability: Read-only access to recent audit logs.
+    """
+    logs = await AuditLogService.get_recent_logs(db, limit=min(limit, 100), category=category)
+    return {
+        "status": "success",
+        "count": len(logs),
+        "logs": [
+            {
+                "event_id": log.event_id,
+                "timestamp": log.timestamp.isoformat() if log.timestamp else None,
+                "user_id": log.user_id,
+                "action": log.action,
+                "category": log.category,
+                "severity": log.severity,
+                "ip_address": log.ip_address,
+                "resource_type": log.resource_type,
+                "details": log.details,
+                "integrity_hash": log.integrity_hash,
+            }
+            for log in logs
+        ]
+    }
+
