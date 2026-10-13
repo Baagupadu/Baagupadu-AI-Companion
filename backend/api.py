@@ -17,6 +17,8 @@ from langchain_core.messages import HumanMessage, AIMessage
 from slowapi import Limiter, _rate_limit_exceeded_handler
 from slowapi.util import get_remote_address
 from slowapi.errors import RateLimitExceeded
+from backend.core.security_headers import SecurityHeadersMiddleware
+from backend.core.pii_scrubber import scrub_pii
 from backend.core.config import config
 from backend.database import get_db, init_db, AsyncSessionLocal
 from backend.models import User, ProfileState, Conversation, Message, LongTermMemory, AuditLog
@@ -38,6 +40,9 @@ app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
 # Rate Limit Configurations
 CHAT_RATE_LIMIT = "10000/minute" if ENVIRONMENT == "development" else "15/minute"
+
+# Security Headers (OWASP)
+app.add_middleware(SecurityHeadersMiddleware)
 
 # Setup CORS
 allowed_origins = ["*"] if ENVIRONMENT == "development" else [os.getenv("FRONTEND_URL", "https://baagupadu.com")]
@@ -225,17 +230,20 @@ async def chat_endpoint(
         db.add(user)
         await db.commit()
 
+    # --- SECURITY: Student Privacy & PII Scrubbing ---
+    clean_message = scrub_pii(chat_request.message)
+
     # --- SECURITY: Prompt Shield ---
     print("Running Prompt Shield...", flush=True)
     guardrail = GuardrailAgent()
-    check_result = await guardrail.check_input(chat_request.message)
+    check_result = await guardrail.check_input(clean_message)
     
     if not check_result.is_safe:
         # Log the blocked attempt
         audit = AuditLog(
             user_id=user_id,
             action="GUARDRAIL_BLOCK",
-            details={"blocked_input": chat_request.message, "reason": check_result.reason}
+            details={"blocked_input": clean_message, "reason": check_result.reason}
         )
         db.add(audit)
         await db.commit()
@@ -249,7 +257,7 @@ async def chat_endpoint(
     audit = AuditLog(
         user_id=user_id,
         action="USER_MESSAGE",
-        details={"message_length": len(chat_request.message)}
+        details={"message_length": len(clean_message)}
     )
     db.add(audit)
     # --------------------------------
@@ -277,8 +285,8 @@ async def chat_endpoint(
         await db.commit()
         await db.refresh(db_profile)
 
-    # 3. Save User Message
-    user_msg = Message(conversation_id=conversation.id, role="user", content=chat_request.message)
+    # 3. Save User Message (Cleaned of sensitive PII)
+    user_msg = Message(conversation_id=conversation.id, role="user", content=clean_message)
     db.add(user_msg)
     await db.commit()
 
@@ -302,7 +310,7 @@ async def chat_endpoint(
             chat_completed = profile_dict.get("session_progress", {}).get("completed", False)
             
             # The agent internally fetches context via pgvector and saves new insights
-            async for chunk_data in agent.chat_stream(chat_request.message, profile_dict, chat_request.session_id, db):
+            async for chunk_data in agent.chat_stream(clean_message, profile_dict, chat_request.session_id, db):
                 if chunk_data["type"] == "token":
                     final_response += chunk_data["content"]
                     yield f"data: {json.dumps({'chunk': chunk_data['content']})}\n\n"
