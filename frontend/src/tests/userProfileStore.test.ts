@@ -1,8 +1,8 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { useUserProfileStore } from '@/stores/userProfileStore';
-import * as api from '@/lib/api';
+import { useUserProfileStore } from '../stores/userProfileStore';
+import * as api from '../lib/api';
 
-vi.mock('@/lib/api');
+vi.mock('../lib/api');
 
 describe('useUserProfileStore', () => {
   beforeEach(() => {
