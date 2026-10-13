@@ -8,9 +8,17 @@ from backend.knowledge_base.loader import KnowledgeBaseLoader
 from sentence_transformers import SentenceTransformer
 from sqlalchemy.future import select
 from backend.models import LongTermMemory, KnowledgeBaseChunk
+from neo4j import GraphDatabase
+import os
 
 kb_loader = KnowledgeBaseLoader()
 embedder = SentenceTransformer("nomic-ai/nomic-embed-text-v1.5", trust_remote_code=True)
+
+# Neo4j connection
+NEO4J_URI = os.getenv("NEO4J_URI", "bolt://localhost:7687")
+NEO4J_USER = os.getenv("NEO4J_USER", "neo4j")
+NEO4J_PASSWORD = os.getenv("NEO4J_PASSWORD", "password")
+driver = GraphDatabase.driver(NEO4J_URI, auth=(NEO4J_USER, NEO4J_PASSWORD))
 
 # Load few-shot tone examples into memory for fast RAG
 few_shot_examples = []
@@ -157,6 +165,38 @@ class ExecutorAgent(BaseAgent):
                         get_vector_memories()
                     )
 
+                # Fetch GraphRAG Context from Neo4j
+                graph_context = ""
+                user_id = profile.get("user_id", "anonymous")
+                try:
+                    words = [w.strip(".,?!;:") for w in user_input.split() if len(w) > 4]
+                    if words:
+                        with driver.session() as session:
+                            cypher_query = (
+                                "MATCH (n)-[r]-(m) "
+                                "WHERE n.user_id = $uid AND (" + " OR ".join(f"n.name ILIKE '%{w}%'" for w in words) + ") "
+                                "RETURN n.name AS source, type(r) AS relation, m.name AS target "
+                                "LIMIT 5"
+                            )
+                            # Neo4j doesn't support ILIKE natively, we should use toLower() CONTAINS
+                            where_clause = " OR ".join(f"toLower(n.name) CONTAINS '{w.lower()}'" for w in words)
+                            cypher_query = (
+                                "MATCH (n)-[r]-(m) "
+                                f"WHERE n.user_id = $uid AND ({where_clause}) "
+                                "RETURN n.name AS source, type(r) AS relation, m.name AS target "
+                                "LIMIT 10"
+                            )
+                            graph_result = await asyncio.to_thread(session.run, cypher_query, uid=user_id)
+                            graph_records = [record.data() for record in graph_result]
+                            if graph_records:
+                                graph_context = "🕸️ DEEP PSYCHOLOGICAL GRAPH (GraphRAG):\n"
+                                graph_context += "The user's brain map shows these deep connections related to what they just said:\n"
+                                for record in graph_records:
+                                    graph_context += f"- [{record['source']}] --({record['relation']})--> [{record['target']}]\n"
+                                graph_context += "\n"
+                except Exception as e:
+                    print(f"Neo4j GraphRAG Error: {e}", flush=True)
+
                 # 3. Reciprocal Rank Fusion (RRF)
                 k = 60
                 rrf_scores = {}
@@ -177,13 +217,15 @@ class ExecutorAgent(BaseAgent):
                 sorted_memories = sorted(rrf_scores.values(), key=lambda x: x["score"], reverse=True)
                 top_memories = [x["memory"] for x in sorted_memories[:4]]
                 
-                if top_memories:
-                    ltm_context = (
-                        "=== MEMORIES FROM THIS CURRENT CONVERSATION (CALLBACK TARGETS) ===\n"
-                        + "\n".join([f"- {m.content}" for m in top_memories])
-                        + "\n\n"
-                        "CALLBACK INSTRUCTION: If naturally relevant, reference 1 specific detail from the memories above (e.g. 'Earlier you mentioned...'). Use it to show you remember their words like a close friend, but do not force it.\n\n"
-                    )
+                if top_memories or graph_context:
+                    ltm_context = "=== MEMORIES AND MENTAL MAP (RAG + GraphRAG) ===\n"
+                    if top_memories:
+                        ltm_context += "PAST CONVERSATION CALLBACKS:\n"
+                        ltm_context += "\n".join([f"- {m.content}" for m in top_memories]) + "\n\n"
+                    if graph_context:
+                        ltm_context += graph_context
+                    
+                    ltm_context += "CALLBACK INSTRUCTION: If naturally relevant, reference 1 specific detail from the memories or graph above to show deep understanding, but do not force it.\n\n"
 
                 # We use the highly concentrated, deterministic rules retrieved by the PlannerAgent
                 # to prevent duplicate database loads and vector math hallucinations.

@@ -2,6 +2,7 @@ import os
 import sys
 import json
 import asyncio
+import yaml
 from pathlib import Path
 
 # Add backend's parent to path so 'from backend...' works
@@ -23,6 +24,18 @@ GEMS_DIR = backend_dir.parent / "gems" / "nenu_evaru"
 async def init_db():
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
+
+def extract_frontmatter(content: str) -> tuple[dict, str]:
+    """Extracts YAML frontmatter from markdown content."""
+    if content.startswith("---"):
+        parts = content.split("---", 2)
+        if len(parts) >= 3:
+            try:
+                metadata = yaml.safe_load(parts[1])
+                return metadata or {}, parts[2].strip()
+            except yaml.YAMLError:
+                pass
+    return {}, content
 
 def chunk_markdown(content: str) -> list[dict]:
     """Splits markdown strictly by Headers, regardless of word count."""
@@ -70,7 +83,7 @@ async def ingest():
         # Clear existing chunks to avoid duplicates if re-run
         await session.execute(KnowledgeBaseChunk.__table__.delete())
         
-        directories = ['frameworks', 'inference', 'memory', 'output', 'prompts', 'question_banks']
+        directories = ['okf_frameworks', 'inference', 'memory', 'output', 'prompts', 'question_banks']
         
         total_chunks = 0
         for dir_name in directories:
@@ -92,9 +105,11 @@ async def ingest():
                     with open(filepath, 'r', encoding='utf-8') as f:
                         content = f.read()
                         
+                    metadata = {}
                     chunks = []
                     if filepath.suffix == '.md':
-                        chunks = chunk_markdown(content)
+                        metadata, clean_content = extract_frontmatter(content)
+                        chunks = chunk_markdown(clean_content)
                     elif filepath.suffix == '.json':
                         try:
                             data = json.loads(content)
@@ -120,15 +135,18 @@ async def ingest():
                         
                     print(f"  -> Extracted {len(chunks)} chunks. Embedding...")
                     
-                    # Determine Phase
-                    phase = "general"
-                    name_lower = filepath.name.lower()
-                    if "childhood" in name_lower: phase = "childhood"
-                    elif "teenage" in name_lower: phase = "teenage"
-                    elif "adult" in name_lower: phase = "adult"
-                    elif "trust" in name_lower: phase = "trust"
-                    elif "exploration" in name_lower: phase = "exploration"
-                    elif "guardrails" in name_lower: phase = "guardrails"
+                    # Determine Phase (Prefer OKF metadata over filename guessing)
+                    phase = metadata.get("type") or metadata.get("id", "general")
+                    
+                    if phase == "general" or phase.startswith("okf-"):
+                        # Fallback for old tagging or files without proper phase tag
+                        name_lower = filepath.name.lower()
+                        if "childhood" in name_lower: phase = "childhood"
+                        elif "teenage" in name_lower: phase = "teenage"
+                        elif "adult" in name_lower: phase = "adult"
+                        elif "trust" in name_lower: phase = "trust"
+                        elif "exploration" in name_lower: phase = "exploration"
+                        elif "guardrails" in name_lower: phase = "guardrails"
                     
                     # Batch embed for speed
                     texts = [c["content"] for c in chunks]
@@ -143,6 +161,7 @@ async def ingest():
                             header_step=chunk_dict["header_step"][:255],
                             chunk_index=i,
                             content=chunk_dict["content"],
+                            okf_metadata=metadata,
                             embedding=emb
                         ))
                     

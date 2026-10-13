@@ -3,6 +3,7 @@ from langchain_core.messages import HumanMessage, AIMessage
 from backend.agent.state import AgentState
 from backend.agent.agents.planner_agent import PlannerAgent
 from backend.agent.agents.executor_agent import ExecutorAgent
+from backend.agent.agents.extractor_agent import ExtractorAgent
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 from backend.models import Message
@@ -30,17 +31,20 @@ class SahayamAgent:
         # Instantiate Agents
         planner = PlannerAgent()
         executor = ExecutorAgent()
+        extraction = ExtractorAgent()
         
         # Add Nodes
         workflow.add_node("planner", planner.invoke)
         workflow.add_node("search", search_node)
         workflow.add_node("executor", executor.invoke)
+        workflow.add_node("extraction", extraction.invoke)
         
         # 1. Routing
         workflow.add_edge(START, "planner")
         workflow.add_edge("planner", "search")
         workflow.add_edge("search", "executor")
-        workflow.add_edge("executor", END)
+        workflow.add_edge("executor", "extraction")
+        workflow.add_edge("extraction", END)
         
         self.app = workflow.compile()
 
