@@ -2,27 +2,16 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
-### 1. Environment Setup
-
-Create a `.env.local` file inside `frontend/` (copied from `.env.example`):
+First, run the development server:
 
 ```bash
-cp .env.example .env.local
-```
-
-Add your Clerk authentication credentials and backend URL:
-
-```env
-NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_...
-CLERK_SECRET_KEY=sk_test_...
-NEXT_PUBLIC_BACKEND_URL=http://localhost:8000
-```
-
-### 2. Install Dependencies & Run
-
-```bash
-npm install
 npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.

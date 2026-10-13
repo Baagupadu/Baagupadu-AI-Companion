@@ -1,10 +1,3 @@
----
-id: okf-inference-pattern_recognition
-name: "Pattern Recognition"
-type: inference
-description: OKF Document containing logic and rules for Pattern Recognition.
----
-
 # Pattern Recognition — Sahayam's Pattern Identification Guide
 
 ---

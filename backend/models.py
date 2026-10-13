@@ -93,7 +93,6 @@ class KnowledgeBaseChunk(Base):
     header_step = Column(String(255), nullable=True) # e.g., '## Step 1'
     chunk_index = Column(Integer)
     content = Column(Text)
-    okf_metadata = Column(JSON, default=dict) # Stores YAML Frontmatter tags
     
     # nomic-embed-text produces 768-dimensional embeddings
     embedding = Column(Vector(768))

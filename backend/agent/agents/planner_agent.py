@@ -8,15 +8,10 @@ from sentence_transformers import SentenceTransformer
 from backend.knowledge_base.loader import KnowledgeBaseLoader
 import asyncio
 from sqlalchemy.future import select
-from backend.models import KnowledgeBaseChunk
-from neo4j import GraphDatabase
-import os
+from sqlalchemy.orm import aliased
+from backend.models import KnowledgeBaseChunk, MemoryNode, MemoryEdge
 
-# Neo4j connection
-NEO4J_URI = os.getenv("NEO4J_URI", "bolt://localhost:7687")
-NEO4J_USER = os.getenv("NEO4J_USER", "neo4j")
-NEO4J_PASSWORD = os.getenv("NEO4J_PASSWORD", "password")
-driver = GraphDatabase.driver(NEO4J_URI, auth=(NEO4J_USER, NEO4J_PASSWORD))
+embedder = SentenceTransformer("nomic-ai/nomic-embed-text-v1.5", trust_remote_code=True)
 kb_loader = KnowledgeBaseLoader()
 
 
@@ -128,29 +123,46 @@ class PlannerAgent(BaseAgent):
                 print(f"Hierarchical RAG Error in Planner: {e}")
 
         graph_context = ""
-        user_id = profile.get("user_id")
-        if user_input and user_id:
-            try:
-                words = [w.strip(".,?!;:") for w in user_input.split() if len(w) > 4]
-                if words:
-                    with driver.session() as session:
-                        where_clause = " OR ".join(f"toLower(n.name) CONTAINS '{w.lower()}'" for w in words)
-                        cypher_query = (
-                            "MATCH (n)-[r]-(m) "
-                            f"WHERE n.user_id = $uid AND ({where_clause}) "
-                            "RETURN n.name AS source, type(r) AS relation, m.name AS target "
-                            "LIMIT 10"
+        if db and user_input:
+            user_id = profile.get("user_id")
+            if user_id:
+                try:
+                    # 1. Very basic entity extraction via split (a real app uses LLM/SpaCy here, this is a fast POC)
+                    words = [w.strip(".,?!;:") for w in user_input.split() if len(w) > 4]
+                    
+                    matched_nodes = []
+                    for word in words:
+                        res = await db.execute(select(MemoryNode).where(
+                            MemoryNode.user_id == user_id, 
+                            MemoryNode.name.ilike(f"%{word}%")
+                        ).limit(3))
+                        matched_nodes.extend(res.scalars().all())
+                    
+                    # 2. Get edges for those nodes
+                    if matched_nodes:
+                        node_ids = [n.id for n in matched_nodes]
+                        
+                        SourceNode = aliased(MemoryNode)
+                        TargetNode = aliased(MemoryNode)
+                        
+                        edges_res = await db.execute(
+                            select(MemoryEdge, SourceNode.name, TargetNode.name)
+                            .join(SourceNode, MemoryEdge.source_id == SourceNode.id)
+                            .join(TargetNode, MemoryEdge.target_id == TargetNode.id)
+                            .where(MemoryEdge.user_id == user_id)
+                            .where((SourceNode.id.in_(node_ids)) | (TargetNode.id.in_(node_ids)))
+                            .limit(10)
                         )
-                        graph_result = await asyncio.to_thread(session.run, cypher_query, uid=user_id)
-                        graph_records = [record.data() for record in graph_result]
-                        if graph_records:
+                        edge_results = edges_res.all()
+                        
+                        if edge_results:
                             graph_context = "🕸️ USER MEMORY GRAPH (GraphRAG Context):\n"
                             graph_context += "The following are deeply ingrained connections in the user's brain related to what they just said:\n"
-                            for record in graph_records:
-                                graph_context += f"- (User/Concept: '{record['source']}') --[{record['relation']}]--> ('{record['target']}')\n"
+                            for edge, source_name, target_name in edge_results:
+                                graph_context += f"- (User/Concept: '{source_name}') --[{edge.relation}]--> ('{target_name}')\n"
                             graph_context += "\n"
-            except Exception as e:
-                print(f"GraphRAG Error in Planner: {e}")
+                except Exception as e:
+                    print(f"GraphRAG Error in Planner: {e}")
 
         # Detect user resistance signals
         resistance_signals = [
