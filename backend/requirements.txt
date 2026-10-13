@@ -21,9 +21,6 @@ langgraph
 einops
 transformers
 PyJWT[crypto]
+slowapi
 slowapi==0.1.10
 limits==3.8.0
-neo4j
-langchain-neo4j
-bandit
-pip-audit

@@ -1,10 +1,3 @@
----
-id: okf-prompts-router
-name: "Router"
-type: prompts
-description: OKF Document containing logic and rules for Router.
----
-
 # Router — Dynamic Conversation Director (Enhanced)
 
 ## 📋 About This File

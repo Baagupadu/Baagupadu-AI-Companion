@@ -1,10 +1,3 @@
----
-id: okf-prompts-persona_building
-name: "Persona Building"
-type: prompts
-description: OKF Document containing logic and rules for Persona Building.
----
-
 # Persona Building — Sahayam's Synthesis Guide
 
 ---

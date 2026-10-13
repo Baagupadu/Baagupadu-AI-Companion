@@ -1,10 +1,3 @@
----
-id: okf-prompts-guidance_delivery
-name: "Guidance Delivery"
-type: prompts
-description: OKF Document containing logic and rules for Guidance Delivery.
----
-
 # Guidance Delivery — Sahayam's Career Guidance Instructions
 
 ---

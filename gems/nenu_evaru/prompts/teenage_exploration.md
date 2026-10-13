@@ -1,10 +1,3 @@
----
-id: okf-prompts-teenage_exploration
-name: "Teenage Exploration"
-type: prompts
-description: OKF Document containing logic and rules for Teenage Exploration.
----
-
 # Teenage Exploration Phase — Sahayam's Guiding Framework
 
 ---
