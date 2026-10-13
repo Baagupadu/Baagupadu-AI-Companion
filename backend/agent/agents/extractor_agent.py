@@ -3,10 +3,18 @@ from pydantic import BaseModel, Field
 from langchain_core.messages import SystemMessage, AIMessage, HumanMessage
 from backend.agent.state import AgentState
 from backend.agent.agents.base_agent import BaseAgent
-from backend.models import LongTermMemory, MemoryNode, MemoryEdge
+from backend.models import LongTermMemory
 from sentence_transformers import SentenceTransformer
 from sqlalchemy.future import select
 import asyncio
+from neo4j import GraphDatabase
+import os
+
+# Neo4j connection
+NEO4J_URI = os.getenv("NEO4J_URI", "bolt://localhost:7687")
+NEO4J_USER = os.getenv("NEO4J_USER", "neo4j")
+NEO4J_PASSWORD = os.getenv("NEO4J_PASSWORD", "password")
+driver = GraphDatabase.driver(NEO4J_URI, auth=(NEO4J_USER, NEO4J_PASSWORD))
 
 embedder = SentenceTransformer("nomic-ai/nomic-embed-text-v1.5", trust_remote_code=True)
 
@@ -266,48 +274,45 @@ class ExtractorAgent(BaseAgent):
                         trait_weights[t] = round(min(1.0, trait_weights.get(t, 0.15) + 0.15), 2)
             extracted_traits["trait_weights"] = trait_weights
 
-            # Graph Edges (Mini GraphRAG) -> True Graph Database
-            if db and hasattr(res, "mental_graph_edges") and res.mental_graph_edges:
-                user_id = profile.get("user_id")
-                if user_id:
-                    for edge in res.mental_graph_edges:
-                        # 1. Get or create Source Node
-                        source_res = await db.execute(select(MemoryNode).where(MemoryNode.user_id == user_id, MemoryNode.name == edge.source))
-                        source_node = source_res.scalars().first()
-                        if not source_node:
-                            source_node = MemoryNode(user_id=user_id, label="Entity", name=edge.source)
-                            db.add(source_node)
-                            await db.flush()
+            # Graph Edges (Mini GraphRAG) -> True Graph Database (Neo4j)
+            if hasattr(res, "mental_graph_edges") and res.mental_graph_edges:
+                user_id = profile.get("user_id", "anonymous")
+                
+                try:
+                    with driver.session() as session:
+                        for edge in res.mental_graph_edges:
+                            source_id = "".join(c for c in edge.source.lower() if c.isalnum() or c == '_')[:50]
+                            target_id = "".join(c for c in edge.target.lower() if c.isalnum() or c == '_')[:50]
+                            safe_rel = "".join(c for c in edge.relation.upper() if c.isalnum() or c == '_')[:50]
                             
-                        # 2. Get or create Target Node
-                        target_res = await db.execute(select(MemoryNode).where(MemoryNode.user_id == user_id, MemoryNode.name == edge.target))
-                        target_node = target_res.scalars().first()
-                        if not target_node:
-                            target_node = MemoryNode(user_id=user_id, label="Entity", name=edge.target)
-                            db.add(target_node)
-                            await db.flush()
+                            if not source_id: source_id = "unknown_source"
+                            if not target_id: target_id = "unknown_target"
+                            if not safe_rel: safe_rel = "RELATED_TO"
                             
-                        # 3. Create Edge (skip if already exists)
-                        edge_res = await db.execute(select(MemoryEdge).where(
-                            MemoryEdge.source_id == source_node.id, 
-                            MemoryEdge.target_id == target_node.id, 
-                            MemoryEdge.relation == edge.relation
-                        ))
-                        if not edge_res.scalars().first():
-                            new_edge = MemoryEdge(
-                                user_id=user_id, 
-                                source_id=source_node.id, 
-                                target_id=target_node.id, 
-                                relation=edge.relation
+                            # Create Source Node
+                            session.run(
+                                "MERGE (n:Concept {id: $id, user_id: $uid}) SET n.name = $name",
+                                id=source_id, uid=user_id, name=edge.source
                             )
-                            db.add(new_edge)
+                            # Create Target Node
+                            session.run(
+                                "MERGE (n:Concept {id: $id, user_id: $uid}) SET n.name = $name",
+                                id=target_id, uid=user_id, name=edge.target
+                            )
+                            # Create Edge
+                            session.run(
+                                "MATCH (a {id: $sid, user_id: $uid}) "
+                                "MATCH (b {id: $tid, user_id: $uid}) "
+                                f"MERGE (a)-[r:`{safe_rel}`]->(b)",
+                                sid=source_id, tid=target_id, uid=user_id
+                            )
                             
-                        # Still save to JSON blob for frontend visualization
-                        edge_dict = {"source": edge.source, "relation": edge.relation, "target": edge.target}
-                        if edge_dict not in extracted_traits["mental_graph_edges"]:
-                            extracted_traits["mental_graph_edges"].append(edge_dict)
-                            
-                    await db.commit()
+                            # Still save to JSON blob for frontend visualization
+                            edge_dict = {"source": edge.source, "relation": edge.relation, "target": edge.target}
+                            if edge_dict not in extracted_traits["mental_graph_edges"]:
+                                extracted_traits["mental_graph_edges"].append(edge_dict)
+                except Exception as e:
+                    print(f"Neo4j Extractor Error: {e}", flush=True)
             extracted_traits["trait_weights"] = trait_weights
 
             # Emotional drivers (accumulated list)

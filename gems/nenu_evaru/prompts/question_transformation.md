@@ -1,3 +1,10 @@
+---
+id: okf-prompts-question_transformation
+name: "Question Transformation"
+type: prompts
+description: OKF Document containing logic and rules for Question Transformation.
+---
+
 # Universal Question Transformation Rules
 ## Ultra-Detailed Development File
 

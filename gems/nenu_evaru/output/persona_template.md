@@ -1,3 +1,10 @@
+---
+id: okf-output-persona_template
+name: "Persona Template"
+type: output
+description: OKF Document containing logic and rules for Persona Template.
+---
+
 # Persona Template — Baagupadu Output
 
 ## 📋 About This File

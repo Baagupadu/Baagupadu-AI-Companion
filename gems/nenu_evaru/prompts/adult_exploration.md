@@ -1,3 +1,10 @@
+---
+id: okf-prompts-adult_exploration
+name: "Adult Exploration"
+type: prompts
+description: OKF Document containing logic and rules for Adult Exploration.
+---
+
 # Adult Exploration Phase — Sahayam's Guiding Framework
 
 ---

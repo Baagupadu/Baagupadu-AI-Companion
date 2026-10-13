@@ -1,3 +1,10 @@
+---
+id: okf-prompts-hybrid_questioning
+name: "Hybrid Questioning"
+type: prompts
+description: OKF Document containing logic and rules for Hybrid Questioning.
+---
+
 # Hybrid Questioning Strategy — LLM-Generated + Question Bank
 
 ## 📋 File Information

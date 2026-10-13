@@ -1,3 +1,10 @@
+---
+id: okf-prompts-trust_building_phase
+name: "Trust Building Phase"
+type: prompts
+description: OKF Document containing logic and rules for Trust Building Phase.
+---
+
 # Trust Building Phase — Sahayam's Opening Conversation
 ## Ultra-Detailed Development File
 

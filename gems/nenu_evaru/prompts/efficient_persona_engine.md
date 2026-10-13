@@ -1,3 +1,10 @@
+---
+id: okf-prompts-efficient_persona_engine
+name: "Efficient Persona Engine"
+type: prompts
+description: OKF Document containing logic and rules for Efficient Persona Engine.
+---
+
 # Efficient Persona Engine — Maximum Signal, Minimum Questions
 
 ## Purpose

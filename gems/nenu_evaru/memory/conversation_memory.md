@@ -1,3 +1,10 @@
+---
+id: okf-memory-conversation_memory
+name: "Conversation Memory"
+type: memory
+description: OKF Document containing logic and rules for Conversation Memory.
+---
+
 # Conversation Memory — Sahayam's Memory Management Guide
 
 ## 📋 0. About This File
