@@ -19,7 +19,7 @@ duckduckgo-search
 langchain-ollama
 langgraph
 einops
-transformers
+transformers<4.45.0
 PyJWT[crypto]
 slowapi==0.1.10
 limits==3.8.0
@@ -30,3 +30,4 @@ pytest-asyncio
 httpx
 pytest-mock
 aiosqlite
+greenlet
