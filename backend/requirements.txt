@@ -27,3 +27,8 @@ neo4j
 langchain-neo4j
 bandit
 pip-audit
+pytest
+pytest-asyncio
+httpx
+pytest-mock
+aiosqlite

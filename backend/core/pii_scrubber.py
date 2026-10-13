@@ -11,13 +11,13 @@ PHONE_REGEX = re.compile(r'(?:\+?91[\-\s]?)?[6-9]\d{9}\b')
 # Email addresses
 EMAIL_REGEX = re.compile(r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,7}\b')
 
-# Indian Aadhaar Numbers (12 digits with optional spaces/hyphens)
-AADHAAR_REGEX = re.compile(r'\b[2-9]\d{3}[\s\-]?\d{4}[\s\-]?\d{4}\b')
+# Indian Aadhaar Numbers (exactly 12 digits with optional spaces/hyphens)
+AADHAAR_REGEX = re.compile(r'\b[2-9]\d{3}[\s\-]?\d{4}[\s\-]?\d{4}\b(?!\d)')
 
 # Indian PAN Card Numbers (5 letters, 4 digits, 1 letter)
 PAN_REGEX = re.compile(r'\b[A-Z]{5}[0-9]{4}[A-Z]{1}\b', re.IGNORECASE)
 
-# Standard Credit / Debit Card Numbers (13-19 digits with separators)
+# Standard Credit / Debit Card Numbers (16 digits with separators)
 CARD_REGEX = re.compile(r'\b(?:\d{4}[-\s]?){3}\d{4}\b')
 
 
@@ -30,10 +30,10 @@ def scrub_pii(text: str) -> str:
         return text
 
     scrubbed = text
-    scrubbed = PHONE_REGEX.sub("[PHONE_REDACTED]", scrubbed)
-    scrubbed = EMAIL_REGEX.sub("[EMAIL_REDACTED]", scrubbed)
+    scrubbed = CARD_REGEX.sub("[CARD_REDACTED]", scrubbed)
     scrubbed = AADHAAR_REGEX.sub("[ID_REDACTED]", scrubbed)
     scrubbed = PAN_REGEX.sub("[ID_REDACTED]", scrubbed)
-    scrubbed = CARD_REGEX.sub("[CARD_REDACTED]", scrubbed)
+    scrubbed = PHONE_REGEX.sub("[PHONE_REDACTED]", scrubbed)
+    scrubbed = EMAIL_REGEX.sub("[EMAIL_REDACTED]", scrubbed)
     
     return scrubbed
