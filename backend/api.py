@@ -47,7 +47,11 @@ CHAT_RATE_LIMIT = "10000/minute" if ENVIRONMENT == "development" else "15/minute
 app.add_middleware(SecurityHeadersMiddleware)
 
 # Setup CORS
-allowed_origins = ["*"] if ENVIRONMENT == "development" else [os.getenv("FRONTEND_URL", "https://baagupadu.com")]
+if ENVIRONMENT == "development":
+    allowed_origins = ["*"]
+else:
+    frontend_env = os.getenv("FRONTEND_URL", "https://baagupadu.com,https://www.baagupadu.com")
+    allowed_origins = [origin.strip() for origin in frontend_env.split(",") if origin.strip()]
 
 app.add_middleware(
     CORSMiddleware,
