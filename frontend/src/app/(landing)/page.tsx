@@ -55,9 +55,9 @@ export default function LandingPage() {
   }, []);
 
   return (
-    <div className="relative w-full h-full overflow-x-hidden">
+    <div className="relative w-full h-full">
       <Navbar />
-      <main className="min-h-screen flex flex-col items-center justify-start text-center relative pt-24 pb-0 w-full overflow-x-hidden">
+      <main className="min-h-screen flex flex-col items-center justify-start text-center relative pt-24 pb-20">
 
         <motion.div
           className="w-full max-w-6xl relative z-10 px-4 mt-4"
@@ -137,12 +137,12 @@ export default function LandingPage() {
               </motion.div>
             </div>
 
-            <div className="flex-1 w-full flex justify-center lg:justify-end relative h-full min-h-[500px]">
+            <div className="flex-1 w-full flex justify-center lg:justify-end relative lg:translate-x-12 h-full min-h-[500px]">
               <motion.div variants={slideUpVariants} className="w-full max-w-[500px] relative z-20">
                 <CompanionSelector />
               </motion.div>
               {/* Decorative background glow for 3D area */}
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-gradient-to-tr from-[var(--color-secondary)] to-[#E27D60] rounded-full blur-[80px] opacity-[0.08] -z-10 pointer-events-none" />
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-to-tr from-[var(--color-secondary)] to-[#E27D60] rounded-full blur-[100px] opacity-[0.08] -z-10" />
             </div>
           </div>
         </motion.div>
