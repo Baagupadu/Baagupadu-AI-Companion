@@ -55,9 +55,9 @@ export default function LandingPage() {
   }, []);
 
   return (
-    <div className="relative w-full h-full">
+    <div className="relative w-full h-full overflow-x-hidden">
       <Navbar />
-      <main className="min-h-screen flex flex-col items-center justify-start text-center relative pt-24 pb-20">
+      <main className="min-h-screen flex flex-col items-center justify-start text-center relative pt-24 pb-0 w-full overflow-x-hidden">
 
         <motion.div
           className="w-full max-w-6xl relative z-10 px-4 mt-4"
@@ -137,12 +137,12 @@ export default function LandingPage() {
               </motion.div>
             </div>
 
-            <div className="flex-1 w-full flex justify-center lg:justify-end relative lg:translate-x-12 h-full min-h-[500px]">
+            <div className="flex-1 w-full flex justify-center lg:justify-end relative h-full min-h-[500px]">
               <motion.div variants={slideUpVariants} className="w-full max-w-[500px] relative z-20">
                 <CompanionSelector />
               </motion.div>
               {/* Decorative background glow for 3D area */}
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-to-tr from-[var(--color-secondary)] to-[#E27D60] rounded-full blur-[100px] opacity-[0.08] -z-10" />
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-gradient-to-tr from-[var(--color-secondary)] to-[#E27D60] rounded-full blur-[80px] opacity-[0.08] -z-10 pointer-events-none" />
             </div>
           </div>
         </motion.div>
@@ -605,7 +605,7 @@ export default function LandingPage() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
-            className="mb-16 w-full glass-card p-10 md:p-14 rounded-[3rem] border border-[var(--color-secondary)]/25 relative overflow-hidden text-left shadow-lg"
+            className="mb-4 w-full glass-card p-8 md:p-12 rounded-[2.5rem] border border-[var(--color-secondary)]/25 relative overflow-hidden text-left shadow-lg"
           >
             <div className="absolute top-0 right-0 w-80 h-80 bg-gradient-to-br from-[var(--color-secondary)]/15 to-[#6DD5B8]/15 rounded-full blur-3xl pointer-events-none -z-10" />
 
@@ -632,7 +632,7 @@ export default function LandingPage() {
                   </div>
                   <div className="flex items-center gap-2.5">
                     <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
-                    <span>100% Student Privacy (DPDP Act 2023)</span>
+                    <span>100% Student Privacy &amp; Confidentiality</span>
                   </div>
                   <div className="flex items-center gap-2.5">
                     <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
@@ -640,6 +640,7 @@ export default function LandingPage() {
                   </div>
                 </div>
               </div>
+
 
               <div className="flex flex-col sm:flex-row lg:flex-col gap-3.5 w-full lg:w-auto shrink-0">
                 <a
