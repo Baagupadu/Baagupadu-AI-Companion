@@ -1,11 +1,14 @@
 import asyncio
-from backend.database import engine, Base
-from backend.models import User, Conversation, Message, ProfileState, LongTermMemory, KnowledgeBaseChunk, MemoryNode, MemoryEdge
 import sys
 import os
 
 # Add project root to python path to resolve imports correctly
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+
+from backend.database import engine, Base
+from backend.models import User, Conversation, Message, ProfileState, LongTermMemory, KnowledgeBaseChunk, MemoryNode, MemoryEdge, AuditLog
+
+
 
 async def run_migration():
     async with engine.begin() as conn:
