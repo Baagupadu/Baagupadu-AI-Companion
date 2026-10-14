@@ -6,6 +6,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { Sparkles, ArrowRight, Heart, Brain, Compass, Target, BookOpen, ChevronRight } from 'lucide-react';
 import AnimatedBackground from '@/components/ui/AnimatedBackground';
 import Navbar from '@/components/ui/Navbar';
+import Footer from '@/components/ui/Footer';
 import { containerVariants, slideUpVariants } from '@/lib/utils/animations';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
 
@@ -134,7 +135,10 @@ export default function MentorsPage() {
           </motion.div>
 
         </motion.div>
+
+        <Footer />
       </main>
     </>
   );
 }
+
