@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useState, useEffect } from 'react';
-import { Sparkles, ArrowRight, Brain, Heart, Map, Target } from 'lucide-react';
+import { Sparkles, ArrowRight, Brain, Heart, Map, Target, Building2, GraduationCap, Award, CheckCircle2 } from 'lucide-react';
 import { containerVariants, slideUpVariants } from '@/lib/utils/animations';
 import { useCompanionStore } from '@/lib/store/companionStore';
 import { COMPANIONS } from '@/lib/companions';
@@ -14,6 +14,7 @@ import SahayamPersonalityWheel from '@/components/visualization/SahayamPersonali
 import { useAuth, UserButton } from '@clerk/nextjs';
 import ScrollytellingSection from '@/components/landing/ScrollytellingSection';
 import Navbar from '@/components/ui/Navbar';
+import Footer from '@/components/ui/Footer';
 
 const FEATURES = [
   { icon: <Brain className="w-8 h-8 text-[#FF6B8A]" />, title: 'Dynamic Self-Discovery', desc: 'We explore your foundational years dynamically, uncovering your core emotional blueprint and mapping your identity and values non-linearly.' },
@@ -441,7 +442,7 @@ export default function LandingPage() {
             </div>
           </motion.div>
 
-          {/* Trust Building / Testimonials */}
+          {/* Trust Building / Validated Psychological Models & Student Impact */}
           <motion.div
             variants={containerVariants}
             initial="hidden"
@@ -450,29 +451,61 @@ export default function LandingPage() {
             className="mb-32 w-full"
           >
             <div className="text-center max-w-3xl mx-auto mb-16 px-4">
-              <h2 className="text-[14px] font-bold text-[var(--color-text-muted)] uppercase tracking-widest mb-4">Backed by Science & Trusted by Leaders</h2>
-              <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-60 grayscale hover:grayscale-0 transition-all duration-500 mt-8">
-                <span className="text-xl md:text-2xl font-bold font-serif">Stanford <span className="text-sm font-sans block text-center font-normal">Methodology</span></span>
-                <span className="text-xl md:text-2xl font-bold font-serif">MIT <span className="text-sm font-sans block text-center font-normal">Research</span></span>
-                <span className="text-xl md:text-2xl font-bold tracking-tight">Y Combinator</span>
+              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[var(--color-surface)] text-[var(--color-secondary)] text-[12px] font-bold uppercase tracking-widest mb-3 border border-[var(--glass-border)]">
+                <Award className="w-3.5 h-3.5" /> Scientific Foundations &amp; Research
+              </div>
+              <h2 className="text-3xl md:text-4xl font-extrabold text-[var(--color-text)] tracking-tight mb-4">
+                Cognitive Science Meets Indian Career Realities
+              </h2>
+              <p className="text-[17px] text-[var(--color-text-muted)] font-medium leading-relaxed">
+                Built on validated psychological and vocational models, adapted for India&apos;s dynamic tech, business, and creative industries.
+              </p>
+
+              <div className="flex flex-wrap justify-center items-center gap-4 md:gap-6 mt-8">
+                <span className="px-4 py-2 rounded-full glass border border-[var(--glass-border)] text-[13px] font-bold text-[var(--color-text)]">
+                  Holland Code (RIASEC)
+                </span>
+                <span className="px-4 py-2 rounded-full glass border border-[var(--glass-border)] text-[13px] font-bold text-[var(--color-text)]">
+                  Big Five (OCEAN) Matrix
+                </span>
+                <span className="px-4 py-2 rounded-full glass border border-[var(--glass-border)] text-[13px] font-bold text-[var(--color-text)]">
+                  Jungian Archetype Mapping
+                </span>
+                <span className="px-4 py-2 rounded-full glass border border-[var(--glass-border)] text-[13px] font-bold text-[var(--color-text)]">
+                  NEP 2020 Guidance Aligned
+                </span>
               </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {[
-                { name: "Alex Chen", role: "Product Designer", quote: "Sahayam helped me understand exactly why I was stuck in my career. The synthesis phase connected dots from my childhood that I never realized were driving my decisions today." },
-                { name: "Sarah Jenkins", role: "Software Engineer", quote: "Unlike normal AI that just outputs text, this felt like a real conversation with a mentor who actually remembered my past and cared about my emotional growth." },
-                { name: "David M.", role: "Startup Founder", quote: "The career roadmap generated after the dynamic exploration journey was incredibly precise. It didn't just give me roles; it gave me the exact psychological reasons why I would excel in them." }
+                {
+                  name: "Aditya V.",
+                  role: "B.Tech Final Year • Hyderabad",
+                  quote: "I was confused between campus IT placements and AI research. In 30 minutes, Sahayam mapped how my childhood obsession with breaking electronics aligned with Systems Engineering over frontend roles. Total clarity."
+                },
+                {
+                  name: "Sneha Reddy",
+                  role: "Associate Product Analyst • Bengaluru",
+                  quote: "Unlike generic career aptitude tests with 50 multiple choice questions, Sahayam had a real conversation with me. It felt like talking to a wise mentor who remembered my past ambitions."
+                },
+                {
+                  name: "Karthik R.",
+                  role: "Career Pivot to Cloud & DevOps • Pune",
+                  quote: "The personalized career roadmap didn't just tell me what skills to learn—it gave me the exact sequence of portfolio projects to build and the mindset shifts needed to make the jump."
+                }
               ].map((t, i) => (
-                <motion.div key={i} variants={slideUpVariants} whileHover={{ y: -5 }} className="p-8 glass-card transition-all duration-300 relative overflow-hidden group">
+                <motion.div key={i} variants={slideUpVariants} whileHover={{ y: -5 }} className="p-8 glass-card transition-all duration-300 relative overflow-hidden group text-left">
                   <div className="absolute top-0 right-0 w-32 h-32 bg-[var(--color-secondary)]/5 rounded-full blur-2xl group-hover:bg-[var(--color-secondary)]/10 transition-colors" />
-                  <div className="flex text-yellow-400 mb-6 relative z-10">{'★'.repeat(5)}</div>
-                  <p className="text-[var(--color-text)] font-medium mb-8 leading-relaxed text-[15px] italic relative z-10">"{t.quote}"</p>
-                  <div className="flex items-center gap-4 relative z-10">
-                    <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-indigo-100 to-pink-100" />
+                  <div className="flex text-amber-400 mb-6 relative z-10 text-lg">{'★'.repeat(5)}</div>
+                  <p className="text-[var(--color-text)] font-medium mb-8 leading-relaxed text-[15px] italic relative z-10">&ldquo;{t.quote}&rdquo;</p>
+                  <div className="flex items-center gap-3.5 relative z-10">
+                    <div className="w-11 h-11 rounded-full bg-gradient-to-tr from-[var(--color-secondary)] to-[#FF6B8A] flex items-center justify-center text-white font-bold text-sm shadow-sm">
+                      {t.name[0]}
+                    </div>
                     <div>
                       <div className="text-[15px] font-bold text-[var(--color-text)]">{t.name}</div>
-                      <div className="text-[13px] font-medium text-[var(--color-text-muted)]">{t.role}</div>
+                      <div className="text-[12px] font-medium text-[var(--color-text-muted)]">{t.role}</div>
                     </div>
                   </div>
                 </motion.div>
@@ -564,55 +597,73 @@ export default function LandingPage() {
             </div>
           </motion.div>
 
+          {/* ═══════════════════════════════════════════════════════════
+              INSTITUTIONAL & UNIVERSITY EDITION (B2B SECTION)
+          ═══════════════════════════════════════════════════════════ */}
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            className="mb-16 w-full glass-card p-10 md:p-14 rounded-[3rem] border border-[var(--color-secondary)]/25 relative overflow-hidden text-left shadow-lg"
+          >
+            <div className="absolute top-0 right-0 w-80 h-80 bg-gradient-to-br from-[var(--color-secondary)]/15 to-[#6DD5B8]/15 rounded-full blur-3xl pointer-events-none -z-10" />
+
+            <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-10">
+              <div className="max-w-2xl">
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[var(--color-secondary)]/10 text-[var(--color-secondary)] text-[12px] font-bold uppercase tracking-wider mb-4 border border-[var(--color-secondary)]/20">
+                  <Building2 className="w-3.5 h-3.5" /> For Universities, Colleges &amp; Campus Placement Cells
+                </div>
+                <h2 className="text-3xl md:text-4xl font-extrabold text-[var(--color-text)] tracking-tight mb-4">
+                  Deploy the Baagupadu Campus AI Mentorship Lab
+                </h2>
+                <p className="text-[var(--color-text-muted)] text-[16px] font-medium leading-relaxed mb-6">
+                  Traditional college placement cells struggle to provide 1-on-1 career navigation for 2,000+ students. Baagupadu partners with engineering colleges and universities to deliver autonomous, 24/7 AI mentorship—aligning student ambitions with real industry demand under NEP 2020 and NAAC guidance criteria.
+                </p>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm font-semibold text-[var(--color-text)]">
+                  <div className="flex items-center gap-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
+                    <span>Institutional Placement Analytics</span>
+                  </div>
+                  <div className="flex items-center gap-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
+                    <span>Local On-Premises or Cloud Deployment</span>
+                  </div>
+                  <div className="flex items-center gap-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
+                    <span>100% Student Privacy (DPDP Act 2023)</span>
+                  </div>
+                  <div className="flex items-center gap-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
+                    <span>Custom Curriculum &amp; Role Roadmaps</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex flex-col sm:flex-row lg:flex-col gap-3.5 w-full lg:w-auto shrink-0">
+                <a
+                  href="mailto:contact@baagupadu.com?subject=Institutional%20Pilot%20Inquiry%20-%20Baagupadu%20Campus%20Edition"
+                  className="px-8 py-4 rounded-2xl bg-[var(--color-secondary)] hover:bg-[#5658d6] text-white font-bold text-center text-sm shadow-md hover:shadow-xl transition-all"
+                >
+                  Schedule Campus Pilot
+                </a>
+                <a
+                  href="mailto:contact@baagupadu.com?subject=Partnering%20with%20Baagupadu"
+                  className="px-8 py-4 rounded-2xl glass-strong border border-[var(--glass-border)] hover:border-[var(--color-secondary)] text-[var(--color-text)] font-bold text-center text-sm transition-all"
+                >
+                  Contact Institutional Sales
+                </a>
+              </div>
+            </div>
+          </motion.div>
+
         </motion.div>
 
-        {/* Footer */}
-        <footer className="w-full max-w-6xl mt-8 border-t border-[var(--glass-border)] pt-12 pb-12 px-4 md:px-8">
-          <div className="flex flex-col md:flex-row justify-between items-start gap-12 mb-16">
-            <div className="max-w-xs">
-              <Link href="/" className="flex items-center gap-3 mb-6">
-                <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-gradient-to-br from-[var(--color-secondary)] to-[#818CF8] shadow-sm">
-                  <Sparkles className="w-4 h-4 text-white" />
-                </div>
-                <span className="font-black text-xl tracking-tighter text-[var(--color-text)]">Baagupadu</span>
-              </Link>
-              <p className="text-[var(--color-text-muted)] font-medium text-sm leading-relaxed">
-                The AI-powered mentoring ecosystem that understands who you are before advising you on what to become.
-              </p>
-            </div>
-
-            <div className="flex flex-wrap gap-12 md:gap-24">
-              <div>
-                <h4 className="font-bold text-[var(--color-text)] mb-6 text-[13px] uppercase tracking-widest">Product</h4>
-                <ul className="space-y-4 text-sm font-medium text-[var(--color-text-muted)]">
-                  <li><Link href="#" className="hover:text-[var(--color-secondary)] transition-colors">Nenu Evaru?</Link></li>
-                  <li><Link href="#" className="hover:text-[var(--color-secondary)] transition-colors">Career Path</Link></li>
-                  <li><Link href="#" className="hover:text-[var(--color-secondary)] transition-colors">Skill Builder</Link></li>
-                  <li><Link href="#" className="hover:text-[var(--color-secondary)] transition-colors">Pricing</Link></li>
-                </ul>
-              </div>
-              <div>
-                <h4 className="font-bold text-[var(--color-text)] mb-6 text-[13px] uppercase tracking-widest">Company</h4>
-                <ul className="space-y-4 text-sm font-medium text-[var(--color-text-muted)]">
-                  <li><Link href="#" className="hover:text-[var(--color-secondary)] transition-colors">About Us</Link></li>
-                  <li><Link href="#" className="hover:text-[var(--color-secondary)] transition-colors">Manifesto</Link></li>
-                  <li><Link href="#" className="hover:text-[var(--color-secondary)] transition-colors">Contact</Link></li>
-                  <li><Link href="#" className="hover:text-[var(--color-secondary)] transition-colors">Privacy Policy</Link></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <div className="flex flex-col md:flex-row items-center justify-between pt-8 border-t border-[var(--glass-border)] text-sm font-medium text-[var(--color-text-muted)]">
-            <p>© {new Date().getFullYear()} Baagupadu. All rights reserved.</p>
-            <div className="flex items-center gap-6 mt-4 md:mt-0">
-              <Link href="#" className="hover:text-[var(--color-text)] transition-colors">Twitter</Link>
-              <Link href="#" className="hover:text-[var(--color-text)] transition-colors">LinkedIn</Link>
-              <Link href="#" className="hover:text-[var(--color-text)] transition-colors">Instagram</Link>
-            </div>
-          </div>
-        </footer>
+        {/* Global Production Footer */}
+        <Footer />
       </main>
     </div>
   );
+
 }
