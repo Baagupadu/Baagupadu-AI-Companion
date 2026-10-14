@@ -18,14 +18,14 @@ export default function Footer() {
   };
 
   return (
-    <footer className="w-full mt-24 border-t border-[var(--glass-border)] bg-[var(--color-surface)]/30 backdrop-blur-md pt-16 pb-12 px-6 md:px-12 relative overflow-hidden">
+    <footer className="w-full mt-4 border-t border-[var(--glass-border)] bg-[var(--color-surface)]/30 backdrop-blur-md pt-6 pb-12 px-6 md:px-12 relative overflow-hidden">
       {/* Decorative background glows */}
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-[var(--color-secondary)]/5 rounded-full blur-[120px] pointer-events-none -z-10" />
       <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-[#FF6B8A]/5 rounded-full blur-[120px] pointer-events-none -z-10" />
 
       <div className="max-w-7xl mx-auto">
         {/* Newsletter / Early Access Banner */}
-        <div className="glass-card p-8 md:p-10 rounded-[2rem] border border-[var(--glass-border)] mb-16 flex flex-col lg:flex-row items-center justify-between gap-8 relative overflow-hidden shadow-sm">
+        <div className="glass-card p-6 md:p-8 rounded-[2rem] border border-[var(--glass-border)] mb-12 flex flex-col lg:flex-row items-center justify-between gap-6 relative overflow-hidden shadow-sm">
           <div className="max-w-xl text-left">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--color-secondary)]/10 text-[var(--color-secondary)] text-[12px] font-bold uppercase tracking-wider mb-3">
               <Sparkles className="w-3.5 h-3.5" /> Early Institutional & Student Access
@@ -97,10 +97,6 @@ export default function Footer() {
                   <a href="mailto:contact@baagupadu.com" className="hover:text-[var(--color-secondary)] transition-colors underline-offset-4 hover:underline">
                     contact@baagupadu.com
                   </a>
-                </div>
-                <div className="flex items-center gap-2.5">
-                  <ShieldCheck className="w-4 h-4 text-emerald-500 shrink-0" />
-                  <span>DPIIT Startup India Applicant • DPDP 2023 Compliant</span>
                 </div>
               </div>
             </div>
@@ -316,12 +312,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="#" className="hover:text-[var(--color-secondary)] transition-colors">
-                  DPDP Act 2023 Compliance
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="hover:text-[var(--color-secondary)] transition-colors">
-                  CERT-In 180-Day Log Policy
+                  Data Privacy &amp; Protection
                 </Link>
               </li>
               <li>
@@ -329,6 +320,7 @@ export default function Footer() {
                   Security Architecture
                 </Link>
               </li>
+
               <li>
                 <Link href="#" className="hover:text-[var(--color-secondary)] transition-colors">
                   Grievance Redressal
