@@ -96,7 +96,7 @@ export default function LandingPage() {
                 variants={slideUpVariants}
                 className="text-[var(--color-text-muted)] text-[18px] md:text-[20px] font-medium leading-relaxed mb-8 max-w-lg"
               >
-                Sahayam is your personalized AI mentor. Discover your true identity, gain absolute clarity, and receive actionable guidance for your life and career.
+                Sahayam is your autonomous AI companion. An empathetic confidant to understand your story, discover your true identity, and navigate your life and career.
               </motion.p>
 
               {/* Interactive Preview Element */}
@@ -104,7 +104,7 @@ export default function LandingPage() {
                 <div className="relative flex items-center glass-strong rounded-full shadow-[0_4px_12px_rgba(0,0,0,0.04)] border border-[var(--glass-border)] hover:shadow-[0_8px_24px_rgba(99,102,241,0.15)] transition-all duration-300 group">
                   <input
                     type="text"
-                    placeholder="Ask Sahayam anything..."
+                    placeholder="Ask your AI companion anything..."
                     className="w-full bg-transparent px-6 py-4 outline-none text-[var(--color-text)] placeholder-[var(--color-text-muted)]/70 text-[15px] font-medium"
                     suppressHydrationWarning
                   />
@@ -122,7 +122,7 @@ export default function LandingPage() {
                     className="flex items-center justify-center gap-3 bg-[var(--color-secondary)] hover:bg-[#5658d6] text-white font-bold rounded-2xl px-8 py-4 text-[16px] transition-all shadow-[0_8px_24px_rgba(108,60,225,0.3)] w-full sm:w-auto"
                     suppressHydrationWarning
                   >
-                    Meet Your Mentor
+                    Meet Your AI Companion
                     <ArrowRight className="w-5 h-5" />
                   </motion.button>
                 </Link>

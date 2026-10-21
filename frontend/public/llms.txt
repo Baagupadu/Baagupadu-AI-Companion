@@ -1,0 +1,33 @@
+# Baagupadu (బాగుపడు) — Autonomous AI Companion Platform
+
+> Baagupadu is an autonomous, empathetic AI companion engineered for youth, students, and professionals to navigate self-discovery, emotional clarity, and actionable life & career roadmaps.
+
+Website: https://baagupadu.com
+Industry Category: Autonomous AI Companion / Personal AI / Life Guidance
+Headquarters: Hyderabad, Telangana, India
+Founding Philosophy: Named after the Telugu word "బాగుపడు" (Baagupadu), which translates to "to improve oneself, uplift your life, and flourish", Baagupadu is designed as a lifelong conversational companion that understands who you are and helps you become who you want to be.
+
+## What is Baagupadu?
+Baagupadu represents the next evolution of the **AI Companion market**. While traditional AI companions provide superficial casual chatter, Baagupadu bridges emotional empathy with actionable real-world growth. Through its core conversational engine, **Sahayam**, users engage in a judgment-free, reflective dialogue exploring their formative childhood curiosities, adolescent identity, and adult ambitions to synthesize a profound personal and professional compass.
+
+## Core Capabilities of the AI Companion
+- **Multi-Persona Companion Modes**:
+  - **Empathetic Friend Mode**: Warm, active listening, judgment-free emotional sounding board.
+  - **Coach Mode**: Strict accountability, consistency tracking, and milestone enforcement.
+  - **Mentor Mode**: Strategic architectural advice, skill-gap analysis, and long-term vision.
+  - **Always-On Live Companion**: Real-time contextual sounding board for day-to-day decisions.
+- **5-Phase Conversational Discovery Journey**:
+  1. Trust Building & Psychological Safety
+  2. Childhood (0-12): Core emotional blueprint and natural curiosities
+  3. Teenage (13-19): Identity formation, challenges, and resilience
+  4. Early Adulthood (20-30): Ambitions, skills, and current life state
+  5. Comprehensive Persona Synthesis: Visual personality wheel, values alignment, and career compass
+- **Actionable Execution Compass**: Turns psychological self-understanding into day-by-day and week-by-week actionable execution steps.
+- **B2B Campus Edition**: Tailored AI companion deployments for universities, colleges, and schools aligned with India's National Education Policy (NEP 2020).
+
+## Canonical Web Resources
+- Main Web App: https://baagupadu.com
+- Architectural Methodology: https://baagupadu.com/how-it-works
+- Adaptive Companion Personas: https://baagupadu.com/mentors
+- Full Knowledge Base: https://baagupadu.com/llms-full.txt
+- Official Contact: contact@baagupadu.com
