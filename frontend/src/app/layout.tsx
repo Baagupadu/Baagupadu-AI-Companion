@@ -8,14 +8,169 @@ import AmbientBackground from '@/components/AmbientBackground';
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 
 export const metadata: Metadata = {
-  title: 'Bagupadu — Discover Who You Truly Are',
-  description:
-    'Bagupadu is an AI-powered mentoring ecosystem. Have a deep, empathetic conversation with Sahayam and discover your true self and your ideal career path.',
-  openGraph: {
-    title: 'Bagupadu — Discover Who You Truly Are',
-    description: 'An AI mentor that understands your story and helps you find your path.',
-    type: 'website',
+  metadataBase: new URL('https://baagupadu.com'),
+  title: {
+    default: 'Baagupadu — Autonomous AI Companion | Discover Who You Truly Are',
+    template: '%s | Baagupadu — Autonomous AI Companion',
   },
+  description:
+    'Baagupadu (బాగుపడు) is your empathetic autonomous AI companion. Built for youth, students, and professionals to explore self-discovery, gain emotional clarity, and craft actionable life & career roadmaps with Sahayam AI.',
+  keywords: [
+    'AI Companion',
+    'Autonomous AI Companion',
+    'Personal AI Companion',
+    'Empathetic AI Companion',
+    'AI Life Companion',
+    'Gen Z AI Companion',
+    'AI Companion India',
+    'Telugu AI Companion',
+    'Baagupadu AI Companion',
+    'AI Companion for Students',
+    'AI Companion for Self Discovery',
+    'Conversational AI Companion',
+    'Best AI Companion',
+    'AI Career Coach',
+    'Baagupadu',
+    'Bagupadu',
+    'బాగుపడు',
+    'Sahayam AI',
+    'Career Guidance India',
+    'NEP 2020 Career Guidance',
+  ],
+  authors: [{ name: 'Baagupadu Technologies', url: 'https://baagupadu.com' }],
+  creator: 'Baagupadu Technologies',
+  publisher: 'Baagupadu Technologies',
+  alternates: {
+    canonical: 'https://baagupadu.com',
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'en_IN',
+    url: 'https://baagupadu.com',
+    siteName: 'Baagupadu — Autonomous AI Companion',
+    title: 'Baagupadu — Your Autonomous AI Companion | Discover Who You Truly Are',
+    description:
+      'Meet your empathetic autonomous AI companion. Have a deep, judgment-free conversation with Sahayam to understand your story, discover your true identity, and navigate your future.',
+    images: [
+      {
+        url: '/og-image.jpg',
+        width: 1200,
+        height: 675,
+        alt: 'Baagupadu — Autonomous AI Companion',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Baagupadu — Your Autonomous AI Companion | Discover Who You Truly Are',
+    description:
+      'Empathetic autonomous AI companion for youth, students, and professionals. Understand your past, gain clarity, and navigate your future.',
+    images: ['/og-image.jpg'],
+    creator: '@Baagupadu',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  icons: {
+    icon: '/favicon.ico',
+  },
+};
+
+const jsonLdWebsite = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'Baagupadu — Autonomous AI Companion',
+  alternateName: [
+    'Baagupadu AI Companion',
+    'Baagupadu',
+    'Bagupadu',
+    'బాగుపడు',
+    'Sahayam AI Companion',
+  ],
+  url: 'https://baagupadu.com',
+  description:
+    'India\'s premier autonomous AI companion for self-discovery, emotional growth, and life & career navigation.',
+};
+
+const jsonLdOrg = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Baagupadu Technologies',
+  alternateName: 'Baagupadu AI Companion',
+  url: 'https://baagupadu.com',
+  logo: 'https://baagupadu.com/og-image.jpg',
+  email: 'contact@baagupadu.com',
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Hyderabad',
+    addressRegion: 'Telangana',
+    addressCountry: 'IN',
+  },
+  sameAs: [
+    'https://github.com/Baagupadu',
+  ],
+};
+
+const jsonLdSoftware = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'Baagupadu Autonomous AI Companion',
+  applicationCategory: 'LifestyleApplication, EducationalApplication',
+  operatingSystem: 'All Web Browsers',
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'INR',
+  },
+  description:
+    'An empathetic autonomous AI companion providing conversational self-discovery, emotional clarity, and personalized life & career compass roadmaps.',
+};
+
+const jsonLdFaq = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'What is the Baagupadu AI Companion?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Baagupadu (బాగుపడు) is an autonomous AI companion designed to help youth and students discover who they truly are. Unlike superficial chatbots, Baagupadu offers empathetic life companionship, emotional clarity, and actionable career navigation.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What makes Baagupadu unique in the AI companion market?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'While typical AI companions only offer casual small talk, Baagupadu bridges emotional companionship with tangible self-betterment. Through its companion engine Sahayam, it maps your childhood curiosity, teenage identity, and ambitions into an actionable personal compass.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What does the word Baagupadu mean?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Baagupadu is a meaningful Telugu word (బాగుపడు) meaning to improve yourself, flourish, elevate your life, and achieve your highest potential.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How does the Sahayam AI companion interact with me?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Sahayam operates as an empathetic confidant, mentor, and accountability partner. It listens without judgment, recognizes recurring behavioral patterns, and helps you navigate real-world decisions with milestone roadmaps.',
+      },
+    },
+  ],
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -26,6 +181,24 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         className={`${inter.variable} min-h-screen antialiased`}
         suppressHydrationWarning
       >
+        <head>
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdWebsite) }}
+          />
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdOrg) }}
+          />
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdSoftware) }}
+          />
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFaq) }}
+          />
+        </head>
         <body className="min-h-screen bg-transparent text-text font-sans transition-colors duration-300 ">
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <div className="relative z-10 min-h-screen">
