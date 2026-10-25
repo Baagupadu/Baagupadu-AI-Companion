@@ -335,7 +335,9 @@ export default function Footer() {
           <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 text-center sm:text-left">
             <span>© {new Date().getFullYear()} Baagupadu Technologies. All rights reserved.</span>
             <span className="hidden sm:inline">•</span>
-            <span className="text-[12px] opacity-80">Built with purpose in Hyderabad, India</span>
+            <span className="text-[12px] opacity-80">
+              Founded by <span className="font-semibold text-[var(--color-text)]">Sreekar Reddy Pindi</span> • Built with purpose in Hyderabad, India
+            </span>
           </div>
 
           <div className="flex items-center gap-6">

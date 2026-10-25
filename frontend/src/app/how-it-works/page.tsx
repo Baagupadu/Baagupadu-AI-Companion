@@ -158,7 +158,7 @@ export default function HowItWorksPage() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="glass-card p-12 text-center rounded-[3rem] mb-20 relative overflow-hidden"
+            className="glass-card p-12 text-center rounded-[3rem] mb-12 relative overflow-hidden"
           >
             <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-secondary)]/10 to-[#6DD5B8]/10 -z-10" />
             <h2 className="text-4xl font-extrabold text-[var(--color-text)] mb-6">Powered by the <span className="text-[var(--color-secondary)]">"Nenu Evaru?"</span> Engine</h2>
@@ -170,6 +170,47 @@ export default function HowItWorksPage() {
                 Experience the Journey
               </button>
             </Link>
+          </motion.div>
+
+          {/* Technical Architecture: Dynamic RAG vs Fine-Tuning */}
+          <motion.div
+            variants={slideUpVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="glass-card p-10 md:p-12 text-left rounded-[3rem] mb-20 relative overflow-hidden border border-[var(--color-secondary)]/15"
+          >
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[var(--color-secondary)]/10 text-[var(--color-secondary)] text-xs font-bold uppercase tracking-wider mb-4">
+              AI System Architecture • Engineering Whitepaper
+            </div>
+            <h3 className="text-3xl font-extrabold text-[var(--color-text)] mb-4 tracking-tight">
+              Why Baagupadu's AI Companion Uses Dynamic RAG Over Fine-Tuning
+            </h3>
+            <p className="text-[var(--color-text-muted)] text-[16px] leading-relaxed mb-8 max-w-3xl">
+              Architected by <strong className="text-[var(--color-text)]">Sreekar Reddy Pindi</strong> in Hyderabad, Baagupadu ("బాగుపడు" - to improve and prosper) leverages a decoupled, multi-agent cognitive architecture combining <strong>Dynamic Retrieval-Augmented Generation (RAG)</strong> with pgvector embeddings rather than static parameter fine-tuning.
+            </p>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="p-6 rounded-2xl glass-strong border border-black/5 dark:border-white/5">
+                <div className="w-10 h-10 rounded-xl bg-indigo-500/10 text-indigo-500 flex items-center justify-center font-bold mb-4">
+                  01
+                </div>
+                <h4 className="text-lg font-bold text-[var(--color-text)] mb-2">Real-Time Data &amp; Context Updates</h4>
+                <p className="text-[var(--color-text-muted)] text-sm leading-relaxed">
+                  Unlike traditional model fine-tuning that bakes static knowledge into model weights, Dynamic RAG allows the companion to pull the most recent user context, emotional cues, and institutional college curriculums dynamically without expensive retraining cycles.
+                </p>
+              </div>
+
+              <div className="p-6 rounded-2xl glass-strong border border-black/5 dark:border-white/5">
+                <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center font-bold mb-4">
+                  02
+                </div>
+                <h4 className="text-lg font-bold text-[var(--color-text)] mb-2">Strict Hallucination Control</h4>
+                <p className="text-[var(--color-text-muted)] text-sm leading-relaxed">
+                  By anchoring companion dialogues directly to a verifiable knowledge base of cognitive psychology frameworks and student memory vaults, the system eliminates hallucinations common in purely fine-tuned generative models.
+                </p>
+              </div>
+            </div>
           </motion.div>
 
         </motion.div>
