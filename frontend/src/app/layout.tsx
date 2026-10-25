@@ -37,8 +37,11 @@ export const metadata: Metadata = {
     'Career Guidance India',
     'NEP 2020 Career Guidance',
   ],
-  authors: [{ name: 'Baagupadu Technologies', url: 'https://baagupadu.com' }],
-  creator: 'Baagupadu Technologies',
+  authors: [
+    { name: 'Sreekar Reddy Pindi', url: 'https://baagupadu.com' },
+    { name: 'Baagupadu Technologies', url: 'https://baagupadu.com' },
+  ],
+  creator: 'Sreekar Reddy Pindi',
   publisher: 'Baagupadu Technologies',
   alternates: {
     canonical: 'https://baagupadu.com',
@@ -50,7 +53,7 @@ export const metadata: Metadata = {
     siteName: 'Baagupadu — Autonomous AI Companion',
     title: 'Baagupadu — Your Autonomous AI Companion | Discover Who You Truly Are',
     description:
-      'Meet your empathetic autonomous AI companion. Have a deep, judgment-free conversation with Sahayam to understand your story, discover your true identity, and navigate your future.',
+      'Meet your empathetic autonomous AI companion founded by Sreekar Reddy Pindi. Have a deep, judgment-free conversation with Sahayam to understand your story, discover your true identity, and navigate your future.',
     images: [
       {
         url: '/og-image.jpg',
@@ -64,7 +67,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Baagupadu — Your Autonomous AI Companion | Discover Who You Truly Are',
     description:
-      'Empathetic autonomous AI companion for youth, students, and professionals. Understand your past, gain clarity, and navigate your future.',
+      'Empathetic autonomous AI companion for youth, students, and professionals founded by Sreekar Reddy Pindi. Understand your past, gain clarity, and navigate your future.',
     images: ['/og-image.jpg'],
     creator: '@Baagupadu',
   },
@@ -97,17 +100,26 @@ const jsonLdWebsite = {
   ],
   url: 'https://baagupadu.com',
   description:
-    'India\'s premier autonomous AI companion for self-discovery, emotional growth, and life & career navigation.',
+    'India\'s premier autonomous AI companion for self-discovery, emotional growth, and life & career navigation, founded by Sreekar Reddy Pindi.',
 };
 
 const jsonLdOrg = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
   name: 'Baagupadu Technologies',
-  alternateName: 'Baagupadu AI Companion',
+  alternateName: ['Baagupadu AI Companion', 'Baagupadu', 'బాగుపడు'],
   url: 'https://baagupadu.com',
   logo: 'https://baagupadu.com/og-image.jpg',
   email: 'contact@baagupadu.com',
+  founder: {
+    '@type': 'Person',
+    name: 'Sreekar Reddy Pindi',
+    jobTitle: 'Founder & AI Architect',
+    url: 'https://baagupadu.com',
+    sameAs: [
+      'https://github.com/Sreekarreddy2005',
+    ],
+  },
   address: {
     '@type': 'PostalAddress',
     addressLocality: 'Hyderabad',
@@ -116,6 +128,7 @@ const jsonLdOrg = {
   },
   sameAs: [
     'https://github.com/Baagupadu',
+    'https://github.com/Sreekarreddy2005',
   ],
 };
 
@@ -125,19 +138,40 @@ const jsonLdSoftware = {
   name: 'Baagupadu Autonomous AI Companion',
   applicationCategory: 'LifestyleApplication, EducationalApplication',
   operatingSystem: 'All Web Browsers',
+  author: {
+    '@type': 'Person',
+    name: 'Sreekar Reddy Pindi',
+    jobTitle: 'Founder & AI Architect',
+  },
   offers: {
     '@type': 'Offer',
     price: '0',
     priceCurrency: 'INR',
   },
   description:
-    'An empathetic autonomous AI companion providing conversational self-discovery, emotional clarity, and personalized life & career compass roadmaps.',
+    'An empathetic autonomous AI companion engineered by Sreekar Reddy Pindi providing conversational self-discovery, emotional clarity, and personalized life & career compass roadmaps using Dynamic Retrieval-Augmented Generation (RAG).',
 };
 
 const jsonLdFaq = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
   mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'Who founded Baagupadu AI Companion?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Baagupadu was conceived, founded, and architected by Sreekar Reddy Pindi in Hyderabad, India, to provide youth and students with an empathetic, autonomous AI companion for psychological self-discovery and actionable career guidance.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Why does Baagupadu use Dynamic RAG instead of model fine-tuning?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Baagupadu utilizes Dynamic Retrieval-Augmented Generation (RAG) over static model fine-tuning to deliver real-time user context updates, strict hallucination control, and localized cultural Indian career mentorship without expensive retraining cycles.',
+      },
+    },
     {
       '@type': 'Question',
       name: 'What is the Baagupadu AI Companion?',

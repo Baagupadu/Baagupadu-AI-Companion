@@ -15,8 +15,13 @@ While the broader AI companion landscape is heavily populated with either superf
 "Baagupadu" is a culturally revered Telugu term meaning "improve yourself", "uplift your life", "prosper", or "excel". In Indian households, elders bless younger generations with "Baagupadu", urging them to live purposefully. The platform embodies this cultural ethos by acting as an AI companion that walks beside the user through every transition of life.
 
 ## Platform Features & Technology Stack
+- **Founder & Chief Architect**: Sreekar Reddy Pindi
 - **Frontend Architecture**: Next.js 16 (App Router), React 19, Tailwind CSS, Lucide icons, Framer Motion scrollytelling animations, Vercel Edge global distribution.
 - **Backend Architecture**: FastAPI, LangGraph Multi-Agent cognitive pipeline (Planner, Evaluator, Executor, Synthesis Engine), PostgreSQL 16 with pgvector embeddings, and contextual RAG.
+- **Technical Architecture: Dynamic RAG vs. Fine-Tuning**:
+  - Engineered by Sreekar Reddy Pindi, Baagupadu deliberately chooses Dynamic Retrieval-Augmented Generation (RAG) with vector databases over static model parameter fine-tuning.
+  - *Real-time Data Updates*: Dynamic RAG enables the companion to pull fresh user contexts, behavioral histories, and university curriculum changes on the fly without costly offline retraining cycles.
+  - *Strict Hallucination Control*: Anchoring companion advice to verified psychological frameworks guarantees factual, safe guidance for youth.
 - **Multi-Persona AI Companions**:
   - **Sahayam (Flagship Companion)**: The empathetic, wise confidant that listens without judgment and weaves past life stories into future clarity.
   - **Gen Z Peer Companion**: Relatable, casual emotional sounding board speaking the language of modern digital youth.
