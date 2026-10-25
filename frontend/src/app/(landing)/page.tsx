@@ -57,19 +57,19 @@ export default function LandingPage() {
   return (
     <div className="relative w-full h-full">
       <Navbar />
-      <main className="min-h-screen flex flex-col items-center justify-start text-center relative pt-24 pb-20">
+      <main className="min-h-screen flex flex-col items-center justify-start text-center relative pt-16 sm:pt-20 pb-20">
 
         <motion.div
-          className="w-full max-w-6xl relative z-10 px-4 mt-4"
+          className="w-full max-w-6xl relative z-10 px-4"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
         >
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-12 mb-32 px-4 md:px-8 text-left mt-8">
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-12 mb-28 px-4 md:px-8 text-left mt-2">
             <div className="flex-1 max-w-xl">
               <motion.div
                 variants={slideUpVariants}
-                className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full glass-strong border border-[var(--color-secondary)]/20 shadow-[0_4px_20px_rgba(99,102,241,0.15)] hover:shadow-[0_4px_25px_rgba(99,102,241,0.25)] transition-all duration-300 cursor-default group mb-8"
+                className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full glass-strong border border-[var(--color-secondary)]/20 shadow-[0_4px_20px_rgba(99,102,241,0.15)] hover:shadow-[0_4px_25px_rgba(99,102,241,0.25)] transition-all duration-300 cursor-default group mb-6"
               >
                 <div className="w-6 h-6 rounded-full bg-[var(--color-secondary)]/10 flex items-center justify-center">
                   <Sparkles className="w-3.5 h-3.5 text-[var(--color-secondary)] group-hover:scale-110 group-hover:rotate-12 transition-transform duration-300" />
@@ -605,56 +605,84 @@ export default function LandingPage() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
-            className="mb-4 w-full glass-card p-8 md:p-12 rounded-[2.5rem] border border-[var(--color-secondary)]/25 relative overflow-hidden text-left shadow-lg"
+            className="mb-14 w-full glass-card p-8 md:p-12 rounded-[2rem] border border-[var(--color-secondary)]/25 relative overflow-hidden text-left shadow-lg"
           >
             <div className="absolute top-0 right-0 w-80 h-80 bg-gradient-to-br from-[var(--color-secondary)]/15 to-[#6DD5B8]/15 rounded-full blur-3xl pointer-events-none -z-10" />
 
-            <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-10">
-              <div className="max-w-2xl">
-                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[var(--color-secondary)]/10 text-[var(--color-secondary)] text-[12px] font-bold uppercase tracking-wider mb-4 border border-[var(--color-secondary)]/20">
-                  <Building2 className="w-3.5 h-3.5" /> For Universities, Colleges &amp; Campus Placement Cells
+            <div className="flex flex-col lg:flex-row items-stretch justify-between gap-8 lg:gap-10">
+              <div className="flex-1 max-w-2xl flex flex-col justify-between">
+                <div>
+                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[var(--color-secondary)]/10 text-[var(--color-secondary)] text-[12px] font-bold uppercase tracking-wider mb-4 border border-[var(--color-secondary)]/20">
+                    <Building2 className="w-3.5 h-3.5" /> For Universities, Colleges &amp; Campus Placement Cells
+                  </div>
+                  <h2 className="text-3xl md:text-4xl font-extrabold text-[var(--color-text)] tracking-tight mb-4 leading-tight">
+                    Deploy the Baagupadu Campus AI Mentorship Lab
+                  </h2>
+                  <p className="text-[var(--color-text-muted)] text-[15px] md:text-[16px] font-medium leading-relaxed mb-6">
+                    Traditional college placement cells struggle to provide 1-on-1 career navigation for 2,000+ students. Baagupadu partners with engineering colleges and universities to deliver autonomous, 24/7 AI mentorship—aligning student ambitions with real industry demand under NEP 2020 and NAAC guidance criteria.
+                  </p>
                 </div>
-                <h2 className="text-3xl md:text-4xl font-extrabold text-[var(--color-text)] tracking-tight mb-4">
-                  Deploy the Baagupadu Campus AI Mentorship Lab
-                </h2>
-                <p className="text-[var(--color-text-muted)] text-[16px] font-medium leading-relaxed mb-6">
-                  Traditional college placement cells struggle to provide 1-on-1 career navigation for 2,000+ students. Baagupadu partners with engineering colleges and universities to deliver autonomous, 24/7 AI mentorship—aligning student ambitions with real industry demand under NEP 2020 and NAAC guidance criteria.
-                </p>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm font-semibold text-[var(--color-text)]">
-                  <div className="flex items-center gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
-                    <span>Institutional Placement Analytics</span>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3.5 pt-2">
+                  <div className="flex items-center gap-3">
+                    <div className="w-5 h-5 rounded-full bg-emerald-500/10 flex items-center justify-center shrink-0 border border-emerald-500/20">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+                    </div>
+                    <span className="text-sm font-semibold text-[var(--color-text)]">Institutional Placement Analytics</span>
                   </div>
-                  <div className="flex items-center gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
-                    <span>Local On-Premises or Cloud Deployment</span>
+                  <div className="flex items-center gap-3">
+                    <div className="w-5 h-5 rounded-full bg-emerald-500/10 flex items-center justify-center shrink-0 border border-emerald-500/20">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+                    </div>
+                    <span className="text-sm font-semibold text-[var(--color-text)]">Local On-Premises or Cloud Deployment</span>
                   </div>
-                  <div className="flex items-center gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
-                    <span>100% Student Privacy &amp; Confidentiality</span>
+                  <div className="flex items-center gap-3">
+                    <div className="w-5 h-5 rounded-full bg-emerald-500/10 flex items-center justify-center shrink-0 border border-emerald-500/20">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+                    </div>
+                    <span className="text-sm font-semibold text-[var(--color-text)]">100% Student Privacy &amp; Confidentiality</span>
                   </div>
-                  <div className="flex items-center gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
-                    <span>Custom Curriculum &amp; Role Roadmaps</span>
+                  <div className="flex items-center gap-3">
+                    <div className="w-5 h-5 rounded-full bg-emerald-500/10 flex items-center justify-center shrink-0 border border-emerald-500/20">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+                    </div>
+                    <span className="text-sm font-semibold text-[var(--color-text)]">Custom Curriculum &amp; Role Roadmaps</span>
                   </div>
                 </div>
               </div>
 
+              {/* Executive Action Module */}
+              <div className="w-full lg:w-[380px] xl:w-[400px] shrink-0 p-7 md:p-8 rounded-[1.75rem] bg-white/70 dark:bg-white/[0.04] border border-[var(--color-secondary)]/25 shadow-sm flex flex-col justify-between text-left relative backdrop-blur-xl">
+                <div>
+                  <div className="flex items-center justify-between pb-3.5 mb-4 border-b border-[var(--glass-border)]">
+                    <span className="text-[11px] font-extrabold uppercase tracking-widest text-[var(--color-secondary)]">Institutional Access</span>
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-[11px] font-bold border border-emerald-500/20">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> AY 2026-27 Active
+                    </span>
+                  </div>
+                  <h4 className="text-lg font-bold text-[var(--color-text)] tracking-tight mb-2">
+                    Campus Mentorship Lab
+                  </h4>
+                  <p className="text-[13px] text-[var(--color-text-muted)] font-medium leading-relaxed mb-6">
+                    Turnkey integration with campus LMS and lab systems in under 48 hours. Zero student token cost.
+                  </p>
+                </div>
 
-              <div className="flex flex-col sm:flex-row lg:flex-col gap-3.5 w-full lg:w-auto shrink-0">
-                <a
-                  href="mailto:contact@baagupadu.com?subject=Institutional%20Pilot%20Inquiry%20-%20Baagupadu%20Campus%20Edition"
-                  className="px-8 py-4 rounded-2xl bg-[var(--color-secondary)] hover:bg-[#5658d6] text-white font-bold text-center text-sm shadow-md hover:shadow-xl transition-all"
-                >
-                  Schedule Campus Pilot
-                </a>
-                <a
-                  href="mailto:contact@baagupadu.com?subject=Partnering%20with%20Baagupadu"
-                  className="px-8 py-4 rounded-2xl glass-strong border border-[var(--glass-border)] hover:border-[var(--color-secondary)] text-[var(--color-text)] font-bold text-center text-sm transition-all"
-                >
-                  Contact Institutional Sales
-                </a>
+                <div className="flex flex-col gap-3 pt-2">
+                  <a
+                    href="mailto:contact@baagupadu.com?subject=Institutional%20Pilot%20Inquiry%20-%20Baagupadu%20Campus%20Edition"
+                    className="w-full py-3.5 px-5 rounded-xl bg-[var(--color-secondary)] hover:bg-[#5658d6] text-white font-bold text-center text-sm shadow-md hover:shadow-xl transition-all flex items-center justify-center gap-2 group"
+                  >
+                    Schedule Campus Pilot
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </a>
+                  <a
+                    href="mailto:contact@baagupadu.com?subject=Partnering%20with%20Baagupadu"
+                    className="w-full py-3 px-5 rounded-xl glass-strong border border-[var(--glass-border)] hover:border-[var(--color-secondary)]/50 hover:bg-[var(--color-surface)] text-[var(--color-text)] font-semibold text-center text-xs transition-all"
+                  >
+                    Contact Institutional Sales
+                  </a>
+                </div>
               </div>
             </div>
           </motion.div>

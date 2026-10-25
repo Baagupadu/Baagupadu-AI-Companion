@@ -18,38 +18,42 @@ export default function Footer() {
   };
 
   return (
-    <footer className="w-full mt-4 border-t border-[var(--glass-border)] bg-[var(--color-surface)]/30 backdrop-blur-md pt-6 pb-12 px-6 md:px-12 relative overflow-hidden">
+    <footer className="w-full border-t border-[var(--glass-border)] bg-[var(--color-surface)]/30 backdrop-blur-md pt-12 pb-16 px-4 sm:px-6 relative overflow-hidden">
       {/* Decorative background glows */}
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-[var(--color-secondary)]/5 rounded-full blur-[120px] pointer-events-none -z-10" />
       <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-[#FF6B8A]/5 rounded-full blur-[120px] pointer-events-none -z-10" />
 
-      <div className="max-w-7xl mx-auto">
+      <div className="w-full max-w-6xl mx-auto">
         {/* Newsletter / Early Access Banner */}
-        <div className="glass-card p-6 md:p-8 rounded-[2rem] border border-[var(--glass-border)] mb-12 flex flex-col lg:flex-row items-center justify-between gap-6 relative overflow-hidden shadow-sm">
-          <div className="max-w-xl text-left">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--color-secondary)]/10 text-[var(--color-secondary)] text-[12px] font-bold uppercase tracking-wider mb-3">
-              <Sparkles className="w-3.5 h-3.5" /> Early Institutional & Student Access
+        <div className="glass-card p-8 md:p-10 rounded-[2rem] border border-[var(--glass-border)] mb-14 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 relative overflow-hidden shadow-sm">
+          <div className="absolute top-0 right-0 w-80 h-80 bg-gradient-to-br from-[var(--color-secondary)]/10 to-[#818CF8]/10 rounded-full blur-3xl pointer-events-none -z-10" />
+
+          <div className="flex-1 max-w-xl text-left">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[var(--color-secondary)]/10 text-[var(--color-secondary)] text-[12px] font-bold uppercase tracking-wider mb-3 border border-[var(--color-secondary)]/20">
+              <Sparkles className="w-3.5 h-3.5" /> Early Institutional &amp; Student Access
             </div>
-            <h3 className="text-2xl md:text-3xl font-extrabold text-[var(--color-text)] tracking-tight mb-2">
+            <h3 className="text-2xl md:text-3xl font-extrabold text-[var(--color-text)] tracking-tight mb-2 leading-snug">
               Stay Connected with Baagupadu
             </h3>
-            <p className="text-[var(--color-text-muted)] text-[15px] font-medium leading-relaxed">
+            <p className="text-[var(--color-text-muted)] text-[14px] md:text-[15px] font-medium leading-relaxed">
               Receive updates on new mentorship models, institutional college partnerships, and research papers from the Sahayam AI team.
             </p>
           </div>
 
-          <form onSubmit={handleSubscribe} className="w-full lg:w-auto flex flex-col sm:flex-row gap-3 min-w-[320px]">
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Enter your email address"
-              required
-              className="px-5 py-3.5 rounded-xl glass-strong border border-[var(--glass-border)] text-[var(--color-text)] placeholder-[var(--color-text-muted)]/70 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[var(--color-secondary)] transition-all min-w-[260px]"
-            />
+          <form onSubmit={handleSubscribe} className="w-full lg:max-w-md flex flex-col sm:flex-row items-center gap-3 shrink-0">
+            <div className="relative w-full">
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter college or personal email"
+                required
+                className="w-full px-4 py-3.5 rounded-xl glass-strong border border-[var(--glass-border)] text-[var(--color-text)] placeholder-[var(--color-text-muted)]/60 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[var(--color-secondary)]/30 focus:border-[var(--color-secondary)] transition-all shadow-xs"
+              />
+            </div>
             <button
               type="submit"
-              className="px-6 py-3.5 rounded-xl bg-[var(--color-secondary)] hover:bg-[#5658d6] text-white font-bold text-sm transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 group whitespace-nowrap"
+              className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-[var(--color-secondary)] hover:bg-[#5658d6] text-white font-bold text-sm transition-all shadow-md hover:shadow-xl flex items-center justify-center gap-2 group whitespace-nowrap shrink-0"
             >
               {subscribed ? (
                 <>
@@ -63,6 +67,9 @@ export default function Footer() {
             </button>
           </form>
         </div>
+
+        {/* Section Divider */}
+        <div className="w-full h-px bg-[var(--glass-border)] mb-14" />
 
         {/* Main Footer Directory Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-10 mb-16 text-left">
