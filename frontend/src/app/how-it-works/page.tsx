@@ -187,7 +187,7 @@ export default function HowItWorksPage() {
               Why Baagupadu's AI Companion Uses Dynamic RAG Over Fine-Tuning
             </h3>
             <p className="text-[var(--color-text-muted)] text-[16px] leading-relaxed mb-8 max-w-3xl">
-              Architected by <strong className="text-[var(--color-text)]">Sreekar Reddy Pindi</strong> in Hyderabad, Baagupadu ("బాగుపడు" - to improve and prosper) leverages a decoupled, multi-agent cognitive architecture combining <strong>Dynamic Retrieval-Augmented Generation (RAG)</strong> with pgvector embeddings rather than static parameter fine-tuning.
+              Co-founded and architected by <strong className="text-[var(--color-text)]">Sreekar Reddy Pindi</strong> and the founding team in Hyderabad, Baagupadu ("బాగుపడు" - to improve and prosper) leverages a decoupled, multi-agent cognitive architecture combining <strong>Dynamic Retrieval-Augmented Generation (RAG)</strong> with pgvector embeddings rather than static parameter fine-tuning.
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

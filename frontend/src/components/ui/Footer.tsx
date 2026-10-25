@@ -336,7 +336,7 @@ export default function Footer() {
             <span>© {new Date().getFullYear()} Baagupadu Technologies. All rights reserved.</span>
             <span className="hidden sm:inline">•</span>
             <span className="text-[12px] opacity-80">
-              Founded by <span className="font-semibold text-[var(--color-text)]">Sreekar Reddy Pindi</span> • Built with purpose in Hyderabad, India
+              Co-Founded by <span className="font-semibold text-[var(--color-text)]">Sreekar Reddy Pindi</span> • Built with purpose in Hyderabad, India
             </span>
           </div>
 
