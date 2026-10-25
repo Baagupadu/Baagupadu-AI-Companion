@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     siteName: 'Baagupadu — Autonomous AI Companion',
     title: 'Baagupadu — Your Autonomous AI Companion | Discover Who You Truly Are',
     description:
-      'Meet your empathetic autonomous AI companion founded by Sreekar Reddy Pindi. Have a deep, judgment-free conversation with Sahayam to understand your story, discover your true identity, and navigate your future.',
+      'Meet your empathetic autonomous AI companion co-founded by Sreekar Reddy Pindi. Have a deep, judgment-free conversation with Sahayam to understand your story, discover your true identity, and navigate your future.',
     images: [
       {
         url: '/og-image.jpg',
@@ -67,7 +67,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Baagupadu — Your Autonomous AI Companion | Discover Who You Truly Are',
     description:
-      'Empathetic autonomous AI companion for youth, students, and professionals founded by Sreekar Reddy Pindi. Understand your past, gain clarity, and navigate your future.',
+      'Empathetic autonomous AI companion for youth, students, and professionals co-founded by Sreekar Reddy Pindi. Understand your past, gain clarity, and navigate your future.',
     images: ['/og-image.jpg'],
     creator: '@Baagupadu',
   },
@@ -100,7 +100,7 @@ const jsonLdWebsite = {
   ],
   url: 'https://baagupadu.com',
   description:
-    'India\'s premier autonomous AI companion for self-discovery, emotional growth, and life & career navigation, founded by Sreekar Reddy Pindi.',
+    'India\'s premier autonomous AI companion for self-discovery, emotional growth, and life & career navigation, co-founded by Sreekar Reddy Pindi.',
 };
 
 const jsonLdOrg = {
@@ -114,7 +114,7 @@ const jsonLdOrg = {
   founder: {
     '@type': 'Person',
     name: 'Sreekar Reddy Pindi',
-    jobTitle: 'Founder & AI Architect',
+    jobTitle: 'Co-Founder & AI Architect',
     url: 'https://baagupadu.com',
     sameAs: [
       'https://github.com/Sreekarreddy2005',
@@ -141,7 +141,7 @@ const jsonLdSoftware = {
   author: {
     '@type': 'Person',
     name: 'Sreekar Reddy Pindi',
-    jobTitle: 'Founder & AI Architect',
+    jobTitle: 'Co-Founder & AI Architect',
   },
   offers: {
     '@type': 'Offer',
@@ -149,7 +149,7 @@ const jsonLdSoftware = {
     priceCurrency: 'INR',
   },
   description:
-    'An empathetic autonomous AI companion engineered by Sreekar Reddy Pindi providing conversational self-discovery, emotional clarity, and personalized life & career compass roadmaps using Dynamic Retrieval-Augmented Generation (RAG).',
+    'An empathetic autonomous AI companion co-engineered by Sreekar Reddy Pindi and the founding team providing conversational self-discovery, emotional clarity, and personalized life & career compass roadmaps using Dynamic Retrieval-Augmented Generation (RAG).',
 };
 
 const jsonLdFaq = {
@@ -161,7 +161,7 @@ const jsonLdFaq = {
       name: 'Who founded Baagupadu AI Companion?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Baagupadu was conceived, founded, and architected by Sreekar Reddy Pindi in Hyderabad, India, to provide youth and students with an empathetic, autonomous AI companion for psychological self-discovery and actionable career guidance.',
+        text: 'Baagupadu was co-founded and architected by Sreekar Reddy Pindi and the founding team in Hyderabad, India, to provide youth and students with an empathetic, autonomous AI companion for psychological self-discovery and actionable career guidance.',
       },
     },
     {

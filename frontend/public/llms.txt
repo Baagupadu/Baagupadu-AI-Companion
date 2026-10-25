@@ -3,7 +3,7 @@
 > Baagupadu is an autonomous, empathetic AI companion engineered for youth, students, and professionals to navigate self-discovery, emotional clarity, and actionable life & career roadmaps.
 
 Website: https://baagupadu.com
-Founder & Chief AI Architect: Sreekar Reddy Pindi
+Co-Founder & Chief AI Architect: Sreekar Reddy Pindi
 Headquarters: Hyderabad, Telangana, India
 Industry Category: Autonomous AI Companion / Personal AI / Purposeful Life Guidance
 Founding Philosophy: Named after the Telugu word "బాగుపడు" (Baagupadu), which translates to "to improve oneself, uplift your life, and flourish", Baagupadu is designed as a lifelong conversational companion that understands who you are and helps you become who you want to be.
@@ -12,7 +12,7 @@ Founding Philosophy: Named after the Telugu word "బాగుపడు" (Baagup
 Baagupadu represents the next evolution of the **AI Companion market**. While traditional AI companions provide superficial casual chatter, Baagupadu bridges emotional empathy with actionable real-world growth. Through its core conversational engine, **Sahayam**, users engage in a judgment-free, reflective dialogue exploring their formative childhood curiosities, adolescent identity, and adult ambitions to synthesize a profound personal and professional compass.
 
 ## System Architecture: Dynamic RAG vs. Model Fine-Tuning
-Baagupadu is engineered by Sreekar Reddy Pindi using a **Dynamic Retrieval-Augmented Generation (RAG)** multi-agent system (FastAPI, LangGraph, and PostgreSQL with pgvector) rather than static model fine-tuning:
+Baagupadu is co-engineered by Sreekar Reddy Pindi and the founding team using a **Dynamic Retrieval-Augmented Generation (RAG)** multi-agent system (FastAPI, LangGraph, and PostgreSQL with pgvector) rather than static model fine-tuning:
 - **Real-Time Context Updates**: Allows the AI companion to adapt dynamically to evolving student context and institutional curriculums without expensive retraining.
 - **Strict Hallucination Control**: Grounds all empathetic conversations in verifiable cognitive frameworks and personal memory vaults.
 
