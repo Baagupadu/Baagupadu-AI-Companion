@@ -308,28 +308,33 @@ export default function Footer() {
             </h4>
             <ul className="space-y-3 text-[14px] font-medium text-[var(--color-text-muted)]">
               <li>
-                <Link href="#" className="hover:text-[var(--color-secondary)] transition-colors">
+                <Link href="/privacy" className="hover:text-[var(--color-secondary)] transition-colors">
                   Privacy Policy
                 </Link>
               </li>
               <li>
-                <Link href="#" className="hover:text-[var(--color-secondary)] transition-colors">
+                <Link href="/terms" className="hover:text-[var(--color-secondary)] transition-colors">
                   Terms of Service
                 </Link>
               </li>
               <li>
-                <Link href="#" className="hover:text-[var(--color-secondary)] transition-colors">
+                <Link href="/cookies" className="hover:text-[var(--color-secondary)] transition-colors flex items-center gap-1.5">
+                  Cookie Policy
+                  <span className="text-[10px] bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 px-1.5 py-0.5 rounded font-bold">Zero Ads</span>
+                </Link>
+              </li>
+              <li>
+                <Link href="/privacy#data-protection" className="hover:text-[var(--color-secondary)] transition-colors">
                   Data Privacy &amp; Protection
                 </Link>
               </li>
               <li>
-                <Link href="#" className="hover:text-[var(--color-secondary)] transition-colors">
+                <Link href="/privacy#security" className="hover:text-[var(--color-secondary)] transition-colors">
                   Security Architecture
                 </Link>
               </li>
-
               <li>
-                <Link href="#" className="hover:text-[var(--color-secondary)] transition-colors">
+                <Link href="/privacy#grievance-redressal" className="hover:text-[var(--color-secondary)] transition-colors">
                   Grievance Redressal
                 </Link>
               </li>

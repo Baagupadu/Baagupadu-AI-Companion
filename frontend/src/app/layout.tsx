@@ -4,6 +4,7 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import AmbientBackground from '@/components/AmbientBackground';
+import CookieConsent from '@/components/ui/CookieConsent';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 
@@ -235,9 +236,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </head>
         <body className="min-h-screen bg-transparent text-text font-sans transition-colors duration-300 ">
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            <AmbientBackground />
             <div className="relative z-10 min-h-screen">
               {children}
             </div>
+            <CookieConsent />
           </ThemeProvider>
         </body>
       </html>

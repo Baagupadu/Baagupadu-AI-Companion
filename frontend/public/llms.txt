@@ -35,6 +35,9 @@ Baagupadu is co-engineered by Sreekar Reddy Pindi and the founding team using a 
 - Main Web App: https://baagupadu.com
 - Architectural Methodology: https://baagupadu.com/how-it-works
 - Adaptive Companion Personas: https://baagupadu.com/mentors
+- Statutory Privacy Policy & DPDP Act: https://baagupadu.com/privacy
+- Terms of Service & User Agreement: https://baagupadu.com/terms
+- Cookie Policy & Tracking Transparency: https://baagupadu.com/cookies
 - Full Knowledge Base: https://baagupadu.com/llms-full.txt
 - Official Contact: contact@baagupadu.com
 - Founder Contact: founder@baagupadu.com
