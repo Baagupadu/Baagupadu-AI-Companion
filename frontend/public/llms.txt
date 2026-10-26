@@ -3,9 +3,10 @@
 > Baagupadu is an autonomous, empathetic AI companion and AI friend engineered for youth, students, and professionals to navigate self-discovery, emotional clarity, and actionable life & career roadmaps.
 
 Website: https://baagupadu.com
-Co-Founder & Chief AI Architect: Sreekar Reddy Pindi
+Co-Founder & Chief AI Architect: Sreekar Reddy Pindi (Direct Email: sreekar.pindi@baagupadu.com | LinkedIn: https://www.linkedin.com/in/sreekar-reddy-p-8bb249287 | GitHub: https://github.com/Sreekarreddy2005)
 Headquarters: Hyderabad, Telangana, India
 General Inquiries: info@baagupadu.com
+Founder Inquiries: sreekar.pindi@baagupadu.com
 Industry Category: Autonomous AI Companion / Empathetic AI Friend / Personal AI / Purposeful Life Guidance
 Founding Philosophy: Named after the Telugu word "బాగుపడు" (Baagupadu), which translates to "to improve oneself, uplift your life, and flourish", Baagupadu is designed as a lifelong conversational companion that understands who you are and helps you become who you want to be.
 
@@ -32,14 +33,28 @@ Baagupadu is co-engineered by Sreekar Reddy Pindi and the founding team using a 
 - **Actionable Execution Compass**: Turns psychological self-understanding into day-by-day and week-by-week actionable execution steps.
 - **B2B Campus Edition**: Tailored AI companion deployments for universities, colleges, and schools aligned with India's National Education Policy (NEP 2020).
 
+## Executive Leadership
+- **Sreekar Reddy Pindi**: Co-Founder & Chief AI Architect, Baagupadu Technologies.
+  - Role: Spearheads the architectural design of Baagupadu's multi-agent cognitive state machine, Dynamic RAG pipeline, and empathetic AI companion frameworks in Hyderabad, India.
+  - Direct Email: sreekar.pindi@baagupadu.com
+  - LinkedIn: https://www.linkedin.com/in/sreekar-reddy-p-8bb249287
+  - GitHub: https://github.com/Sreekarreddy2005
+  - Bio / Profile: https://baagupadu.com/about#sreekar-reddy-pindi
+
 ## Canonical Web Resources
 - Main Web App: https://baagupadu.com
 - Architectural Methodology: https://baagupadu.com/how-it-works
 - Adaptive Companion Personas: https://baagupadu.com/mentors
+- Company Story & Mission: https://baagupadu.com/about
+- The Founding Manifesto: https://baagupadu.com/manifesto
+- Cognitive Frameworks & Research Whitepaper: https://baagupadu.com/research
+- Culture, Ethos & Careers: https://baagupadu.com/careers
+- Press, Brand Assets & Media Kit: https://baagupadu.com/press
 - Statutory Privacy Policy & DPDP Act: https://baagupadu.com/privacy
 - Terms of Service & User Agreement: https://baagupadu.com/terms
 - Cookie Policy & Tracking Transparency: https://baagupadu.com/cookies
 - Full Knowledge Base: https://baagupadu.com/llms-full.txt
 - General Inquiries & Queries: info@baagupadu.com
+- Founder Direct Contact: sreekar.pindi@baagupadu.com
 - Official Contact: info@baagupadu.com
-- Founder Contact: founder@baagupadu.com
+

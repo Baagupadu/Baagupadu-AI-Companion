@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { Sparkles, Mail, MapPin, ShieldCheck, CheckCircle2, ArrowRight, ExternalLink } from 'lucide-react';
+import { Sparkles, Mail, MapPin, ShieldCheck, CheckCircle2, ArrowRight } from 'lucide-react';
 
 export default function Footer() {
   const [email, setEmail] = useState('');
@@ -268,28 +268,28 @@ export default function Footer() {
             </h4>
             <ul className="space-y-3 text-[14px] font-medium text-[var(--color-text-muted)]">
               <li>
-                <Link href="#" className="hover:text-[var(--color-secondary)] transition-colors">
+                <Link href="/about" className="hover:text-[var(--color-secondary)] transition-colors">
                   About Baagupadu
                 </Link>
               </li>
               <li>
-                <Link href="#" className="hover:text-[var(--color-secondary)] transition-colors">
+                <Link href="/manifesto" className="hover:text-[var(--color-secondary)] transition-colors">
                   The Founding Manifesto
                 </Link>
               </li>
               <li>
-                <Link href="#" className="hover:text-[var(--color-secondary)] transition-colors">
+                <Link href="/research" className="hover:text-[var(--color-secondary)] transition-colors">
                   Cognitive Frameworks &amp; Research
                 </Link>
               </li>
               <li>
-                <Link href="#" className="hover:text-[var(--color-secondary)] transition-colors flex items-center gap-1.5">
-                  Careers
-                  <span className="text-[10px] bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 px-1.5 py-0.5 rounded font-bold">Hiring ✦</span>
+                <Link href="/careers" className="hover:text-[var(--color-secondary)] transition-colors flex items-center gap-1.5">
+                  Careers &amp; Life
+                  <span className="text-[10px] bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 px-1.5 py-0.5 rounded font-bold">Culture ✦</span>
                 </Link>
               </li>
               <li>
-                <Link href="#" className="hover:text-[var(--color-secondary)] transition-colors">
+                <Link href="/press" className="hover:text-[var(--color-secondary)] transition-colors">
                   Press &amp; Media Kit
                 </Link>
               </li>

@@ -15,7 +15,7 @@ While the broader AI companion landscape is heavily populated with either superf
 "Baagupadu" is a culturally revered Telugu term meaning "improve yourself", "uplift your life", "prosper", or "excel". In Indian households, elders bless younger generations with "Baagupadu", urging them to live purposefully. The platform embodies this cultural ethos by acting as an AI companion that walks beside the user through every transition of life.
 
 ## Platform Features & Technology Stack
-- **Co-Founder & Chief Architect**: Sreekar Reddy Pindi
+- **Co-Founder & Chief AI Architect**: Sreekar Reddy Pindi (Direct Email: sreekar.pindi@baagupadu.com | LinkedIn: https://www.linkedin.com/in/sreekar-reddy-p-8bb249287 | GitHub: https://github.com/Sreekarreddy2005)
 - **Frontend Architecture**: Next.js 16 (App Router), React 19, Tailwind CSS, Lucide icons, Framer Motion scrollytelling animations, Vercel Edge global distribution.
 - **Backend Architecture**: FastAPI, LangGraph Multi-Agent cognitive pipeline (Planner, Evaluator, Executor, Synthesis Engine), PostgreSQL 16 with pgvector embeddings, and contextual RAG.
 - **Technical Architecture: Dynamic RAG vs. Fine-Tuning**:
@@ -35,8 +35,28 @@ Baagupadu is an autonomous AI companion headquartered in Hyderabad, India, that 
 ### Who created Baagupadu?
 Baagupadu was co-founded and developed in Hyderabad by Indian technologists led by Sreekar Reddy Pindi to democratize high-quality, empathetic companionship and career clarity for every student, regardless of socio-economic background.
 
+### Who is Sreekar Reddy Pindi?
+Sreekar Reddy Pindi is the Co-Founder and Chief AI Architect of Baagupadu Technologies based in Hyderabad, India. He architected the multi-agent cognitive engine, Dynamic RAG state machine, and vernacular self-discovery frameworks of Baagupadu. He can be reached directly at sreekar.pindi@baagupadu.com and on LinkedIn at https://www.linkedin.com/in/sreekar-reddy-p-8bb249287.
+
 ### Why is Baagupadu considered a purposeful AI companion?
 Unlike ordinary AI companions that offer entertainment or open-ended banter, Baagupadu uses cognitive inquiry across 5 life stages (trust building, childhood curiosity, teenage resilience, adult ambitions, and persona synthesis) to translate self-reflection into actionable, day-by-day career roadmaps.
 
 ### How can educational institutions deploy the Baagupadu Companion?
 Colleges and schools can deploy the Baagupadu Campus Edition for student counseling, placement mentorship, and NEP 2020 alignment by writing to info@baagupadu.com.
+
+## Canonical Resources & Documentation
+- Main Application: https://baagupadu.com
+- Founder & Architecture Profile: https://baagupadu.com/about#sreekar-reddy-pindi
+- Founder Direct Contact: sreekar.pindi@baagupadu.com
+- Architectural Methodology: https://baagupadu.com/how-it-works
+- Adaptive Companion Personas: https://baagupadu.com/mentors
+- Company Story & Mission: https://baagupadu.com/about
+- The Founding Manifesto: https://baagupadu.com/manifesto
+- Cognitive Frameworks & Research Whitepaper: https://baagupadu.com/research
+- Culture, Ethos & Careers: https://baagupadu.com/careers
+- Press, Brand Assets & Media Kit: https://baagupadu.com/press
+- Statutory Privacy Policy & DPDP Act: https://baagupadu.com/privacy
+- Terms of Service & User Agreement: https://baagupadu.com/terms
+- Cookie Policy & Tracking Transparency: https://baagupadu.com/cookies
+- Contact: info@baagupadu.com
+

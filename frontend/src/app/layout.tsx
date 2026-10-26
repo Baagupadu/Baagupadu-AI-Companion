@@ -122,9 +122,12 @@ const jsonLdOrg = {
   founder: {
     '@type': 'Person',
     name: 'Sreekar Reddy Pindi',
-    jobTitle: 'Co-Founder & AI Architect',
-    url: 'https://baagupadu.com',
+    alternateName: ['Sreekar Reddy', 'Sreekar Pindi'],
+    jobTitle: 'Co-Founder & Chief AI Architect',
+    url: 'https://baagupadu.com/about#sreekar-reddy-pindi',
+    email: 'mailto:sreekar.pindi@baagupadu.com',
     sameAs: [
+      'https://www.linkedin.com/in/sreekar-reddy-p-8bb249287',
       'https://github.com/Sreekarreddy2005',
     ],
   },
@@ -136,6 +139,7 @@ const jsonLdOrg = {
   },
   sameAs: [
     'https://github.com/Baagupadu',
+    'https://www.linkedin.com/in/sreekar-reddy-p-8bb249287',
     'https://github.com/Sreekarreddy2005',
   ],
 };
@@ -149,7 +153,12 @@ const jsonLdSoftware = {
   author: {
     '@type': 'Person',
     name: 'Sreekar Reddy Pindi',
-    jobTitle: 'Co-Founder & AI Architect',
+    jobTitle: 'Co-Founder & Chief AI Architect',
+    email: 'mailto:sreekar.pindi@baagupadu.com',
+    sameAs: [
+      'https://www.linkedin.com/in/sreekar-reddy-p-8bb249287',
+      'https://github.com/Sreekarreddy2005',
+    ],
   },
   offers: {
     '@type': 'Offer',
