@@ -41,6 +41,9 @@ export default function PressPage() {
   const BOILERPLATE_LONG =
     'Headquartered in Hyderabad, India, Baagupadu Technologies is pioneering the "Purposeful AI Companion" market. Named after the Telugu blessing "బాగుపడు" (to improve oneself, uplift your life, and flourish), the platform bridges emotional companionship with structured career guidance. Unlike superficial chatbots, Baagupadu’s multi-agent conversational engine, Sahayam, unpacks childhood curiosities, teenage identity, and adult ambitions into an actionable execution compass. Grounded in India’s DPDP Act 2023 with zero third-party ad tracking, Baagupadu partners with engineering colleges and universities through its Campus Edition mentorship lab.';
 
+  const BIO_SREEKAR =
+    'Sreekar Reddy Pindi is the Co-Founder and Chief AI Architect of Baagupadu Technologies, based in Hyderabad, India. He spearheads the architectural engineering of Baagupadu’s multi-agent cognitive engine, Dynamic RAG pipeline, and empathetic AI companion frameworks, democratizing life clarity and career mentorship for students across India.';
+
   return (
     <>
       <Navbar />
@@ -108,12 +111,14 @@ export default function PressPage() {
 
               <div className="p-4 rounded-xl glass-strong border border-black/5 dark:border-white/5">
                 <span className="text-[var(--color-text-muted)] block text-xs">Leadership</span>
-                <strong className="text-[var(--color-text)] text-sm mt-0.5 block">Sreekar Reddy Pindi (Co-Founder &amp; AI Architect)</strong>
+                <strong className="text-[var(--color-text)] text-sm mt-0.5 block">Sreekar Reddy Pindi (Co-Founder &amp; Chief AI Architect)</strong>
               </div>
 
               <div className="p-4 rounded-xl glass-strong border border-black/5 dark:border-white/5">
-                <span className="text-[var(--color-text-muted)] block text-xs">Industry Category</span>
-                <strong className="text-[var(--color-text)] text-sm mt-0.5 block">Autonomous AI Companion / EdTech Mentorship</strong>
+                <span className="text-[var(--color-text-muted)] block text-xs">Founder Direct Desk</span>
+                <a href="mailto:sreekar.pindi@baagupadu.com" className="text-[var(--color-secondary)] hover:underline text-sm mt-0.5 block font-mono font-bold">
+                  sreekar.pindi@baagupadu.com
+                </a>
               </div>
 
               <div className="p-4 rounded-xl glass-strong border border-black/5 dark:border-white/5">
@@ -170,6 +175,56 @@ export default function PressPage() {
               <p className="text-xs sm:text-sm text-[var(--color-text-muted)] leading-relaxed font-sans">
                 {BOILERPLATE_LONG}
               </p>
+            </div>
+
+            {/* Founder Biography Card */}
+            <div className="p-6 sm:p-8 rounded-2xl glass-card border border-black/5 dark:border-white/5">
+              <div className="flex items-center justify-between gap-4 mb-3">
+                <div>
+                  <h3 className="text-sm font-bold uppercase tracking-wider text-[var(--color-secondary)]">
+                    Executive Bio • Sreekar Reddy Pindi
+                  </h3>
+                  <span className="text-xs text-[var(--color-text-muted)] font-semibold">
+                    Co-Founder &amp; Chief AI Architect
+                  </span>
+                </div>
+                <button
+                  onClick={() => handleCopy('founder', BIO_SREEKAR)}
+                  className="px-3 py-1.5 rounded-lg glass border border-black/10 dark:border-white/10 hover:bg-black/5 dark:hover:bg-white/5 text-xs font-semibold flex items-center gap-1.5 cursor-pointer text-[var(--color-text)]"
+                >
+                  {copiedKey === 'founder' ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
+                  <span>{copiedKey === 'founder' ? 'Copied!' : 'Copy'}</span>
+                </button>
+              </div>
+              <p className="text-xs sm:text-sm text-[var(--color-text-muted)] leading-relaxed font-sans mb-4">
+                {BIO_SREEKAR}
+              </p>
+              <div className="flex flex-wrap items-center gap-3 pt-3 border-t border-black/5 dark:border-white/5 text-xs font-semibold">
+                <a
+                  href="mailto:sreekar.pindi@baagupadu.com"
+                  className="text-[var(--color-secondary)] hover:underline inline-flex items-center gap-1"
+                >
+                  sreekar.pindi@baagupadu.com
+                </a>
+                <span className="text-[var(--color-text-muted)]">•</span>
+                <a
+                  href="https://www.linkedin.com/in/sreekar-reddy-p-8bb249287"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 dark:text-blue-400 hover:underline inline-flex items-center gap-1"
+                >
+                  LinkedIn Profile ↗
+                </a>
+                <span className="text-[var(--color-text-muted)]">•</span>
+                <a
+                  href="https://github.com/Sreekarreddy2005"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors inline-flex items-center gap-1"
+                >
+                  GitHub ↗
+                </a>
+              </div>
             </div>
           </motion.section>
 

@@ -48,9 +48,51 @@ const METRICS = [
   { label: 'Third-Party Ad Trackers', value: 'Zero', sub: 'Committed to complete privacy' },
 ];
 
+const personJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  '@id': 'https://baagupadu.com/about#sreekar-reddy-pindi',
+  name: 'Sreekar Reddy Pindi',
+  alternateName: ['Sreekar Reddy', 'Sreekar Pindi', 'Pindi Sreekar Reddy'],
+  jobTitle: 'Co-Founder & Chief AI Architect',
+  worksFor: {
+    '@type': 'Organization',
+    name: 'Baagupadu Technologies',
+    url: 'https://baagupadu.com',
+    logo: 'https://baagupadu.com/og-image.jpg',
+  },
+  url: 'https://baagupadu.com/about',
+  email: 'mailto:sreekar.pindi@baagupadu.com',
+  sameAs: [
+    'https://www.linkedin.com/in/sreekar-reddy-p-8bb249287',
+    'https://github.com/Sreekarreddy2005',
+  ],
+  description:
+    'Sreekar Reddy Pindi is the Co-Founder and Chief AI Architect of Baagupadu Technologies in Hyderabad, India. He leads the engineering of the autonomous AI companion platform, Dynamic RAG multi-agent cognitive architecture, and empathetic self-discovery frameworks.',
+  knowsAbout: [
+    'Artificial Intelligence',
+    'Autonomous AI Companions',
+    'Dynamic Retrieval-Augmented Generation (RAG)',
+    'Multi-Agent Systems',
+    'LangGraph Architecture',
+    'Developmental Psychology',
+    'NEP 2020 Career Guidance',
+  ],
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Hyderabad',
+    addressRegion: 'Telangana',
+    addressCountry: 'IN',
+  },
+};
+
 export default function AboutPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+      />
       <Navbar />
       <main className="min-h-screen flex flex-col items-center justify-start px-4 pt-24 sm:pt-28 pb-20 relative overflow-x-hidden">
         <motion.div
@@ -186,39 +228,84 @@ export default function AboutPage() {
           {/* Leadership & Co-Founder Section */}
           <motion.section
             variants={slideUpVariants}
-            className="p-8 sm:p-12 rounded-[2.5rem] mb-20 glass-card border border-black/5 dark:border-white/5 text-left"
+            className="p-8 sm:p-12 rounded-[2.5rem] mb-20 glass-card border border-black/5 dark:border-white/5 text-left relative overflow-hidden"
+            id="leadership"
+            itemScope
+            itemType="https://schema.org/Person"
           >
             <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
               <div className="max-w-2xl">
                 <span className="text-xs font-bold uppercase tracking-wider text-[var(--color-secondary)] block mb-2">
                   Leadership &amp; Architecture
                 </span>
-                <h2 className="text-3xl font-extrabold text-[var(--color-text)] tracking-tight mb-2">
+                <h2 className="text-3xl font-extrabold text-[var(--color-text)] tracking-tight mb-2" itemProp="name">
                   Sreekar Reddy Pindi
                 </h2>
-                <p className="text-xs font-semibold text-[var(--color-text-muted)] uppercase tracking-wider mb-4">
+                <p className="text-xs font-semibold text-[var(--color-secondary)] uppercase tracking-wider mb-4" itemProp="jobTitle">
                   Co-Founder &amp; Chief AI Architect • Baagupadu Technologies
                 </p>
-                <p className="text-sm text-[var(--color-text-muted)] leading-relaxed mb-4">
+                <p className="text-sm text-[var(--color-text-muted)] leading-relaxed mb-6" itemProp="description">
                   Sreekar leads the architectural engineering of Baagupadu’s multi-agent cognitive engine, Dynamic RAG pipeline, and vernacular self-discovery frameworks in Hyderabad. Driven by the mission to make transformative mentorship accessible to every student in India, Sreekar combines cutting-edge AI systems engineering with psychological empathy.
                 </p>
-                <div className="flex items-center gap-4 text-xs font-medium">
-                  <a href="mailto:info@baagupadu.com" className="text-[var(--color-secondary)] hover:underline font-semibold flex items-center gap-1">
-                    <Mail className="w-3.5 h-3.5" />
-                    info@baagupadu.com
+
+                {/* Direct Action Badges */}
+                <div className="flex flex-wrap items-center gap-3 text-xs font-semibold">
+                  {/* Founder Direct Email */}
+                  <a
+                    href="mailto:sreekar.pindi@baagupadu.com"
+                    itemProp="email"
+                    className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl glass border border-[var(--color-secondary)]/30 text-[var(--color-text)] hover:text-white hover:bg-[var(--color-secondary)] hover:border-[var(--color-secondary)] transition-all shadow-sm group cursor-pointer"
+                  >
+                    <Mail className="w-3.5 h-3.5 text-[var(--color-secondary)] group-hover:text-white transition-colors" />
+                    <span>sreekar.pindi@baagupadu.com</span>
                   </a>
-                  <a href="https://github.com/Sreekarreddy2005" target="_blank" rel="noopener noreferrer" className="text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors">
-                    GitHub Profile ↗
+
+                  {/* LinkedIn Profile */}
+                  <a
+                    href="https://www.linkedin.com/in/sreekar-reddy-p-8bb249287"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    itemProp="sameAs"
+                    className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl glass border border-[#0A66C2]/30 text-[var(--color-text)] hover:text-white hover:bg-[#0A66C2] hover:border-[#0A66C2] transition-all shadow-sm group cursor-pointer"
+                  >
+                    <svg className="w-3.5 h-3.5 fill-[#0A66C2] group-hover:fill-white transition-colors" viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                    </svg>
+                    <span>LinkedIn Profile ↗</span>
+                  </a>
+
+                  {/* GitHub Profile */}
+                  <a
+                    href="https://github.com/Sreekarreddy2005"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    itemProp="sameAs"
+                    className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl glass border border-black/10 dark:border-white/10 text-[var(--color-text)] hover:text-white hover:bg-black dark:hover:bg-white dark:hover:text-black transition-all shadow-sm group cursor-pointer"
+                  >
+                    <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                    </svg>
+                    <span>GitHub ↗</span>
+                  </a>
+                </div>
+
+                <div className="mt-4 pt-3 border-t border-black/5 dark:border-white/5">
+                  <a href="mailto:info@baagupadu.com" className="text-xs text-[var(--color-text-muted)] hover:text-[var(--color-secondary)] transition-colors inline-flex items-center gap-1.5">
+                    <span>Company Inquiries:</span>
+                    <span className="font-semibold underline underline-offset-4">info@baagupadu.com</span>
                   </a>
                 </div>
               </div>
 
-              <div className="w-full md:w-auto p-6 rounded-2xl glass-strong border border-black/5 dark:border-white/5 flex flex-col justify-center items-center text-center">
+              <div className="w-full md:w-auto p-6 rounded-2xl glass-strong border border-black/5 dark:border-white/5 flex flex-col justify-center items-center text-center shrink-0">
                 <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[var(--color-secondary)] to-[#FF6B8A] flex items-center justify-center text-white mb-3 shadow-md">
                   <Sparkles className="w-8 h-8" />
                 </div>
                 <div className="font-extrabold text-base text-[var(--color-text)]">Baagupadu Technologies</div>
                 <div className="text-xs text-[var(--color-text-muted)]">Hyderabad, Telangana, India</div>
+                <span className="mt-2 text-[10px] font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full">
+                  Verified Executive
+                </span>
               </div>
             </div>
           </motion.section>
