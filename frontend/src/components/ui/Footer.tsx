@@ -129,7 +129,7 @@ export default function Footer() {
 
                 {/* LinkedIn */}
                 <a
-                  href="https://linkedin.com"
+                  href="https://www.linkedin.com/company/baagupadu/"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Connect with Baagupadu on LinkedIn"

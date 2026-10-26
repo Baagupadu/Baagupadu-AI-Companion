@@ -138,6 +138,7 @@ const jsonLdOrg = {
     addressCountry: 'IN',
   },
   sameAs: [
+    'https://www.linkedin.com/company/baagupadu',
     'https://github.com/Baagupadu',
     'https://www.linkedin.com/in/sreekar-reddy-p-8bb249287',
     'https://github.com/Sreekarreddy2005',
