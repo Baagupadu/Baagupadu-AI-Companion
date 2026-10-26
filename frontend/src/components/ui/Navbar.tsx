@@ -33,11 +33,11 @@ export default function Navbar() {
       <div className="hidden md:flex items-center gap-6 text-[var(--color-text-muted)] font-medium text-[13px]">
         <Link href="/how-it-works" className="hover:text-[var(--color-text)] transition-colors">How It Works</Link>
         <Link href="/mentors" className="hover:text-[var(--color-text)] transition-colors">Mentors</Link>
-        <a href="mailto:contact@baagupadu.com?subject=Institutional%20Pilot%20Inquiry" className="hover:text-[var(--color-text)] transition-colors flex items-center gap-1">
+        <a href="mailto:info@baagupadu.com?subject=Institutional%20Pilot%20Inquiry" className="hover:text-[var(--color-text)] transition-colors flex items-center gap-1">
           Campus Edition
           <span className="text-[10px] bg-[var(--color-secondary)]/15 text-[var(--color-secondary)] px-1.5 py-0.5 rounded font-bold">B2B</span>
         </a>
-        <a href="mailto:contact@baagupadu.com" className="hover:text-[var(--color-text)] transition-colors">Contact</a>
+        <a href="mailto:info@baagupadu.com" className="hover:text-[var(--color-text)] transition-colors">Contact</a>
       </div>
 
 

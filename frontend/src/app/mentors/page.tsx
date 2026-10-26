@@ -45,7 +45,7 @@ export default function MentorsPage() {
               Meet <span className="gradient-text">Sahayam.</span>
             </motion.h1>
             <motion.p variants={slideUpVariants} className="text-xl text-[var(--color-text-muted)] leading-relaxed max-w-2xl mx-auto">
-              More than a chatbot. Sahayam is a meticulously engineered AI mentor that adapts to your emotional state—acting as a companion when you need support, and a coach when you need accountability.
+              More than a chatbot. Sahayam is a meticulously engineered autonomous AI companion and empathetic AI friend that adapts to your emotional state—acting as a loyal friend when you need psychological safety, and a coach when you need accountability.
             </motion.p>
           </div>
 

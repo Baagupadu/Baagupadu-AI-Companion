@@ -147,10 +147,10 @@ export default function TermsOfServicePage() {
                     Questions regarding terms?
                   </p>
                   <a
-                    href="mailto:contact@baagupadu.com"
+                    href="mailto:info@baagupadu.com"
                     className="text-xs font-semibold text-[var(--color-secondary)] hover:underline flex items-center gap-1"
                   >
-                    <span>Contact Legal Team</span>
+                    <span>Contact Legal Team (info@baagupadu.com)</span>
                     <ArrowUpRight className="w-3 h-3" />
                   </a>
                 </div>
@@ -349,7 +349,7 @@ export default function TermsOfServicePage() {
                   <div className="p-4 rounded-xl glass-strong border border-black/5 dark:border-white/5 text-xs text-[var(--color-text-muted)] space-y-1">
                     <p className="font-semibold text-[var(--color-text)]">Baagupadu Technologies</p>
                     <p>Co-Founder: Sreekar Reddy Pindi • Hyderabad, Telangana, India</p>
-                    <p>Legal &amp; Support Inquiries: <a href="mailto:contact@baagupadu.com" className="text-[var(--color-secondary)] hover:underline font-mono">contact@baagupadu.com</a></p>
+                    <p>Legal &amp; Support Inquiries: <a href="mailto:info@baagupadu.com" className="text-[var(--color-secondary)] hover:underline font-mono">info@baagupadu.com</a></p>
                   </div>
                 </div>
               </section>

@@ -184,7 +184,7 @@ export default function PrivacyPolicyPage() {
                   </p>
                   <div className="p-4 rounded-xl glass-strong border border-black/5 dark:border-white/5 text-xs text-[var(--color-text-muted)]">
                     <p className="font-semibold text-[var(--color-text)] mb-1">Corporate Registration &amp; Operating Headquarters:</p>
-                    <p>Baagupadu Technologies • Hyderabad, Telangana, India • Email: <a href="mailto:contact@baagupadu.com" className="text-[var(--color-secondary)] hover:underline">contact@baagupadu.com</a></p>
+                    <p>Baagupadu Technologies • Hyderabad, Telangana, India • Email: <a href="mailto:info@baagupadu.com" className="text-[var(--color-secondary)] hover:underline">info@baagupadu.com</a></p>
                   </div>
                 </div>
               </section>
@@ -526,9 +526,9 @@ export default function PrivacyPolicyPage() {
                         </a>
                       </div>
                       <div>
-                        <span className="text-[var(--color-text-muted)] block">General Contact:</span>
-                        <a href="mailto:contact@baagupadu.com" className="font-mono text-sm text-[var(--color-secondary)] hover:underline font-bold">
-                          contact@baagupadu.com
+                        <span className="text-[var(--color-text-muted)] block">General Inquiries &amp; Contact:</span>
+                        <a href="mailto:info@baagupadu.com" className="font-mono text-sm text-[var(--color-secondary)] hover:underline font-bold">
+                          info@baagupadu.com
                         </a>
                       </div>
                     </div>

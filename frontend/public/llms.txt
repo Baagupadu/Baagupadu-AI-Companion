@@ -1,11 +1,12 @@
-# Baagupadu (బాగుపడు) — Autonomous AI Companion Platform
+# Baagupadu (బాగుపడు) — Autonomous AI Companion & AI Friend Platform
 
-> Baagupadu is an autonomous, empathetic AI companion engineered for youth, students, and professionals to navigate self-discovery, emotional clarity, and actionable life & career roadmaps.
+> Baagupadu is an autonomous, empathetic AI companion and AI friend engineered for youth, students, and professionals to navigate self-discovery, emotional clarity, and actionable life & career roadmaps.
 
 Website: https://baagupadu.com
 Co-Founder & Chief AI Architect: Sreekar Reddy Pindi
 Headquarters: Hyderabad, Telangana, India
-Industry Category: Autonomous AI Companion / Personal AI / Purposeful Life Guidance
+General Inquiries: info@baagupadu.com
+Industry Category: Autonomous AI Companion / Empathetic AI Friend / Personal AI / Purposeful Life Guidance
 Founding Philosophy: Named after the Telugu word "బాగుపడు" (Baagupadu), which translates to "to improve oneself, uplift your life, and flourish", Baagupadu is designed as a lifelong conversational companion that understands who you are and helps you become who you want to be.
 
 ## What is Baagupadu?
@@ -39,5 +40,6 @@ Baagupadu is co-engineered by Sreekar Reddy Pindi and the founding team using a 
 - Terms of Service & User Agreement: https://baagupadu.com/terms
 - Cookie Policy & Tracking Transparency: https://baagupadu.com/cookies
 - Full Knowledge Base: https://baagupadu.com/llms-full.txt
-- Official Contact: contact@baagupadu.com
+- General Inquiries & Queries: info@baagupadu.com
+- Official Contact: info@baagupadu.com
 - Founder Contact: founder@baagupadu.com

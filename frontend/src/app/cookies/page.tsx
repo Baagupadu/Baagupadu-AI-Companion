@@ -350,8 +350,8 @@ export default function CookiePolicyPage() {
                 privacy@baagupadu.com
               </a>{' '}
               or{' '}
-              <a href="mailto:contact@baagupadu.com" className="font-semibold text-[var(--color-secondary)] hover:underline">
-                contact@baagupadu.com
+              <a href="mailto:info@baagupadu.com" className="font-semibold text-[var(--color-secondary)] hover:underline">
+                info@baagupadu.com
               </a>
               .
             </p>
