@@ -6,7 +6,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/api/', '/chat/', '/onboarding/', '/settings/'],
+        disallow: ['/api/', '/chat/', '/onboarding/', '/settings/', '/login'],
       },
       {
         userAgent: [
@@ -35,7 +35,7 @@ export default function robots(): MetadataRoute.Robots {
           '/llms-full.txt',
           '/sitemap.xml',
         ],
-        disallow: ['/api/', '/chat/', '/onboarding/', '/settings/'],
+        disallow: ['/api/', '/chat/', '/onboarding/', '/settings/', '/login'],
       },
     ],
     sitemap: 'https://baagupadu.com/sitemap.xml',
