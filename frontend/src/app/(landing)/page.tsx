@@ -96,7 +96,7 @@ export default function LandingPage() {
                 variants={slideUpVariants}
                 className="text-[var(--color-text-muted)] text-[18px] md:text-[20px] font-medium leading-relaxed mb-8 max-w-lg"
               >
-                Sahayam is your autonomous AI companion. An empathetic confidant to understand your story, discover your true identity, and navigate your life and career.
+                Sahayam is your autonomous AI companion and empathetic AI friend. A trusted confidant to understand your story, discover your true identity, and navigate your life and career.
               </motion.p>
 
               {/* Interactive Preview Element */}
@@ -104,7 +104,7 @@ export default function LandingPage() {
                 <div className="relative flex items-center glass-strong rounded-full shadow-[0_4px_12px_rgba(0,0,0,0.04)] border border-[var(--glass-border)] hover:shadow-[0_8px_24px_rgba(99,102,241,0.15)] transition-all duration-300 group">
                   <input
                     type="text"
-                    placeholder="Ask your AI companion anything..."
+                    placeholder="Ask your AI companion or AI friend anything..."
                     className="w-full bg-transparent px-6 py-4 outline-none text-[var(--color-text)] placeholder-[var(--color-text-muted)]/70 text-[15px] font-medium"
                     suppressHydrationWarning
                   />
@@ -670,14 +670,14 @@ export default function LandingPage() {
 
                 <div className="flex flex-col gap-3 pt-2">
                   <a
-                    href="mailto:contact@baagupadu.com?subject=Institutional%20Pilot%20Inquiry%20-%20Baagupadu%20Campus%20Edition"
+                    href="mailto:info@baagupadu.com?subject=Institutional%20Pilot%20Inquiry%20-%20Baagupadu%20Campus%20Edition"
                     className="w-full py-3.5 px-5 rounded-xl bg-[var(--color-secondary)] hover:bg-[#5658d6] text-white font-bold text-center text-sm shadow-md hover:shadow-xl transition-all flex items-center justify-center gap-2 group"
                   >
                     Schedule Campus Pilot
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </a>
                   <a
-                    href="mailto:contact@baagupadu.com?subject=Partnering%20with%20Baagupadu"
+                    href="mailto:info@baagupadu.com?subject=Partnering%20with%20Baagupadu"
                     className="w-full py-3 px-5 rounded-xl glass-strong border border-[var(--glass-border)] hover:border-[var(--color-secondary)]/50 hover:bg-[var(--color-surface)] text-[var(--color-text)] font-semibold text-center text-xs transition-all"
                   >
                     Contact Institutional Sales

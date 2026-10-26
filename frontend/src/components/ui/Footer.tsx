@@ -91,7 +91,7 @@ export default function Footer() {
               </Link>
 
               <p className="text-[var(--color-text-muted)] text-[14px] leading-relaxed mb-6 font-medium max-w-sm">
-                India&apos;s pioneering autonomous AI career mentorship platform. We understand your foundational experiences, synthesize your unique persona, and deliver actionable career roadmaps.
+                India&apos;s pioneering autonomous AI companion and empathetic AI friend. We understand your foundational experiences, synthesize your unique persona, and deliver actionable career roadmaps.
               </p>
 
               <div className="space-y-2.5 text-[13px] font-medium text-[var(--color-text-muted)] mb-6">
@@ -101,8 +101,8 @@ export default function Footer() {
                 </div>
                 <div className="flex items-center gap-2.5">
                   <Mail className="w-4 h-4 text-[var(--color-secondary)] shrink-0" />
-                  <a href="mailto:contact@baagupadu.com" className="hover:text-[var(--color-secondary)] transition-colors underline-offset-4 hover:underline">
-                    contact@baagupadu.com
+                  <a href="mailto:info@baagupadu.com" className="hover:text-[var(--color-secondary)] transition-colors underline-offset-4 hover:underline">
+                    info@baagupadu.com
                   </a>
                 </div>
               </div>
@@ -294,8 +294,8 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <a href="mailto:contact@baagupadu.com" className="hover:text-[var(--color-secondary)] transition-colors">
-                  Contact Founders
+                <a href="mailto:info@baagupadu.com" className="hover:text-[var(--color-secondary)] transition-colors">
+                  Contact Founders (info@baagupadu.com)
                 </a>
               </li>
             </ul>
@@ -308,32 +308,77 @@ export default function Footer() {
             </h4>
             <ul className="space-y-3 text-[14px] font-medium text-[var(--color-text-muted)]">
               <li>
-                <Link href="#" className="hover:text-[var(--color-secondary)] transition-colors">
+                <Link href="/privacy" className="hover:text-[var(--color-secondary)] transition-colors">
                   Privacy Policy
                 </Link>
               </li>
               <li>
-                <Link href="#" className="hover:text-[var(--color-secondary)] transition-colors">
+                <Link href="/terms" className="hover:text-[var(--color-secondary)] transition-colors">
                   Terms of Service
                 </Link>
               </li>
               <li>
-                <Link href="#" className="hover:text-[var(--color-secondary)] transition-colors">
+                <Link href="/cookies" className="hover:text-[var(--color-secondary)] transition-colors flex items-center gap-1.5">
+                  Cookie Policy
+                  <span className="text-[10px] bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 px-1.5 py-0.5 rounded font-bold">Zero Ads</span>
+                </Link>
+              </li>
+              <li>
+                <Link href="/privacy#data-protection" className="hover:text-[var(--color-secondary)] transition-colors">
                   Data Privacy &amp; Protection
                 </Link>
               </li>
               <li>
-                <Link href="#" className="hover:text-[var(--color-secondary)] transition-colors">
+                <Link href="/privacy#security" className="hover:text-[var(--color-secondary)] transition-colors">
                   Security Architecture
                 </Link>
               </li>
-
               <li>
-                <Link href="#" className="hover:text-[var(--color-secondary)] transition-colors">
+                <Link href="/privacy#grievance-redressal" className="hover:text-[var(--color-secondary)] transition-colors">
                   Grievance Redressal
                 </Link>
               </li>
             </ul>
+          </div>
+        </div>
+
+        {/* Semantic SEO Discovery Topics & AI Companion Queries */}
+        <div className="pt-8 pb-10 border-t border-[var(--glass-border)] text-left">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-4">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-[var(--color-text-muted)]">
+              AI Companion &amp; Autonomous Mentorship Queries
+            </span>
+            <span className="text-[11px] text-[var(--color-text-muted)]">
+              General Inquiries &amp; Support: <a href="mailto:info@baagupadu.com" className="text-[var(--color-secondary)] font-semibold hover:underline">info@baagupadu.com</a>
+            </span>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-2">
+            {[
+              'Autonomous AI Companion',
+              'Empathetic AI Friend',
+              'Personal AI Confidant',
+              'AI Life Coach & Companion',
+              'Self-Discovery AI',
+              'AI Companion for Students',
+              'Conversational AI Friend',
+              'Best AI Friend for Gen Z',
+              'Emotional Clarity & Mindset',
+              'AI Career Coach India',
+              'Sahayam AI Friend',
+              'Telugu AI Companion (బాగుపడు)',
+              'NEP 2020 Youth Mentorship',
+              'Non-Judgmental AI Sounding Board',
+              'Personal Accountability Partner',
+              'Dynamic RAG Architecture',
+            ].map((keyword) => (
+              <span
+                key={keyword}
+                className="px-2.5 py-1 rounded-lg text-[11px] font-medium bg-black/[0.03] dark:bg-white/[0.04] border border-black/5 dark:border-white/5 text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors cursor-default"
+              >
+                {keyword}
+              </span>
+            ))}
           </div>
         </div>
 

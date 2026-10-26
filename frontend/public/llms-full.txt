@@ -1,10 +1,10 @@
-# Baagupadu (బాగుపడు) — Comprehensive AI Companion Reference Document
+# Baagupadu (బాగుపడు) — Comprehensive AI Companion & AI Friend Reference Document
 
 Official Domain: https://baagupadu.com
-Industry & Market: Autonomous AI Companion / Personal AI / Emotional & Career Guidance
+Industry & Market: Autonomous AI Companion / Empathetic AI Friend / Personal AI / Emotional & Career Guidance
 Location: Hyderabad, Telangana, India
-Primary Contact: contact@baagupadu.com
-Support & Inquiries: founder@baagupadu.com
+Primary Contact: info@baagupadu.com
+Support & Inquiries: info@baagupadu.com
 
 ## Executive Summary
 Baagupadu (pronounced: Bah-goo-pah-doo; Telugu script: బాగుపడు) is India's leading autonomous AI companion ecosystem that accelerates human potential through conversational psychology, empathetic companionship, and autonomous life & career navigation.
@@ -39,4 +39,4 @@ Baagupadu was co-founded and developed in Hyderabad by Indian technologists led 
 Unlike ordinary AI companions that offer entertainment or open-ended banter, Baagupadu uses cognitive inquiry across 5 life stages (trust building, childhood curiosity, teenage resilience, adult ambitions, and persona synthesis) to translate self-reflection into actionable, day-by-day career roadmaps.
 
 ### How can educational institutions deploy the Baagupadu Companion?
-Colleges and schools can deploy the Baagupadu Campus Edition for student counseling, placement mentorship, and NEP 2020 alignment by writing to contact@baagupadu.com.
+Colleges and schools can deploy the Baagupadu Campus Edition for student counseling, placement mentorship, and NEP 2020 alignment by writing to info@baagupadu.com.

@@ -4,6 +4,7 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import AmbientBackground from '@/components/AmbientBackground';
+import CookieConsent from '@/components/ui/CookieConsent';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 
@@ -14,22 +15,29 @@ export const metadata: Metadata = {
     template: '%s | Baagupadu — Autonomous AI Companion',
   },
   description:
-    'Baagupadu (బాగుపడు) is your empathetic autonomous AI companion. Built for youth, students, and professionals to explore self-discovery, gain emotional clarity, and craft actionable life & career roadmaps with Sahayam AI.',
+    'Baagupadu (బాగుపడు) is your empathetic autonomous AI companion and trusted AI friend. Built for youth, students, and professionals to explore self-discovery, gain emotional clarity, and craft actionable life & career roadmaps with Sahayam AI.',
   keywords: [
     'AI Companion',
+    'AI Friend',
+    'Empathetic AI Friend',
     'Autonomous AI Companion',
-    'Personal AI Companion',
-    'Empathetic AI Companion',
+    'Personal AI Friend',
     'AI Life Companion',
+    'AI Confidant',
+    'AI Mentor and Friend',
+    'Best AI Friend App',
+    'Conversational AI Friend',
+    'AI Companion for Students',
+    'Self Discovery AI Friend',
     'Gen Z AI Companion',
     'AI Companion India',
     'Telugu AI Companion',
     'Baagupadu AI Companion',
-    'AI Companion for Students',
-    'AI Companion for Self Discovery',
+    'Emotional AI Companion',
     'Conversational AI Companion',
     'Best AI Companion',
     'AI Career Coach',
+    'Sahayam AI Friend',
     'Baagupadu',
     'Bagupadu',
     'బాగుపడు',
@@ -110,7 +118,7 @@ const jsonLdOrg = {
   alternateName: ['Baagupadu AI Companion', 'Baagupadu', 'బాగుపడు'],
   url: 'https://baagupadu.com',
   logo: 'https://baagupadu.com/og-image.jpg',
-  email: 'contact@baagupadu.com',
+  email: 'info@baagupadu.com',
   founder: {
     '@type': 'Person',
     name: 'Sreekar Reddy Pindi',
@@ -135,7 +143,7 @@ const jsonLdOrg = {
 const jsonLdSoftware = {
   '@context': 'https://schema.org',
   '@type': 'SoftwareApplication',
-  name: 'Baagupadu Autonomous AI Companion',
+  name: 'Baagupadu Autonomous AI Companion & AI Friend',
   applicationCategory: 'LifestyleApplication, EducationalApplication',
   operatingSystem: 'All Web Browsers',
   author: {
@@ -149,7 +157,7 @@ const jsonLdSoftware = {
     priceCurrency: 'INR',
   },
   description:
-    'An empathetic autonomous AI companion co-engineered by Sreekar Reddy Pindi and the founding team providing conversational self-discovery, emotional clarity, and personalized life & career compass roadmaps using Dynamic Retrieval-Augmented Generation (RAG).',
+    'An empathetic autonomous AI companion and personal AI friend co-engineered by Sreekar Reddy Pindi and the founding team providing conversational self-discovery, emotional clarity, and personalized life & career compass roadmaps using Dynamic Retrieval-Augmented Generation (RAG).',
 };
 
 const jsonLdFaq = {
@@ -158,10 +166,26 @@ const jsonLdFaq = {
   mainEntity: [
     {
       '@type': 'Question',
+      name: 'How does Baagupadu work as an AI friend and companion?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Baagupadu acts as an empathetic AI friend and personal confidant through its companion engine Sahayam. It provides a warm, judgment-free space to explore your daily thoughts, childhood curiosities, and ambitions, combining the listening ear of a true AI friend with structured mentorship.',
+      },
+    },
+    {
+      '@type': 'Question',
       name: 'Who founded Baagupadu AI Companion?',
       acceptedAnswer: {
         '@type': 'Answer',
         text: 'Baagupadu was co-founded and architected by Sreekar Reddy Pindi and the founding team in Hyderabad, India, to provide youth and students with an empathetic, autonomous AI companion for psychological self-discovery and actionable career guidance.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Can I use Baagupadu as a personal AI friend for self-discovery?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Yes! Baagupadu is designed for youth and students seeking an autonomous AI companion and supportive AI friend. Sahayam listens with deep empathy, detects repeating cognitive patterns across your life stages, and helps you gain clarity on who you are.',
       },
     },
     {
@@ -235,9 +259,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </head>
         <body className="min-h-screen bg-transparent text-text font-sans transition-colors duration-300 ">
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            <AmbientBackground />
             <div className="relative z-10 min-h-screen">
               {children}
             </div>
+            <CookieConsent />
           </ThemeProvider>
         </body>
       </html>
