@@ -1,11 +1,12 @@
 import os
 import sys
 import json
+from datetime import datetime, timezone
 from typing import Optional, List, Dict, Any
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from fastapi import FastAPI, Depends, HTTPException, Request, BackgroundTasks
-from fastapi.responses import StreamingResponse
+from fastapi.responses import StreamingResponse, JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -22,7 +23,7 @@ from backend.core.security_headers import SecurityHeadersMiddleware
 from backend.core.pii_scrubber import scrub_pii
 from backend.core.config import config
 from backend.database import get_db, init_db, AsyncSessionLocal
-from backend.models import User, ProfileState, Conversation, Message, LongTermMemory, AuditLog
+from backend.models import User, ProfileState, Conversation, Message, LongTermMemory, AuditLog, MemoryNode, MemoryEdge
 from backend.services.audit_service import AuditLogService
 from backend.agent.sahayam_engine import SahayamAgent
 from backend.agent.agents.extractor_agent import ExtractorAgent
@@ -35,8 +36,17 @@ app = FastAPI(title="Baagupadu AI Coach API")
 
 ENVIRONMENT = os.getenv("ENVIRONMENT", "development")
 
-# Rate Limiter Setup
-limiter = Limiter(key_func=get_remote_address)
+# Rate Limiter Setup (Distributed Redis in production if configured, zero-friction in-memory fallback for local dev)
+REDIS_URL = os.getenv("REDIS_URL")
+if REDIS_URL:
+    try:
+        limiter = Limiter(key_func=get_remote_address, storage_uri=REDIS_URL)
+        print(f"Rate Limiter connected to Redis: {REDIS_URL}", flush=True)
+    except Exception as redis_err:
+        print(f"Notice: Redis rate limiter unavailable ({redis_err}), using in-memory limiter.", flush=True)
+        limiter = Limiter(key_func=get_remote_address)
+else:
+    limiter = Limiter(key_func=get_remote_address)
 app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
@@ -324,6 +334,9 @@ async def chat_endpoint(
             
             # The agent internally fetches context via pgvector and saves new insights
             async for chunk_data in agent.chat_stream(clean_message, profile_dict, chat_request.session_id, db):
+                if await request.is_disconnected():
+                    print("Client disconnected midway, halting SSE token generation.", flush=True)
+                    break
                 if chunk_data["type"] == "token":
                     final_response += chunk_data["content"]
                     yield f"data: {json.dumps({'chunk': chunk_data['content']})}\n\n"
@@ -484,6 +497,113 @@ async def delete_account(user_id: str = Depends(verify_token), db: AsyncSession 
     
     await db.commit()
     return {"status": "success", "message": "All user data has been permanently deleted"}
+
+@app.get("/api/user/export")
+@limiter.limit("5/minute")
+async def export_user_data(
+    request: Request,
+    user_id: str = Depends(verify_token),
+    db: AsyncSession = Depends(get_db)
+):
+    """
+    DPDP Act 2023 Section 12 & GDPR Article 20: Right to Data Portability.
+    Exports all personal data, memories, conversations, and roadmaps in a structured, portable JSON package.
+    """
+    user_result = await db.execute(select(User).where(User.id == user_id))
+    user = user_result.scalars().first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    # Fetch conversations, messages, and profile states
+    convs_result = await db.execute(
+        select(Conversation)
+        .where(Conversation.user_id == user_id)
+        .order_by(Conversation.start_time.asc())
+    )
+    conversations = convs_result.scalars().all()
+    
+    export_conversations = []
+    for conv in conversations:
+        msgs_result = await db.execute(
+            select(Message)
+            .where(Message.conversation_id == conv.id)
+            .order_by(Message.timestamp.asc())
+        )
+        messages = msgs_result.scalars().all()
+        
+        prof_result = await db.execute(
+            select(ProfileState).where(ProfileState.conversation_id == conv.id)
+        )
+        prof = prof_result.scalars().first()
+
+        ltm_result = await db.execute(
+            select(LongTermMemory).where(LongTermMemory.conversation_id == conv.id)
+        )
+        ltms = ltm_result.scalars().all()
+
+        export_conversations.append({
+            "conversation_id": conv.id,
+            "start_time": conv.start_time.isoformat() if conv.start_time else None,
+            "end_time": conv.end_time.isoformat() if conv.end_time else None,
+            "profile_state": {
+                "session_progress": prof.session_progress if prof else {},
+                "life_stage_data": prof.life_stage_data if prof else {},
+                "persona": prof.persona if prof else {},
+                "guidance": prof.guidance if prof else {},
+            } if prof else None,
+            "messages": [
+                {"role": m.role, "content": m.content, "timestamp": m.timestamp.isoformat() if m.timestamp else None}
+                for m in messages
+            ],
+            "long_term_memories": [
+                {"memory_type": mem.memory_type, "content": mem.content, "created_at": mem.created_at.isoformat() if mem.created_at else None}
+                for mem in ltms
+            ]
+        })
+
+    # Fetch GraphRAG nodes & edges
+    nodes_result = await db.execute(select(MemoryNode).where(MemoryNode.user_id == user_id))
+    nodes = nodes_result.scalars().all()
+
+    edges_result = await db.execute(select(MemoryEdge).where(MemoryEdge.user_id == user_id))
+    edges = edges_result.scalars().all()
+
+    # Log export event for audit trail
+    await AuditLogService.log_event(
+        db=db,
+        action="USER_DATA_EXPORT",
+        category="DATA_PRIVACY",
+        severity="MEDIUM",
+        user_id=user_id,
+        request=request,
+        resource_type="user_data_export",
+        details={"exported_conversations_count": len(export_conversations)}
+    )
+
+    export_payload = {
+        "export_metadata": {
+            "organization": "Baagupadu Technologies",
+            "compliance": "DPDP Act 2023 (Section 12) & GDPR (Article 20)",
+            "exported_at": datetime.now(timezone.utc).isoformat(),
+            "user_id": user.id,
+        },
+        "user_account": {
+            "user_id": user.id,
+            "email": user.email,
+            "created_at": user.created_at.isoformat() if user.created_at else None,
+            "last_login": user.last_login.isoformat() if user.last_login else None,
+        },
+        "conversations": export_conversations,
+        "graph_memory": {
+            "nodes": [{"id": n.id, "label": n.label, "name": n.name} for n in nodes],
+            "edges": [{"source_id": e.source_id, "target_id": e.target_id, "relation": e.relation} for e in edges]
+        }
+    }
+
+    return JSONResponse(
+        content=export_payload,
+        headers={"Content-Disposition": f'attachment; filename="baagupadu_data_export_{user_id}.json"'}
+    )
 
 @app.get("/api/roadmap")
 async def get_roadmap(user_id: str = Depends(verify_token), db: AsyncSession = Depends(get_db)):
