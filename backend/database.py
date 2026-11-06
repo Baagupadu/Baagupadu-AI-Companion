@@ -3,6 +3,10 @@ from dotenv import load_dotenv
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession, async_sessionmaker
 from sqlalchemy.orm import declarative_base
 
+# Load .env from backend directory first, then root fallback
+backend_env_path = os.path.join(os.path.dirname(__file__), ".env")
+if os.path.exists(backend_env_path):
+    load_dotenv(backend_env_path)
 load_dotenv()
 
 DATABASE_URL = os.getenv("DATABASE_URL")
@@ -67,3 +71,25 @@ async def init_db():
             except Exception as idx_err:
                 # If older pgvector or permissions prevent HNSW, log and continue safely
                 print(f"Notice: Vector HNSW index setup deferred/skipped: {idx_err}", flush=True)
+
+            # Auto-align schema for audit_logs to ensure backwards compatibility with older tables
+            audit_migrations = [
+                "ALTER TABLE audit_logs ADD COLUMN IF NOT EXISTS event_id VARCHAR(64);",
+                "ALTER TABLE audit_logs ADD COLUMN IF NOT EXISTS category VARCHAR(32) DEFAULT 'SECURITY';",
+                "ALTER TABLE audit_logs ADD COLUMN IF NOT EXISTS severity VARCHAR(16) DEFAULT 'LOW';",
+                "ALTER TABLE audit_logs ADD COLUMN IF NOT EXISTS ip_address VARCHAR(45);",
+                "ALTER TABLE audit_logs ADD COLUMN IF NOT EXISTS user_agent VARCHAR(512);",
+                "ALTER TABLE audit_logs ADD COLUMN IF NOT EXISTS resource_type VARCHAR(64);",
+                "ALTER TABLE audit_logs ADD COLUMN IF NOT EXISTS resource_id VARCHAR(64);",
+                "ALTER TABLE audit_logs ADD COLUMN IF NOT EXISTS integrity_hash VARCHAR(64);",
+                "ALTER TABLE audit_logs ALTER COLUMN user_id DROP NOT NULL;",
+                "CREATE INDEX IF NOT EXISTS idx_audit_logs_event_id ON audit_logs (event_id);",
+                "CREATE INDEX IF NOT EXISTS idx_audit_logs_user_id ON audit_logs (user_id);",
+                "CREATE INDEX IF NOT EXISTS idx_audit_logs_category ON audit_logs (category);",
+                "CREATE INDEX IF NOT EXISTS idx_audit_logs_action ON audit_logs (action);",
+            ]
+            for stmt in audit_migrations:
+                try:
+                    await conn.execute(text(stmt))
+                except Exception as audit_col_err:
+                    print(f"Notice: audit_logs schema alignment skipped: {audit_col_err}", flush=True)

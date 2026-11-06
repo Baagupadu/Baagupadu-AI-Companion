@@ -98,6 +98,10 @@ class AuditLogService:
             return log_entry
         except Exception as exc:
             logger.error(f"Audit log recording error: {exc}", exc_info=True)
+            try:
+                await db.rollback()
+            except Exception:
+                pass
             # Fail-safe: do not crash user request flow if logging encounters a DB issue
             return None
 
