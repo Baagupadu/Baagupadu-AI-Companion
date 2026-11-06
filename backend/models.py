@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, DateTime, ForeignKey, JSON, Integer, Text
+from sqlalchemy import Column, String, DateTime, ForeignKey, JSON, Integer, Text, Index
 from sqlalchemy.sql import func
 from sqlalchemy.orm import relationship
 from pgvector.sqlalchemy import Vector
@@ -34,11 +34,15 @@ class Message(Base):
     __tablename__ = "messages"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    conversation_id = Column(Integer, ForeignKey("conversations.id"))
+    conversation_id = Column(Integer, ForeignKey("conversations.id"), index=True)
     role = Column(String(50)) # 'user', 'ai', 'system'
     content = Column(Text)
-    timestamp = Column(DateTime(timezone=True), server_default=func.now())
+    timestamp = Column(DateTime(timezone=True), server_default=func.now(), index=True)
     
+    __table_args__ = (
+        Index("idx_messages_conversation_id_timestamp", "conversation_id", "timestamp"),
+    )
+
     conversation = relationship("Conversation", back_populates="messages")
 
 
