@@ -46,8 +46,8 @@ export default function Navbar() {
 
         {isLoaded && !isSignedIn && (
           <>
-            <Link href="/login" className="hidden sm:block text-[var(--color-text-muted)] font-medium text-[13px] hover:text-[var(--color-text)] transition-colors">Log in</Link>
-            <Link href="/login">
+            <Link href="/login" rel="nofollow" className="hidden sm:block text-[var(--color-text-muted)] font-medium text-[13px] hover:text-[var(--color-text)] transition-colors">Log in</Link>
+            <Link href="/login" rel="nofollow">
               <button className="px-4 py-1.5 rounded-full bg-[var(--color-text)] text-[var(--color-background)] font-medium text-[13px] hover:bg-[var(--color-secondary)] hover:text-white transition-colors shadow-sm hover:shadow-md">
                 Sign Up
               </button>

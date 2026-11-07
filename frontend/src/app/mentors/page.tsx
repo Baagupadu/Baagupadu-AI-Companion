@@ -1,14 +1,11 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { Sparkles, ArrowRight, Heart, Brain, Compass, Target, BookOpen, ChevronRight } from 'lucide-react';
-import AnimatedBackground from '@/components/ui/AnimatedBackground';
+import { Heart, Brain, Compass, Target, BookOpen, Mail } from 'lucide-react';
 import Navbar from '@/components/ui/Navbar';
 import Footer from '@/components/ui/Footer';
 import { containerVariants, slideUpVariants } from '@/lib/utils/animations';
-import { ThemeToggle } from '@/components/ui/ThemeToggle';
 
 const TRAITS = [
   { label: 'Close Friend', percentage: 40, color: '#FF6B8A', icon: <Heart className="w-5 h-5 text-white" />, desc: 'Offers empathy, non-judgmental support, and psychological safety.' },
@@ -67,7 +64,7 @@ export default function MentorsPage() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {TRAITS.map((trait, i) => (
+              {TRAITS.map((trait) => (
                 <motion.div
                   key={trait.label}
                   variants={slideUpVariants}
@@ -91,6 +88,96 @@ export default function MentorsPage() {
             </div>
           </motion.div>
 
+          {/* Dynamic Persona Modes Deep Dive */}
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            className="mb-32 text-left"
+          >
+            <div className="max-w-3xl mb-12">
+              <span className="text-xs font-bold uppercase tracking-wider text-[var(--color-secondary)] block mb-2">
+                Conversational Architecture
+              </span>
+              <h2 className="text-3xl md:text-4xl font-extrabold text-[var(--color-text)] tracking-tight">
+                How Sahayam Adapts to Your Emotional State
+              </h2>
+              <p className="text-base text-[var(--color-text-muted)] mt-3 leading-relaxed">
+                Most AI tools treat every conversation as a transactional prompt-and-response loop. Sahayam operates as a stateful, autonomous companion that dynamically adjusts its conversational persona depending on whether you need psychological reassurance or strict execution discipline.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+              <div className="p-7 rounded-3xl glass-card border border-black/5 dark:border-white/5 flex flex-col justify-between">
+                <div>
+                  <div className="w-12 h-12 rounded-2xl bg-[#FF6B8A]/10 text-[#FF6B8A] flex items-center justify-center mb-5">
+                    <Heart className="w-6 h-6" />
+                  </div>
+                  <h3 className="text-xl font-bold text-[var(--color-text)] mb-2">Empathetic Confidant</h3>
+                  <p className="text-sm text-[var(--color-text-muted)] leading-relaxed mb-4">
+                    When you are overwhelmed by exam stress, family pressure, or career uncertainty, Sahayam activates an emotionally safe sounding board. It listens without judgment and helps you decompress vulnerability before attempting solutions.
+                  </p>
+                </div>
+                <div className="text-xs font-semibold text-[#FF6B8A] bg-[#FF6B8A]/10 px-3 py-1.5 rounded-full w-fit">
+                  Focus: Psychological Safety
+                </div>
+              </div>
+
+              <div className="p-7 rounded-3xl glass-card border border-black/5 dark:border-white/5 flex flex-col justify-between">
+                <div>
+                  <div className="w-12 h-12 rounded-2xl bg-[#FFB84D]/10 text-[#FFB84D] flex items-center justify-center mb-5">
+                    <Target className="w-6 h-6" />
+                  </div>
+                  <h3 className="text-xl font-bold text-[var(--color-text)] mb-2">Accountability Coach</h3>
+                  <p className="text-sm text-[var(--color-text-muted)] leading-relaxed mb-4">
+                    When motivation dips and procrastination sets in, Sahayam steps up as a firm accountability coach. It breaks daunting roadmaps into bite-sized daily habits and tracks whether you followed through on your self-declared commitments.
+                  </p>
+                </div>
+                <div className="text-xs font-semibold text-[#FFB84D] bg-[#FFB84D]/10 px-3 py-1.5 rounded-full w-fit">
+                  Focus: Execution &amp; Discipline
+                </div>
+              </div>
+
+              <div className="p-7 rounded-3xl glass-card border border-black/5 dark:border-white/5 flex flex-col justify-between">
+                <div>
+                  <div className="w-12 h-12 rounded-2xl bg-[#6C3CE1]/10 text-[#6C3CE1] flex items-center justify-center mb-5">
+                    <Brain className="w-6 h-6" />
+                  </div>
+                  <h3 className="text-xl font-bold text-[var(--color-text)] mb-2">Strategic Mentor</h3>
+                  <p className="text-sm text-[var(--color-text-muted)] leading-relaxed mb-4">
+                    For long-term horizon planning, Sahayam draws upon cognitive frameworks and skill-gap architectures to help you navigate college placements, engineering specializations, and industry career transitions.
+                  </p>
+                </div>
+                <div className="text-xs font-semibold text-[#6C3CE1] bg-[#6C3CE1]/10 px-3 py-1.5 rounded-full w-fit">
+                  Focus: Long-term Trajectory
+                </div>
+              </div>
+            </div>
+
+            {/* Early Access Pilot Callout */}
+            <div className="p-8 rounded-3xl glass-strong border border-[var(--color-secondary)]/20 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+              <div className="max-w-2xl">
+                <span className="text-xs font-bold uppercase tracking-wider text-[var(--color-secondary)] block mb-1">
+                  Pilot Program Status
+                </span>
+                <h3 className="text-xl font-bold text-[var(--color-text)] mb-2">
+                  Experience Sahayam in Early Access Pilot
+                </h3>
+                <p className="text-sm text-[var(--color-text-muted)] leading-relaxed">
+                  Baagupadu is currently conducting private pilot evaluations with students and educational institutions. Reach out to join upcoming cohort access or explore institutional partnership.
+                </p>
+              </div>
+              <a
+                href="mailto:info@baagupadu.com?subject=Mentorship%20Pilot%20Inquiry"
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-[var(--color-secondary)] hover:bg-[#5658d6] text-white text-sm font-bold shadow-md hover:shadow-xl transition-all shrink-0 cursor-pointer"
+              >
+                <Mail className="w-4 h-4" />
+                <span>Request Pilot Access</span>
+              </a>
+            </div>
+          </motion.div>
+
           {/* Future Modules Roadmap */}
           <motion.div
             variants={containerVariants}
@@ -106,12 +193,12 @@ export default function MentorsPage() {
                 The Future of Mentorship
               </motion.h2>
               <motion.p variants={slideUpVariants} className="text-lg text-slate-300">
-                The "Nenu Evaru?" (Who Am I?) module is just the beginning. The Baagupadu ecosystem is expanding into a comprehensive career architecture.
+                The &ldquo;Nenu Evaru?&rdquo; (Who Am I?) module is just the beginning. The Baagupadu ecosystem is expanding into a comprehensive career architecture.
               </motion.p>
             </div>
 
             <div className="space-y-6">
-              {FUTURE_MODULES.map((mod, i) => (
+              {FUTURE_MODULES.map((mod) => (
                 <motion.div 
                   key={mod.id}
                   variants={slideUpVariants}

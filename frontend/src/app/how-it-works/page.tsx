@@ -3,15 +3,14 @@
 import React from 'react';
 import Link from 'next/link';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { Sparkles, ArrowRight, Layers, Fingerprint, MapPin, Compass, Search, Target } from 'lucide-react';
-import AnimatedBackground from '@/components/ui/AnimatedBackground';
+import { Layers, Fingerprint, MapPin, Compass, Search, Target, HelpCircle, Mail } from 'lucide-react';
 import Navbar from '@/components/ui/Navbar';
 import Footer from '@/components/ui/Footer';
 import { containerVariants, slideUpVariants } from '@/lib/utils/animations';
-import { ThemeToggle } from '@/components/ui/ThemeToggle';
 
 const PHASES = [
   {
+    id: 'trust-building',
     phase: 'Phase 1',
     title: 'Trust Building',
     focus: 'Psychological Safety',
@@ -19,6 +18,7 @@ const PHASES = [
     icon: <HeartHandshakeIcon className="w-8 h-8 text-[#FF6B8A]" />,
   },
   {
+    id: 'childhood',
     phase: 'Phase 2',
     title: 'Childhood (0-12)',
     focus: 'Core Emotional Blueprint',
@@ -26,6 +26,7 @@ const PHASES = [
     icon: <Fingerprint className="w-8 h-8 text-[#6C3CE1]" />,
   },
   {
+    id: 'teenage',
     phase: 'Phase 3',
     title: 'Teenage (13-19)',
     focus: 'Identity & Resilience',
@@ -33,6 +34,7 @@ const PHASES = [
     icon: <Compass className="w-8 h-8 text-[#00B894]" />,
   },
   {
+    id: 'adult',
     phase: 'Phase 4',
     title: 'Adult (20-30)',
     focus: 'Ambition & Growth',
@@ -40,6 +42,7 @@ const PHASES = [
     icon: <MapPin className="w-8 h-8 text-[#FFB84D]" />,
   },
   {
+    id: 'persona-synthesis',
     phase: 'Phase 5',
     title: 'Synthesis',
     focus: 'Comprehensive Persona',
@@ -47,6 +50,7 @@ const PHASES = [
     icon: <Layers className="w-8 h-8 text-[#00CEC9]" />,
   },
   {
+    id: 'guidance',
     phase: 'Phase 6',
     title: 'Guidance Delivery',
     focus: 'Actionable Roadmap',
@@ -56,7 +60,7 @@ const PHASES = [
 ];
 
 // Helper icon
-function HeartHandshakeIcon(props: any) {
+function HeartHandshakeIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
@@ -103,7 +107,7 @@ export default function HowItWorksPage() {
               Knowledge without clarity <br className="hidden md:block"/> is just <span className="gradient-text">noise.</span>
             </motion.h1>
             <motion.p variants={slideUpVariants} className="text-xl text-[var(--color-text-muted)] leading-relaxed mb-10">
-              The internet gave us unlimited access to educational content, but it produced an "Information Paradox"—leaving you with decision paralysis and shallow learning. Baagupadu cuts through the noise by starting with the most important subject: <strong>You.</strong>
+              The internet gave us unlimited access to educational content, but it produced an &ldquo;Information Paradox&rdquo;—leaving you with decision paralysis and shallow learning. Baagupadu cuts through the noise by starting with the most important subject: <strong>You.</strong>
             </motion.p>
           </div>
 
@@ -127,6 +131,7 @@ export default function HowItWorksPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 relative">
               {PHASES.map((phase, i) => (
                 <motion.div
+                  id={phase.id}
                   key={phase.title}
                   variants={slideUpVariants}
                   whileHover={{ y: -8, scale: 1.02 }}
@@ -161,9 +166,9 @@ export default function HowItWorksPage() {
             className="glass-card p-12 text-center rounded-[3rem] mb-12 relative overflow-hidden"
           >
             <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-secondary)]/10 to-[#6DD5B8]/10 -z-10" />
-            <h2 className="text-4xl font-extrabold text-[var(--color-text)] mb-6">Powered by the <span className="text-[var(--color-secondary)]">"Nenu Evaru?"</span> Engine</h2>
+            <h2 className="text-4xl font-extrabold text-[var(--color-text)] mb-6">Powered by the <span className="text-[var(--color-secondary)]">&ldquo;Nenu Evaru?&rdquo;</span> Engine</h2>
             <p className="text-lg text-[var(--color-text-muted)] max-w-3xl mx-auto mb-10 leading-relaxed">
-              "Nenu Evaru?" (Telugu for "Who Am I?") is our foundational AI framework. It dynamically adapts its conversational tone to match your emotional state, identifying patterns in your history to generate a deeply personalized career synthesis.
+              &ldquo;Nenu Evaru?&rdquo; (Telugu for &ldquo;Who Am I?&rdquo;) is our foundational AI framework. It dynamically adapts its conversational tone to match your emotional state, identifying patterns in your history to generate a deeply personalized career synthesis.
             </p>
             <Link href="/chat">
               <button className="px-8 py-4 rounded-full bg-[var(--color-text)] text-white font-bold text-lg hover:bg-[var(--color-secondary)] transition-colors shadow-2xl">
@@ -184,10 +189,10 @@ export default function HowItWorksPage() {
               AI System Architecture • Engineering Whitepaper
             </div>
             <h3 className="text-3xl font-extrabold text-[var(--color-text)] mb-4 tracking-tight">
-              Why Baagupadu's AI Companion Uses Dynamic RAG Over Fine-Tuning
+              Why Baagupadu&apos;s AI Companion Uses Dynamic RAG Over Fine-Tuning
             </h3>
             <p className="text-[var(--color-text-muted)] text-[16px] leading-relaxed mb-8 max-w-3xl">
-              Co-founded and architected by <strong className="text-[var(--color-text)]">Sreekar Reddy Pindi</strong> and the founding team in Hyderabad, Baagupadu ("బాగుపడు" - to improve and prosper) leverages a decoupled, multi-agent cognitive architecture combining <strong>Dynamic Retrieval-Augmented Generation (RAG)</strong> with pgvector embeddings rather than static parameter fine-tuning.
+              Co-founded and architected by <strong className="text-[var(--color-text)]">Sreekar Reddy Pindi</strong> and the founding team in Hyderabad, Baagupadu (&ldquo;బాగుపడు&rdquo; - to improve and prosper) leverages a decoupled, multi-agent cognitive architecture combining <strong>Dynamic Retrieval-Augmented Generation (RAG)</strong> with pgvector embeddings rather than static parameter fine-tuning.
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -212,6 +217,123 @@ export default function HowItWorksPage() {
               </div>
             </div>
           </motion.div>
+
+          {/* Direct Answers & Foundational Concepts (AEO) */}
+          <motion.section
+            variants={slideUpVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="glass-card p-8 md:p-12 text-left rounded-[3rem] mb-20 relative overflow-hidden border border-[var(--color-secondary)]/15"
+            id="frequently-asked-questions"
+          >
+            <div className="max-w-3xl mb-10">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[var(--color-secondary)]/10 text-[var(--color-secondary)] text-xs font-bold uppercase tracking-wider mb-3">
+                <HelpCircle className="w-3.5 h-3.5" />
+                Frequently Explored Concepts • Direct Answers
+              </div>
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-[var(--color-text)] tracking-tight">
+                Understanding Baagupadu &amp; AI Companionship
+              </h2>
+              <p className="text-sm sm:text-base text-[var(--color-text-muted)] mt-2 leading-relaxed">
+                Concise, factual explanations addressing how our autonomous companion operates, how it differs from traditional chatbots, and our current operational stage.
+              </p>
+            </div>
+
+            <div className="space-y-6">
+              {/* Question 1: What is Baagupadu? */}
+              <div className="p-6 md:p-8 rounded-2xl glass-strong border border-black/5 dark:border-white/5">
+                <h3 className="text-xl font-bold text-[var(--color-text)] mb-3">
+                  What is Baagupadu?
+                </h3>
+                <p className="text-[var(--color-text)] font-medium text-sm sm:text-base leading-relaxed mb-3 bg-[var(--color-secondary)]/5 p-4 rounded-xl border border-[var(--color-secondary)]/10">
+                  Baagupadu (బాగుపడు) is an autonomous AI companion platform engineered in Hyderabad, India, designed to help youth, students, and professionals achieve emotional clarity, self-discovery, and actionable career roadmaps. Powered by its conversational engine Sahayam, the platform guides users through an empathetic exploration of their formative life stages to synthesize a personalized vocational and life compass.
+                </p>
+                <p className="text-sm text-[var(--color-text-muted)] leading-relaxed">
+                  Named after the culturally revered Telugu blessing meaning &ldquo;to improve oneself, uplift your life, and flourish,&rdquo; Baagupadu replaces superficial conversational banter with grounded psychological inquiry and structured milestone planning.
+                </p>
+              </div>
+
+              {/* Question 2: AI Companion vs Chatbot */}
+              <div className="p-6 md:p-8 rounded-2xl glass-strong border border-black/5 dark:border-white/5">
+                <h3 className="text-xl font-bold text-[var(--color-text)] mb-3">
+                  What is a personalized AI companion, and how does it differ from a chatbot?
+                </h3>
+                <p className="text-[var(--color-text)] font-medium text-sm sm:text-base leading-relaxed mb-3 bg-[var(--color-secondary)]/5 p-4 rounded-xl border border-[var(--color-secondary)]/10">
+                  A personalized AI companion is a stateful conversational system with persistent memory and emotional intelligence designed to support an individual&apos;s personal growth over time. While standard chatbots are stateless, transactional, and answer isolated one-off prompts within a single session, an AI companion remembers emotional context across interactions, recognizes recurring behavioral patterns, and adapts its guidance to the user&apos;s evolving goals.
+                </p>
+                <p className="text-sm text-[var(--color-text-muted)] leading-relaxed">
+                  Rather than treating every conversation as a blank slate, Baagupadu retains longitudinal context across multiple life stages—connecting past curiosities and challenges directly to future opportunities.
+                </p>
+              </div>
+
+              {/* Question 3: Contextual AI Personalization */}
+              <div className="p-6 md:p-8 rounded-2xl glass-strong border border-black/5 dark:border-white/5">
+                <h3 className="text-xl font-bold text-[var(--color-text)] mb-3">
+                  What is contextual AI personalization?
+                </h3>
+                <p className="text-[var(--color-text)] font-medium text-sm sm:text-base leading-relaxed mb-3 bg-[var(--color-secondary)]/5 p-4 rounded-xl border border-[var(--color-secondary)]/10">
+                  Contextual AI personalization is the system&apos;s ability to ground every response in the user&apos;s specific history, past reflections, and emotional state rather than generic statistical averages. Baagupadu achieves this through a Dynamic Retrieval-Augmented Generation (RAG) multi-agent pipeline built on LangGraph and PostgreSQL with pgvector, retrieving only relevant memory fragments at inference time to prevent hallucinations and maintain conversational continuity.
+                </p>
+                <p className="text-sm text-[var(--color-text-muted)] leading-relaxed">
+                  By decoupling user memories from model weights, the system adapts instantly whenever a user reflects on a new aspiration or milestone, avoiding costly retraining cycles.
+                </p>
+              </div>
+
+              {/* Question 4: Culturally Aware AI */}
+              <div className="p-6 md:p-8 rounded-2xl glass-strong border border-black/5 dark:border-white/5">
+                <h3 className="text-xl font-bold text-[var(--color-text)] mb-3">
+                  What does culturally aware AI mean?
+                </h3>
+                <p className="text-[var(--color-text)] font-medium text-sm sm:text-base leading-relaxed mb-3 bg-[var(--color-secondary)]/5 p-4 rounded-xl border border-[var(--color-secondary)]/10">
+                  Culturally aware AI means recognizing the distinct socio-academic realities of Indian students—including familial expectations, competitive exam pressures (JEE, NEET, GATE), campus placement anxiety, and tier-2/3 college opportunities—without imposing Western clinical assumptions or generic corporate clichés.
+                </p>
+                <p className="text-sm text-[var(--color-text-muted)] leading-relaxed">
+                  In India, career choices are closely tied to familial dignity and economic realities. Sahayam acknowledges these factors empathetically, helping users navigate pragmatic compromises and constructive conversations with parents.
+                </p>
+              </div>
+
+              {/* Question 5: Development Stage */}
+              <div className="p-6 md:p-8 rounded-2xl glass-strong border border-black/5 dark:border-white/5">
+                <h3 className="text-xl font-bold text-[var(--color-text)] mb-3">
+                  What is Baagupadu&apos;s current development stage?
+                </h3>
+                <p className="text-[var(--color-text)] font-medium text-sm sm:text-base leading-relaxed mb-3 bg-[var(--color-secondary)]/5 p-4 rounded-xl border border-[var(--color-secondary)]/10">
+                  Baagupadu is currently in an early-access preview and private pilot stage. The core conversational architecture and self-discovery modules are actively being evaluated and refined through pilot programs with students, mentors, and select academic partners in India.
+                </p>
+                <p className="text-sm text-[var(--color-text-muted)] leading-relaxed">
+                  Interactive demonstrations are available to pilot participants while the platform prepares for broader cohort rollout.
+                </p>
+              </div>
+
+              {/* Question 6: Intended Use Cases */}
+              <div className="p-6 md:p-8 rounded-2xl glass-strong border border-black/5 dark:border-white/5">
+                <h3 className="text-xl font-bold text-[var(--color-text)] mb-3">
+                  What are the intended use cases for Baagupadu?
+                </h3>
+                <p className="text-[var(--color-text)] font-medium text-sm sm:text-base leading-relaxed mb-3 bg-[var(--color-secondary)]/5 p-4 rounded-xl border border-[var(--color-secondary)]/10">
+                  Baagupadu is engineered for three primary use cases: (1) youth and college students navigating career confusion, imposter syndrome, and placement readiness; (2) early-career professionals seeking alignment between their core values and vocational trajectory; and (3) educational institutions seeking an empathetic guidance layer to complement overburdened campus counseling resources.
+                </p>
+                <p className="text-sm text-[var(--color-text-muted)] leading-relaxed">
+                  The system serves as a confidential sounding board, habit accountability coach, and reflective mentor throughout these transitions.
+                </p>
+              </div>
+
+              {/* Question 7: Contact */}
+              <div className="p-6 md:p-8 rounded-2xl glass-strong border border-black/5 dark:border-white/5">
+                <h3 className="text-xl font-bold text-[var(--color-text)] mb-3">
+                  How can interested users and institutions contact the team?
+                </h3>
+                <p className="text-[var(--color-text)] font-medium text-sm sm:text-base leading-relaxed mb-3 bg-[var(--color-secondary)]/5 p-4 rounded-xl border border-[var(--color-secondary)]/10">
+                  Interested individuals, pilot participants, educators, and institutional partners can reach the team directly via email at <a href="mailto:info@baagupadu.com" className="text-[var(--color-secondary)] font-semibold underline underline-offset-4">info@baagupadu.com</a>, or contact co-founder and AI architect Sreekar Reddy Pindi at <a href="mailto:sreekar.pindi@baagupadu.com" className="text-[var(--color-secondary)] font-semibold underline underline-offset-4">sreekar.pindi@baagupadu.com</a>.
+                </p>
+                <p className="text-sm text-[var(--color-text-muted)] leading-relaxed flex items-center gap-2">
+                  <Mail className="w-4 h-4 text-[var(--color-secondary)] shrink-0" />
+                  Headquarters: Hyderabad, Telangana, India. Inquiries are typically reviewed within 24–48 hours.
+                </p>
+              </div>
+            </div>
+          </motion.section>
 
         </motion.div>
 

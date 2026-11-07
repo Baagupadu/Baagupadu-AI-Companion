@@ -1,12 +1,24 @@
 import type { MetadataRoute } from 'next';
 
 export default function robots(): MetadataRoute.Robots {
+  const disallowed = [
+    '/api',
+    '/api/*',
+    '/chat',
+    '/chat/*',
+    '/onboarding',
+    '/onboarding/*',
+    '/settings',
+    '/settings/*',
+    '/login',
+  ];
+
   return {
     rules: [
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/api/', '/chat/', '/onboarding/', '/settings/', '/login'],
+        disallow: disallowed,
       },
       {
         userAgent: [
@@ -35,7 +47,7 @@ export default function robots(): MetadataRoute.Robots {
           '/llms-full.txt',
           '/sitemap.xml',
         ],
-        disallow: ['/api/', '/chat/', '/onboarding/', '/settings/', '/login'],
+        disallow: disallowed,
       },
     ],
     sitemap: 'https://baagupadu.com/sitemap.xml',

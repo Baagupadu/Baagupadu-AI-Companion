@@ -159,7 +159,7 @@ export default function PressPage() {
             </div>
 
             {/* Long boilerplate */}
-            <div className="p-6 sm:p-8 rounded-2xl glass-card border border-black/5 dark:border-white/5">
+            <div id="campus-edition" className="p-6 sm:p-8 rounded-2xl glass-card border border-black/5 dark:border-white/5">
               <div className="flex items-center justify-between gap-4 mb-3">
                 <h3 className="text-sm font-bold uppercase tracking-wider text-[var(--color-secondary)]">
                   Standard Boilerplate (120 Words)

@@ -1,17 +1,15 @@
 'use client';
 
 import Link from 'next/link';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
-import { Sparkles, ArrowRight, Brain, Heart, Map, Target, Building2, GraduationCap, Award, CheckCircle2 } from 'lucide-react';
+import { Sparkles, ArrowRight, Brain, Heart, Map, Target, Building2, Award, CheckCircle2 } from 'lucide-react';
 import { containerVariants, slideUpVariants } from '@/lib/utils/animations';
 import { useCompanionStore } from '@/lib/store/companionStore';
 import { COMPANIONS } from '@/lib/companions';
 import AuraOverlay from '@/components/agent/AuraOverlay';
 import CompanionSelector from '@/components/landing/CompanionSelector';
-import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import SahayamPersonalityWheel from '@/components/visualization/SahayamPersonalityWheel';
-import { useAuth, UserButton } from '@clerk/nextjs';
 import ScrollytellingSection from '@/components/landing/ScrollytellingSection';
 import Navbar from '@/components/ui/Navbar';
 import Footer from '@/components/ui/Footer';
@@ -23,14 +21,6 @@ const FEATURES = [
   { icon: <Map className="w-8 h-8 text-[#FFB84D]" />, title: 'Actionable Accountability', desc: "Information without execution is useless. Sahayam translates your persona insights into an actionable career roadmap, tracking your progress and assigning tasks to ensure consistency." },
 ];
 
-const PERSONALITY_TRAITS = [
-  { label: 'Close Friend', percentage: 40, color: '#FF6B8A' },
-  { label: 'Mentor', percentage: 25, color: '#6C3CE1' },
-  { label: 'Curious Explorer', percentage: 20, color: '#00CEC9' },
-  { label: 'Career Coach', percentage: 10, color: '#FFB84D' },
-  { label: 'Storyteller', percentage: 5, color: '#6DD5B8' },
-];
-
 const MODES = [
   { id: 0, label: 'Empathetic',  chipLabel: 'Empathetic',  icon: Heart,    color: '#FF6B8A', gradFrom: '#FF6B8A', gradTo: '#FF8E53',  desc: 'Friend Mode'  },
   { id: 1, label: 'Coach Mode',  chipLabel: 'Coach Mode',  icon: Target,   color: '#6366F1', gradFrom: '#6366F1', gradTo: '#818CF8',  desc: 'Strict Mode'  },
@@ -39,9 +29,6 @@ const MODES = [
 ] as const;
 
 export default function LandingPage() {
-  const { scrollYProgress } = useScroll();
-  const yOffset = useTransform(scrollYProgress, [0, 1], [0, -100]);
-  const { isSignedIn, isLoaded } = useAuth();
   const { activeCompanionId } = useCompanionStore();
   const activeCompanion = COMPANIONS.find(c => c.id === activeCompanionId) || COMPANIONS[0];
   const [activeModeIdx, setActiveModeIdx] = useState(0);
@@ -79,7 +66,7 @@ export default function LandingPage() {
                   <span className="text-[var(--color-text-muted)] text-[12px] font-medium">(Baagupadu)</span>
                   <div className="w-1 h-1 rounded-full bg-[var(--color-text-muted)]/40 mx-1"></div>
                   <span className="font-semibold bg-gradient-to-r from-[var(--color-secondary)] to-[#FF6B8A] bg-clip-text text-transparent">
-                    "To Prosper & Better Oneself"
+                    &ldquo;To Prosper &amp; Better Oneself&rdquo;
                   </span>
                 </div>
               </motion.div>
@@ -127,12 +114,10 @@ export default function LandingPage() {
                   </motion.button>
                 </Link>
                 <div className="flex items-center gap-3 sm:ml-4 text-sm text-[var(--color-text-muted)]">
-                  <div className="flex items-center">
-                    <span className="text-yellow-500 text-lg mr-1">★</span>
-                    <span className="font-semibold text-[var(--color-text)]">4.9</span> Rating
-                  </div>
-                  <div className="w-1 h-1 rounded-full bg-gray-300" />
-                  <span>Joined by 12k+ professionals.</span>
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--color-secondary)]/10 text-[var(--color-secondary)] text-xs font-semibold border border-[var(--color-secondary)]/20">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                    Autonomous AI Companion • Early Access Pilot
+                  </span>
                 </div>
               </motion.div>
             </div>
@@ -197,6 +182,14 @@ export default function LandingPage() {
                 <p className="text-[var(--color-text-muted)] text-[18px] max-w-xl mx-auto font-medium leading-relaxed">
                   An AI that <em className="text-[var(--color-text)] not-italic font-semibold">listens</em> like a best friend, <em className="text-[var(--color-text)] not-italic font-semibold">guides</em> like a mentor, and <em className="text-[var(--color-text)] not-italic font-semibold">pushes</em> like a coach — all in one conversation.
                 </p>
+                <div className="mt-4">
+                  <Link
+                    href="/mentors"
+                    className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[var(--color-secondary)] hover:underline"
+                  >
+                    Explore Adaptive AI Personas <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
+                </div>
               </motion.div>
 
               {/* ── Main Stage: 3-column layout ── */}
@@ -205,10 +198,10 @@ export default function LandingPage() {
                 {/* Left trait cards */}
                 <motion.div variants={containerVariants} className="flex flex-col gap-4 w-full lg:w-[28%]">
                   {[
-                    { icon: Heart, label: 'Emotional Memory', desc: 'Remembers what you felt, not just what you said', color: '#FF6B8A', bg: 'bg-[#FF6B8A]/5 border-[#FF6B8A]/15' },
-                    { icon: Brain, label: 'Non-Linear Thinking', desc: 'Explores your story in the order it matters emotionally', color: '#6366F1', bg: 'bg-[#6366F1]/5 border-[#6366F1]/15' },
-                    { icon: Sparkles, label: 'Persona Synthesis', desc: 'Builds your career identity from 8 life-stage signals', color: '#06B6D4', bg: 'bg-[#06B6D4]/5 border-[#06B6D4]/15' },
-                  ].map(({ icon: Icon, label, desc, color, bg }) => (
+                    { icon: Heart, label: 'Emotional Memory', desc: 'Remembers what you felt, not just what you said', color: '#FF6B8A' },
+                    { icon: Brain, label: 'Non-Linear Thinking', desc: 'Explores your story in the order it matters emotionally', color: '#6366F1' },
+                    { icon: Sparkles, label: 'Persona Synthesis', desc: 'Builds your career identity from 8 life-stage signals', color: '#06B6D4' },
+                  ].map(({ icon: Icon, label, desc, color }) => (
                     <motion.div
                       key={label}
                       variants={slideUpVariants}
@@ -421,7 +414,7 @@ export default function LandingPage() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {FEATURES.map((f, i) => (
+              {FEATURES.map((f) => (
                 <motion.div
                   key={f.title}
                   variants={slideUpVariants}
@@ -439,6 +432,16 @@ export default function LandingPage() {
                   </p>
                 </motion.div>
               ))}
+            </div>
+
+            <div className="mt-12 text-center">
+              <Link
+                href="/how-it-works"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-full glass-strong border border-[var(--color-secondary)]/25 text-[var(--color-text)] font-semibold text-sm hover:border-[var(--color-secondary)] hover:bg-[var(--color-surface)] transition-all shadow-xs group"
+              >
+                <span>Deep-Dive into the Non-Linear Exploration Methodology</span>
+                <ArrowRight className="w-4 h-4 text-[var(--color-secondary)] group-hover:translate-x-1 transition-transform" />
+              </Link>
             </div>
           </motion.div>
 
@@ -535,7 +538,7 @@ export default function LandingPage() {
                 { phase: 'Dynamic Exploration', icon: '✨', duration: 'Dynamic', outcome: 'Non-linear traversal of life stages based on emotional cues' },
                 { phase: 'Synthesis', icon: '🧠', duration: 'System', outcome: 'Connecting dots to form your unique persona' },
                 { phase: 'Guidance', icon: '🧭', duration: 'Ongoing', outcome: 'Actionable career roadmap' }
-              ].map((step, i) => (
+              ].map((step) => (
                 <motion.div key={step.phase} variants={slideUpVariants} className="relative pl-12 pb-16 group">
                   <div className="absolute -left-[20px] top-0 w-11 h-11 rounded-full glass-strong border-[3px] border-white group-hover:border-[var(--color-secondary)] group-hover:scale-110 shadow-sm flex items-center justify-center text-lg transition-all duration-300 z-10">
                     {step.icon}
@@ -549,6 +552,16 @@ export default function LandingPage() {
                   </div>
                 </motion.div>
               ))}
+            </div>
+
+            <div className="mt-12 text-center">
+              <Link
+                href="/how-it-works"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-full glass-strong border border-[var(--color-secondary)]/25 text-[var(--color-text)] font-semibold text-sm hover:border-[var(--color-secondary)] hover:bg-[var(--color-surface)] transition-all shadow-xs group"
+              >
+                <span>Deep-Dive into the Non-Linear Exploration Methodology</span>
+                <ArrowRight className="w-4 h-4 text-[var(--color-secondary)] group-hover:translate-x-1 transition-transform" />
+              </Link>
             </div>
           </motion.div>
 
