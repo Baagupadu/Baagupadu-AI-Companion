@@ -10,6 +10,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1.0,
     },
     {
+      url: `${baseUrl}/companion`,
+      changeFrequency: 'weekly',
+      priority: 0.95,
+    },
+    {
       url: `${baseUrl}/how-it-works`,
       changeFrequency: 'weekly',
       priority: 0.9,

@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { Layers, Fingerprint, MapPin, Compass, Search, Target, HelpCircle, Mail } from 'lucide-react';
+import { Layers, Fingerprint, MapPin, Compass, Search, Target, HelpCircle, Mail, Sparkles, ArrowRight } from 'lucide-react';
 import Navbar from '@/components/ui/Navbar';
 import Footer from '@/components/ui/Footer';
 import { containerVariants, slideUpVariants } from '@/lib/utils/animations';
@@ -216,6 +216,34 @@ export default function HowItWorksPage() {
                 </p>
               </div>
             </div>
+          </motion.div>
+
+          {/* Spotlight Bridge to Companion Deep Dive */}
+          <motion.div
+            variants={slideUpVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="glass-card p-8 sm:p-10 rounded-[2.5rem] mb-20 border border-[var(--color-secondary)]/25 relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6 bg-gradient-to-r from-[var(--color-secondary)]/10 via-[#FF6B8A]/5 to-[#00B894]/10"
+          >
+            <div className="max-w-xl text-left">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--color-secondary)]/15 text-[var(--color-secondary)] text-xs font-bold uppercase tracking-wider mb-3">
+                <Sparkles className="w-3.5 h-3.5" />
+                Comprehensive Architecture &amp; Philosophy Whitepaper
+              </div>
+              <h3 className="text-2xl sm:text-3xl font-extrabold text-[var(--color-text)] tracking-tight mb-2">
+                The Purposeful AI Companion Deep Dive
+              </h3>
+              <p className="text-sm sm:text-base text-[var(--color-text-muted)] leading-relaxed">
+                Explore our full manifesto on why Sahayam never gives preachy advice, our 4-D longitudinal modeling of culture and lifestyle habits, IT standards (DPDP Act 2023, ISO 42001), and market comparative analysis.
+              </p>
+            </div>
+            <Link href="/companion" className="shrink-0">
+              <button className="px-6 py-3.5 rounded-full bg-[var(--color-secondary)] hover:bg-[#5658d6] text-white font-bold text-sm transition-all shadow-md hover:shadow-xl flex items-center gap-2 group">
+                Read Full Deep Dive
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </button>
+            </Link>
           </motion.div>
 
           {/* Direct Answers & Foundational Concepts (AEO) */}

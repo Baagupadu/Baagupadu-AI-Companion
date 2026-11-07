@@ -189,6 +189,12 @@ export default function Footer() {
             </h4>
             <ul className="space-y-3 text-[14px] font-medium text-[var(--color-text-muted)]">
               <li>
+                <Link href="/companion" className="hover:text-[var(--color-secondary)] transition-colors flex items-center gap-1.5 font-semibold text-[var(--color-text)]">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-secondary)]" />
+                  The AI Companion Deep Dive
+                </Link>
+              </li>
+              <li>
                 <Link href="/how-it-works" className="hover:text-[var(--color-secondary)] transition-colors">
                   Sahayam AI Engine
                 </Link>
