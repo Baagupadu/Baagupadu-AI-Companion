@@ -17,10 +17,41 @@ export const metadata: Metadata = {
   },
 };
 
+const techArticleJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'TechArticle',
+  '@id': 'https://baagupadu.com/research#article',
+  headline: 'Cognitive Frameworks & Dynamic RAG Multi-Agent Architecture',
+  description:
+    'Scientific engineering specification detailing Baagupadu’s multi-agent cognitive architecture, Dynamic RAG vs fine-tuning, Reciprocal Rank Fusion, and automated NLP evaluation.',
+  inLanguage: 'en-US',
+  author: {
+    '@type': 'Person',
+    name: 'Sreekar Reddy Pindi',
+    url: 'https://baagupadu.com/about#sreekar-reddy-pindi',
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Baagupadu Technologies',
+    url: 'https://baagupadu.com',
+  },
+  datePublished: '2026-10-15T00:00:00.000Z',
+  dateModified: '2026-11-07T00:00:00.000Z',
+  mainEntityOfPage: 'https://baagupadu.com/research',
+};
+
 export default function ResearchLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return <>{children}</>;
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(techArticleJsonLd) }}
+      />
+      {children}
+    </>
+  );
 }

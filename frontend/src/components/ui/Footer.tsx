@@ -194,22 +194,22 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/chat" className="hover:text-[var(--color-secondary)] transition-colors">
+                <Link href="/chat" rel="nofollow" className="hover:text-[var(--color-secondary)] transition-colors">
                   Nenu Evaru? (Self-Discovery)
                 </Link>
               </li>
               <li>
-                <Link href="#" className="hover:text-[var(--color-secondary)] transition-colors">
+                <Link href="/how-it-works#persona-synthesis" className="hover:text-[var(--color-secondary)] transition-colors">
                   Dynamic Persona Synthesis
                 </Link>
               </li>
               <li>
-                <Link href="#" className="hover:text-[var(--color-secondary)] transition-colors">
+                <Link href="/how-it-works#guidance" className="hover:text-[var(--color-secondary)] transition-colors">
                   Career Compass &amp; Milestones
                 </Link>
               </li>
               <li>
-                <Link href="#" className="hover:text-[var(--color-secondary)] transition-colors">
+                <Link href="/research" className="hover:text-[var(--color-secondary)] transition-colors">
                   Skill Gap &amp; Growth Analysis
                 </Link>
               </li>
@@ -228,35 +228,35 @@ export default function Footer() {
             </h4>
             <ul className="space-y-3 text-[14px] font-medium text-[var(--color-text-muted)]">
               <li>
-                <Link href="#" className="hover:text-[var(--color-secondary)] transition-colors flex items-center gap-1.5">
+                <Link href="/press#campus-edition" className="hover:text-[var(--color-secondary)] transition-colors flex items-center gap-1.5">
                   For Colleges &amp; Universities
                   <span className="text-[10px] bg-[var(--color-secondary)]/10 text-[var(--color-secondary)] px-1.5 py-0.5 rounded font-bold">B2B</span>
                 </Link>
               </li>
               <li>
-                <Link href="#" className="hover:text-[var(--color-secondary)] transition-colors">
+                <Link href="/how-it-works" className="hover:text-[var(--color-secondary)] transition-colors">
                   High School (Classes 9-12)
                 </Link>
               </li>
               <li>
-                <Link href="#" className="hover:text-[var(--color-secondary)] transition-colors">
+                <Link href="/how-it-works" className="hover:text-[var(--color-secondary)] transition-colors">
                   Engineering &amp; Tech Grads
                 </Link>
               </li>
               <li>
-                <Link href="#" className="hover:text-[var(--color-secondary)] transition-colors">
+                <Link href="/how-it-works" className="hover:text-[var(--color-secondary)] transition-colors">
                   Career Pivot &amp; Working Pros
                 </Link>
               </li>
               <li>
-                <Link href="#" className="hover:text-[var(--color-secondary)] transition-colors">
+                <Link href="/press#campus-edition" className="hover:text-[var(--color-secondary)] transition-colors">
                   NEP 2020 Guidance Alignment
                 </Link>
               </li>
               <li>
-                <Link href="#" className="hover:text-[var(--color-secondary)] transition-colors">
+                <a href="mailto:info@baagupadu.com?subject=Institutional%20Pilot%20Inquiry" className="hover:text-[var(--color-secondary)] transition-colors">
                   Institutional Licensing
-                </Link>
+                </a>
               </li>
             </ul>
           </div>
