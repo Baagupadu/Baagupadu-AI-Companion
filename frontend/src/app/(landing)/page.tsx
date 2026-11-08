@@ -44,10 +44,10 @@ export default function LandingPage() {
   return (
     <div className="relative w-full h-full">
       <Navbar />
-      <main className="min-h-screen flex flex-col items-center justify-start text-center relative pt-16 sm:pt-20 pb-20">
+      <main className="min-h-screen flex flex-col items-center justify-start text-center relative pt-16 sm:pt-20 pb-20 w-full max-w-full overflow-x-clip">
 
         <motion.div
-          className="w-full max-w-6xl relative z-10 px-4"
+          className="w-full max-w-6xl mx-auto relative z-10 px-4"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
@@ -122,12 +122,12 @@ export default function LandingPage() {
               </motion.div>
             </div>
 
-            <div className="flex-1 w-full flex justify-center lg:justify-end relative lg:translate-x-12 h-full min-h-[500px]">
+            <div className="flex-1 w-full flex justify-center lg:justify-end relative xl:translate-x-6 h-full min-h-[500px]">
               <motion.div variants={slideUpVariants} className="w-full max-w-[500px] relative z-20">
                 <CompanionSelector />
               </motion.div>
               {/* Decorative background glow for 3D area */}
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-to-tr from-[var(--color-secondary)] to-[#E27D60] rounded-full blur-[100px] opacity-[0.08] -z-10" />
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full max-w-[500px] bg-gradient-to-tr from-[var(--color-secondary)] to-[#E27D60] rounded-full blur-[100px] opacity-[0.08] -z-10 pointer-events-none" />
             </div>
           </div>
         </motion.div>
@@ -135,12 +135,12 @@ export default function LandingPage() {
         {/* ═══════════════════════════════════════════════════════════
             SCROLLYTELLING SECTION (Replika-Inspired)
         ═══════════════════════════════════════════════════════════ */}
-        <div className="w-full relative z-20 bg-transparent -mt-20">
+        <div className="w-full relative z-20 bg-transparent -mt-20 overflow-x-clip">
           <ScrollytellingSection />
         </div>
 
         <motion.div
-          className="w-full max-w-6xl relative z-10 px-4 mt-20"
+          className="w-full max-w-6xl mx-auto relative z-10 px-4 sm:px-6 mt-20"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
@@ -193,10 +193,10 @@ export default function LandingPage() {
               </motion.div>
 
               {/* ── Main Stage: 3-column layout ── */}
-              <div className="flex flex-col lg:flex-row items-center justify-center gap-6 lg:gap-10 mb-14">
+              <div className="w-full max-w-5xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-8 mb-14">
 
                 {/* Left trait cards */}
-                <motion.div variants={containerVariants} className="flex flex-col gap-4 w-full lg:w-[28%]">
+                <motion.div variants={containerVariants} className="flex flex-col gap-4 w-full lg:w-[280px] xl:w-[300px] shrink-0">
                   {[
                     { icon: Heart, label: 'Emotional Memory', desc: 'Remembers what you felt, not just what you said', color: '#FF6B8A' },
                     { icon: Brain, label: 'Non-Linear Thinking', desc: 'Explores your story in the order it matters emotionally', color: '#6366F1' },
@@ -223,7 +223,7 @@ export default function LandingPage() {
                 {/* Centre: Avatar stage */}
                 <motion.div
                   variants={slideUpVariants}
-                  className="relative w-full lg:w-[42%] flex flex-col items-center"
+                  className="relative w-full lg:flex-1 flex flex-col items-center justify-center min-w-0"
                 >
                   {/* Glowing disc — color follows active mode */}
                   <motion.div
@@ -319,7 +319,7 @@ export default function LandingPage() {
                 </motion.div>
 
                 {/* Right trait cards */}
-                <motion.div variants={containerVariants} className="flex flex-col gap-4 w-full lg:w-[28%]">
+                <motion.div variants={containerVariants} className="flex flex-col gap-4 w-full lg:w-[280px] xl:w-[300px] shrink-0">
                   {[
                     { icon: Target, label: 'Adaptive Pressure', desc: 'Gets stricter when you slack, warmer when you push forward', color: '#FFB84D' },
                     { icon: Map, label: 'Actionable Roadmap', desc: 'Converts your persona into a step-by-step career path', color: '#10B981' },
@@ -347,10 +347,10 @@ export default function LandingPage() {
               {/* ── Bottom: Personality Wheel + Description ── */}
               <motion.div
                 variants={slideUpVariants}
-                className="flex flex-col lg:flex-row items-center gap-10 glass-card p-8 md:p-10"
+                className="flex flex-col lg:flex-row items-center gap-8 lg:gap-10 glass-card p-6 md:p-10"
               >
                 {/* Left: Description + mode pills */}
-                <div className="w-full lg:w-1/2">
+                <div className="w-full lg:flex-1 min-w-0">
                   <p className="text-[var(--color-text-muted)] text-sm font-bold uppercase tracking-widest mb-3">Personality Composition</p>
                   <h3 className="text-2xl md:text-3xl font-black text-[var(--color-text)] mb-4 leading-tight">
                     Sahayam isn&apos;t one thing.<br />
@@ -388,7 +388,7 @@ export default function LandingPage() {
                 </div>
 
                 {/* Right: Personality wheel */}
-                <div className="w-full lg:w-1/2 flex justify-center">
+                <div className="w-full lg:flex-1 min-w-0 flex justify-center">
                   <SahayamPersonalityWheel />
                 </div>
               </motion.div>
