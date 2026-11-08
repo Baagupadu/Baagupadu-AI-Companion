@@ -31,6 +31,7 @@ export default function Navbar() {
       </Link>
 
       <div className="hidden md:flex items-center gap-6 text-[var(--color-text-muted)] font-medium text-[13px]">
+        <Link href="/companion" className="hover:text-[var(--color-text)] transition-colors">The Companion</Link>
         <Link href="/how-it-works" className="hover:text-[var(--color-text)] transition-colors">How It Works</Link>
         <Link href="/mentors" className="hover:text-[var(--color-text)] transition-colors">Mentors</Link>
         <a href="mailto:info@baagupadu.com?subject=Institutional%20Pilot%20Inquiry" className="hover:text-[var(--color-text)] transition-colors flex items-center gap-1">

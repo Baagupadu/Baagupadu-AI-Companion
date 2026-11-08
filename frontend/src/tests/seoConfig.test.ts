@@ -6,6 +6,7 @@ import nextConfig from '../../next.config';
 
 // Import route metadata to test canonicals, titles, and robots directives
 import { metadata as aboutMetadata } from '../app/about/layout';
+import { metadata as companionMetadata } from '../app/companion/layout';
 import { metadata as howItWorksMetadata } from '../app/how-it-works/layout';
 import { metadata as mentorsMetadata } from '../app/mentors/layout';
 import { metadata as manifestoMetadata } from '../app/manifesto/layout';
@@ -20,13 +21,14 @@ import { metadata as settingsMetadata } from '../app/settings/layout';
 import { metadata as onboardingMetadata } from '../app/onboarding/layout';
 
 describe('Technical SEO & Discoverability Validation Suite', () => {
-  it('should generate a valid sitemap with all 11 public URLs, zero private routes, and omitted lastmod', () => {
+  it('should generate a valid sitemap with all 12 public URLs, zero private routes, and omitted lastmod', () => {
     const urls = sitemap();
     expect(urls).toBeInstanceOf(Array);
-    expect(urls.length).toBe(11);
+    expect(urls.length).toBe(12);
 
     const urlList = urls.map((u) => u.url);
     expect(urlList).toContain('https://baagupadu.com');
+    expect(urlList).toContain('https://baagupadu.com/companion');
     expect(urlList).toContain('https://baagupadu.com/how-it-works');
     expect(urlList).toContain('https://baagupadu.com/mentors');
     expect(urlList).toContain('https://baagupadu.com/about');
@@ -144,6 +146,7 @@ describe('Technical SEO & Discoverability Validation Suite', () => {
   it('should enforce self-referencing canonical URLs and titles across all public layouts', () => {
     const publicLayouts = [
       { name: 'about', meta: aboutMetadata, expectedCanonical: 'https://baagupadu.com/about' },
+      { name: 'companion', meta: companionMetadata, expectedCanonical: 'https://baagupadu.com/companion' },
       { name: 'how-it-works', meta: howItWorksMetadata, expectedCanonical: 'https://baagupadu.com/how-it-works' },
       { name: 'mentors', meta: mentorsMetadata, expectedCanonical: 'https://baagupadu.com/mentors' },
       { name: 'manifesto', meta: manifestoMetadata, expectedCanonical: 'https://baagupadu.com/manifesto' },
