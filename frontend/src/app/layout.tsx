@@ -95,7 +95,13 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: '/favicon.ico',
+    icon: [
+      { url: '/brand/baagupadu-logo-192.png', sizes: '192x192', type: 'image/png' },
+      { url: '/brand/baagupadu-logo-512.png', sizes: '512x512', type: 'image/png' },
+    ],
+    apple: [
+      { url: '/brand/baagupadu-logo-512.png', sizes: '512x512', type: 'image/png' },
+    ],
   },
 };
 

@@ -11,14 +11,14 @@ export default function manifest(): MetadataRoute.Manifest {
     theme_color: '#6366F1',
     icons: [
       {
-        src: '/baagupadu-logo-companion.jpg',
+        src: '/brand/baagupadu-logo-192.png',
         sizes: '192x192',
-        type: 'image/jpeg',
+        type: 'image/png',
       },
       {
-        src: '/baagupadu-comfort-logo.jpg',
+        src: '/brand/baagupadu-logo-512.png',
         sizes: '512x512',
-        type: 'image/jpeg',
+        type: 'image/png',
       },
     ],
     categories: ['education', 'lifestyle', 'productivity'],

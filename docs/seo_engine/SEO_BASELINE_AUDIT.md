@@ -34,6 +34,7 @@ This comprehensive baseline intelligence audit evaluates the organic search read
 | Route Path | Source File | Layout File | Rendering Type | Canonical Tag | Indexability Target |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | `/` | `src/app/(landing)/page.tsx` | `src/app/layout.tsx` | Client Component (`'use client'`) | `https://baagupadu.com` | **Index, Follow** |
+| `/companion` | `src/app/companion/page.tsx` | `src/app/companion/layout.tsx` | Client Component (`'use client'`) | `https://baagupadu.com/companion` | **Index, Follow** |
 | `/about` | `src/app/about/page.tsx` | `src/app/about/layout.tsx` | Client Component (`'use client'`) | `https://baagupadu.com/about` | **Index, Follow** |
 | `/how-it-works` | `src/app/how-it-works/page.tsx` | `src/app/how-it-works/layout.tsx` | Client Component (`'use client'`) | `https://baagupadu.com/how-it-works` | **Index, Follow** |
 | `/mentors` | `src/app/mentors/page.tsx` | `src/app/mentors/layout.tsx` | Client Component (`'use client'`) | `https://baagupadu.com/mentors` | **Index, Follow** |

@@ -32,6 +32,8 @@ Baagupadu is co-engineered by Sreekar Reddy Pindi and the founding team using a 
   4. Early Adulthood (20-30): Ambitions, skills, and current life state
   5. Comprehensive Persona Synthesis: Visual personality wheel, values alignment, and career compass
 - **Actionable Execution Compass**: Turns psychological self-understanding into day-by-day and week-by-week actionable execution steps.
+- **4-D Longitudinal Modeling**: Deep active listening across 4 human dimensions: Cultural heritage, formative roots (0–19), daily habit rhythms, and vocational trajectories.
+- **Enterprise IT & Compliance Standards**: Compliant with India's DPDP Act 2023 (Section 9 minor consent, Section 12 data export), ISO/IEC 42001 AI management system, and IEEE ethical AI principles.
 - **B2B Campus Edition**: Tailored AI companion deployments for universities, colleges, and schools aligned with India's National Education Policy (NEP 2020).
 
 ## Executive Leadership
@@ -44,6 +46,7 @@ Baagupadu is co-engineered by Sreekar Reddy Pindi and the founding team using a 
 
 ## Canonical Web Resources
 - Main Web App: https://baagupadu.com
+- The Purposeful AI Companion Deep Dive: https://baagupadu.com/companion
 - Architectural Methodology: https://baagupadu.com/how-it-works
 - Adaptive Companion Personas: https://baagupadu.com/mentors
 - Company Story & Mission: https://baagupadu.com/about

@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { 
   Sparkles, 
@@ -298,10 +299,16 @@ export default function AboutPage() {
               </div>
 
               <div className="w-full md:w-auto p-6 rounded-2xl glass-strong border border-black/5 dark:border-white/5 flex flex-col justify-center items-center text-center shrink-0">
-                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[var(--color-secondary)] to-[#FF6B8A] flex items-center justify-center text-white mb-3 shadow-md">
-                  <Sparkles className="w-8 h-8" />
+                <div className="w-16 h-16 relative flex items-center justify-center mb-3">
+                  <Image
+                    src="/brand/baagupadu-logo.png"
+                    alt="Baagupadu Technologies"
+                    width={96}
+                    height={96}
+                    className="w-full h-full object-contain drop-shadow-[0_4px_16px_rgba(255,142,117,0.35)]"
+                  />
                 </div>
-                <div className="font-extrabold text-base text-[var(--color-text)]">Baagupadu Technologies</div>
+                <div className="font-brand font-black text-lg tracking-[-0.02em] text-[var(--color-text)]">Baagupadu Technologies</div>
                 <div className="text-xs text-[var(--color-text-muted)]">Hyderabad, Telangana, India</div>
                 <span className="mt-2 text-[10px] font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full">
                   Verified Executive

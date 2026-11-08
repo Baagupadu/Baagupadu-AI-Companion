@@ -7,30 +7,20 @@ import {
   Sparkles,
   Heart,
   Brain,
-  Compass,
   ShieldCheck,
-  Layers,
   Lock,
   Server,
   CheckCircle2,
   ArrowRight,
-  Target,
   ChevronRight,
   Cpu,
   Activity,
   Scale,
   MessageSquareHeart,
-  Users,
   Globe,
-  Database,
-  Eye,
-  FileCode2,
   Workflow,
-  Sparkle,
   XCircle,
-  HelpCircle,
   Mail,
-  Zap,
   Award,
 } from 'lucide-react';
 import Navbar from '@/components/ui/Navbar';
@@ -59,6 +49,31 @@ const jsonLd = {
   datePublished: '2026-11-07',
   inLanguage: 'en-IN',
   url: 'https://baagupadu.com/companion',
+};
+
+const breadcrumbJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: 'https://baagupadu.com',
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'How It Works',
+      item: 'https://baagupadu.com/how-it-works',
+    },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: 'The Purposeful AI Companion',
+      item: 'https://baagupadu.com/companion',
+    },
+  ],
 };
 
 const MARKET_MATRIX = [
@@ -184,6 +199,10 @@ export default function CompanionDeepDivePage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       <Navbar />
 

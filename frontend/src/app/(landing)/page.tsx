@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { Sparkles, ArrowRight, Brain, Heart, Map, Target, Building2, Award, CheckCircle2 } from 'lucide-react';
@@ -44,10 +45,10 @@ export default function LandingPage() {
   return (
     <div className="relative w-full h-full">
       <Navbar />
-      <main className="min-h-screen flex flex-col items-center justify-start text-center relative pt-16 sm:pt-20 pb-20">
+      <main className="min-h-screen flex flex-col items-center justify-start text-center relative pt-16 sm:pt-20 pb-20 w-full max-w-full overflow-x-clip">
 
         <motion.div
-          className="w-full max-w-6xl relative z-10 px-4"
+          className="w-full max-w-6xl mx-auto relative z-10 px-4"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
@@ -58,8 +59,14 @@ export default function LandingPage() {
                 variants={slideUpVariants}
                 className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full glass-strong border border-[var(--color-secondary)]/20 shadow-[0_4px_20px_rgba(99,102,241,0.15)] hover:shadow-[0_4px_25px_rgba(99,102,241,0.25)] transition-all duration-300 cursor-default group mb-6"
               >
-                <div className="w-6 h-6 rounded-full bg-[var(--color-secondary)]/10 flex items-center justify-center">
-                  <Sparkles className="w-3.5 h-3.5 text-[var(--color-secondary)] group-hover:scale-110 group-hover:rotate-12 transition-transform duration-300" />
+                <div className="w-7 h-7 relative shrink-0 flex items-center justify-center">
+                  <Image
+                    src="/brand/baagupadu-logo.png"
+                    alt="Baagupadu"
+                    width={48}
+                    height={48}
+                    className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300 drop-shadow-[0_2px_8px_rgba(255,142,117,0.3)]"
+                  />
                 </div>
                 <div className="flex items-center gap-2 text-[14px]">
                   <span className="font-bold text-[var(--color-text)] tracking-wide">బాగుపడు</span>
@@ -113,21 +120,40 @@ export default function LandingPage() {
                     <ArrowRight className="w-5 h-5" />
                   </motion.button>
                 </Link>
-                <div className="flex items-center gap-3 sm:ml-4 text-sm text-[var(--color-text-muted)]">
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--color-secondary)]/10 text-[var(--color-secondary)] text-xs font-semibold border border-[var(--color-secondary)]/20">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                    Autonomous AI Companion • Early Access Pilot
-                  </span>
-                </div>
+                <Link href="/companion" className="w-full sm:w-auto">
+                  <motion.button
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.97 }}
+                    className="flex items-center justify-center gap-2 glass border border-[var(--glass-border)] hover:bg-black/5 dark:hover:bg-white/5 text-[var(--color-text)] font-semibold rounded-2xl px-6 py-4 text-[15px] transition-all w-full sm:w-auto shadow-xs"
+                    suppressHydrationWarning
+                  >
+                    <span>The Companion Deep Dive</span>
+                    <ArrowRight className="w-4 h-4 opacity-70" />
+                  </motion.button>
+                </Link>
+              </motion.div>
+              
+              <motion.div variants={slideUpVariants} className="flex flex-wrap items-center gap-3 text-sm text-[var(--color-text-muted)] mt-5">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--color-secondary)]/10 text-[var(--color-secondary)] text-xs font-semibold border border-[var(--color-secondary)]/20">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                  Autonomous AI Companion • Early Access Pilot
+                </span>
+                <Link href="/how-it-works" className="text-xs text-[var(--color-text-muted)] hover:text-[var(--color-secondary)] underline underline-offset-4 transition-colors">
+                  How It Works
+                </Link>
+                <span className="text-[var(--color-text-muted)]/40">•</span>
+                <Link href="/mentors" className="text-xs text-[var(--color-text-muted)] hover:text-[var(--color-secondary)] underline underline-offset-4 transition-colors">
+                  Mentors
+                </Link>
               </motion.div>
             </div>
 
-            <div className="flex-1 w-full flex justify-center lg:justify-end relative lg:translate-x-12 h-full min-h-[500px]">
+            <div className="flex-1 w-full flex justify-center lg:justify-end relative xl:translate-x-6 h-full min-h-[500px]">
               <motion.div variants={slideUpVariants} className="w-full max-w-[500px] relative z-20">
                 <CompanionSelector />
               </motion.div>
               {/* Decorative background glow for 3D area */}
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-to-tr from-[var(--color-secondary)] to-[#E27D60] rounded-full blur-[100px] opacity-[0.08] -z-10" />
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full max-w-[500px] bg-gradient-to-tr from-[var(--color-secondary)] to-[#E27D60] rounded-full blur-[100px] opacity-[0.08] -z-10 pointer-events-none" />
             </div>
           </div>
         </motion.div>
@@ -135,12 +161,12 @@ export default function LandingPage() {
         {/* ═══════════════════════════════════════════════════════════
             SCROLLYTELLING SECTION (Replika-Inspired)
         ═══════════════════════════════════════════════════════════ */}
-        <div className="w-full relative z-20 bg-transparent -mt-20">
+        <div className="w-full relative z-20 bg-transparent -mt-20 overflow-x-clip">
           <ScrollytellingSection />
         </div>
 
         <motion.div
-          className="w-full max-w-6xl relative z-10 px-4 mt-20"
+          className="w-full max-w-6xl mx-auto relative z-10 px-4 sm:px-6 mt-20"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
@@ -193,10 +219,10 @@ export default function LandingPage() {
               </motion.div>
 
               {/* ── Main Stage: 3-column layout ── */}
-              <div className="flex flex-col lg:flex-row items-center justify-center gap-6 lg:gap-10 mb-14">
+              <div className="w-full max-w-5xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-8 mb-14">
 
                 {/* Left trait cards */}
-                <motion.div variants={containerVariants} className="flex flex-col gap-4 w-full lg:w-[28%]">
+                <motion.div variants={containerVariants} className="flex flex-col gap-4 w-full lg:w-[280px] xl:w-[300px] shrink-0">
                   {[
                     { icon: Heart, label: 'Emotional Memory', desc: 'Remembers what you felt, not just what you said', color: '#FF6B8A' },
                     { icon: Brain, label: 'Non-Linear Thinking', desc: 'Explores your story in the order it matters emotionally', color: '#6366F1' },
@@ -223,7 +249,7 @@ export default function LandingPage() {
                 {/* Centre: Avatar stage */}
                 <motion.div
                   variants={slideUpVariants}
-                  className="relative w-full lg:w-[42%] flex flex-col items-center"
+                  className="relative w-full lg:flex-1 flex flex-col items-center justify-center min-w-0"
                 >
                   {/* Glowing disc — color follows active mode */}
                   <motion.div
@@ -319,7 +345,7 @@ export default function LandingPage() {
                 </motion.div>
 
                 {/* Right trait cards */}
-                <motion.div variants={containerVariants} className="flex flex-col gap-4 w-full lg:w-[28%]">
+                <motion.div variants={containerVariants} className="flex flex-col gap-4 w-full lg:w-[280px] xl:w-[300px] shrink-0">
                   {[
                     { icon: Target, label: 'Adaptive Pressure', desc: 'Gets stricter when you slack, warmer when you push forward', color: '#FFB84D' },
                     { icon: Map, label: 'Actionable Roadmap', desc: 'Converts your persona into a step-by-step career path', color: '#10B981' },
@@ -347,10 +373,10 @@ export default function LandingPage() {
               {/* ── Bottom: Personality Wheel + Description ── */}
               <motion.div
                 variants={slideUpVariants}
-                className="flex flex-col lg:flex-row items-center gap-10 glass-card p-8 md:p-10"
+                className="flex flex-col lg:flex-row items-center gap-8 lg:gap-10 glass-card p-6 md:p-10"
               >
                 {/* Left: Description + mode pills */}
-                <div className="w-full lg:w-1/2">
+                <div className="w-full lg:flex-1 min-w-0">
                   <p className="text-[var(--color-text-muted)] text-sm font-bold uppercase tracking-widest mb-3">Personality Composition</p>
                   <h3 className="text-2xl md:text-3xl font-black text-[var(--color-text)] mb-4 leading-tight">
                     Sahayam isn&apos;t one thing.<br />
@@ -388,7 +414,7 @@ export default function LandingPage() {
                 </div>
 
                 {/* Right: Personality wheel */}
-                <div className="w-full lg:w-1/2 flex justify-center">
+                <div className="w-full lg:flex-1 min-w-0 flex justify-center">
                   <SahayamPersonalityWheel />
                 </div>
               </motion.div>

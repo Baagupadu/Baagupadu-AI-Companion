@@ -87,6 +87,7 @@ describe('Technical SEO & Discoverability Validation Suite', () => {
     expect(aiBotsRule?.userAgent).toContain('Applebot-Extended');
     expect(aiBotsRule?.userAgent).toContain('PerplexityBot');
     expect(aiBotsRule?.userAgent).toContain('ClaudeBot');
+    expect(aiBotsRule?.allow).toContain('/companion');
   });
 
   it('should generate a valid web app manifest with branding and theme colors', () => {
