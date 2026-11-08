@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Sparkles, Mail, MapPin, ShieldCheck, CheckCircle2, ArrowRight } from 'lucide-react';
 
 export default function Footer() {
@@ -77,12 +78,18 @@ export default function Footer() {
           <div className="lg:col-span-2 flex flex-col justify-between">
             <div>
               <Link href="/" className="inline-flex items-center gap-3 mb-5 group">
-                <div className="w-9 h-9 rounded-xl flex items-center justify-center bg-gradient-to-br from-[var(--color-secondary)] to-[#818CF8] shadow-md group-hover:scale-105 transition-transform duration-300">
-                  <Sparkles className="w-4.5 h-4.5 text-white" />
+                <div className="w-10 h-10 relative shrink-0 transition-transform duration-300 group-hover:scale-105">
+                  <Image
+                    src="/brand/baagupadu-logo.png"
+                    alt="Baagupadu Logo"
+                    width={80}
+                    height={80}
+                    className="w-full h-full object-contain drop-shadow-[0_4px_14px_rgba(255,142,117,0.28)]"
+                  />
                 </div>
                 <div className="flex flex-col">
-                  <span className="font-extrabold text-2xl tracking-tight text-[var(--color-text)]">
-                    Baagupadu <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-secondary)] to-[#FF6B8A]">Technologies</span>
+                  <span className="font-brand font-black text-2xl tracking-[-0.03em] text-[var(--color-text)]">
+                    Baagupadu <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF7E67] via-[#E293B8] to-[#8B7AE8]">Technologies</span>
                   </span>
                   <span className="text-xs font-semibold text-[var(--color-text-muted)] tracking-wider">
                     బాగుపడు • Human Potential Accelerated

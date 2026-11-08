@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap');
 @import "tailwindcss";
 
 :root {
@@ -62,7 +62,30 @@
   --color-text:             var(--text-color);
   --color-text-muted:       var(--text-muted-color);
   --font-sans:              "Inter", var(--font-inter), system-ui, sans-serif;
+  --font-brand:             "Outfit", "Plus Jakarta Sans", system-ui, sans-serif;
   --font-mono:              monospace;
+}
+
+.font-brand {
+  font-family: 'Outfit', 'Plus Jakarta Sans', system-ui, sans-serif;
+}
+
+.brand-gradient-text {
+  background: linear-gradient(135deg, var(--color-text) 0%, var(--color-text) 50%, #8A7BE2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.dark .brand-gradient-text {
+  background: linear-gradient(135deg, #FFFFFF 0%, #F1F0F7 50%, #B6A6FA 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.brand-gradient-hover:hover .brand-gradient-text {
+  background: linear-gradient(135deg, #FF7E67 0%, #E692B8 50%, #8B7AE8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 *, *::before, *::after { box-sizing: border-box; }

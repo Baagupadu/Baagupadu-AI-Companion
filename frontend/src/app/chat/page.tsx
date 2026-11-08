@@ -23,6 +23,7 @@ import { useAuth, UserButton } from '@clerk/nextjs';
 import { resetSahayamChat } from '@/lib/api';
 import RollingBanner from '@/components/ui/RollingBanner';
 import ProfileEditModal from '@/components/chat/ProfileEditModal';
+import BaagupaduLogo from '@/components/ui/BaagupaduLogo';
 import { useCompanionStore } from '@/lib/store/companionStore';
 import { COMPANIONS } from '@/lib/companions';
 
@@ -99,12 +100,7 @@ export default function ChatPage() {
           {/* ── Left Sidebar (Column 1) ── */}
         <aside className="hidden lg:flex flex-col w-64 flex-shrink-0 bg-white border-r border-black/5 p-6 z-10 shadow-sm relative">
           <div className="flex items-center justify-between mb-8">
-            <Link href="/" className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity">
-              <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-gradient-to-br from-[var(--color-secondary)] to-[#818CF8]">
-                <Sparkles className="w-5 h-5 text-white" />
-              </div>
-              <span className="font-bold text-[16px] text-[var(--color-text)]">Baagupadu</span>
-            </Link>
+            <BaagupaduLogo size="sm" showSubtitle={false} />
             <div className="flex items-center gap-3">
               <ThemeToggle />
               <UserButton />

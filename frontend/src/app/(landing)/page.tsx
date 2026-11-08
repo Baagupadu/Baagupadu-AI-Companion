@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { Sparkles, ArrowRight, Brain, Heart, Map, Target, Building2, Award, CheckCircle2 } from 'lucide-react';
@@ -58,8 +59,14 @@ export default function LandingPage() {
                 variants={slideUpVariants}
                 className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full glass-strong border border-[var(--color-secondary)]/20 shadow-[0_4px_20px_rgba(99,102,241,0.15)] hover:shadow-[0_4px_25px_rgba(99,102,241,0.25)] transition-all duration-300 cursor-default group mb-6"
               >
-                <div className="w-6 h-6 rounded-full bg-[var(--color-secondary)]/10 flex items-center justify-center">
-                  <Sparkles className="w-3.5 h-3.5 text-[var(--color-secondary)] group-hover:scale-110 group-hover:rotate-12 transition-transform duration-300" />
+                <div className="w-7 h-7 relative shrink-0 flex items-center justify-center">
+                  <Image
+                    src="/brand/baagupadu-logo.png"
+                    alt="Baagupadu"
+                    width={48}
+                    height={48}
+                    className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300 drop-shadow-[0_2px_8px_rgba(255,142,117,0.3)]"
+                  />
                 </div>
                 <div className="flex items-center gap-2 text-[14px]">
                   <span className="font-bold text-[var(--color-text)] tracking-wide">బాగుపడు</span>
