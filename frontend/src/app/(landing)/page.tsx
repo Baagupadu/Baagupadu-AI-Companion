@@ -120,12 +120,31 @@ export default function LandingPage() {
                     <ArrowRight className="w-5 h-5" />
                   </motion.button>
                 </Link>
-                <div className="flex items-center gap-3 sm:ml-4 text-sm text-[var(--color-text-muted)]">
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--color-secondary)]/10 text-[var(--color-secondary)] text-xs font-semibold border border-[var(--color-secondary)]/20">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                    Autonomous AI Companion • Early Access Pilot
-                  </span>
-                </div>
+                <Link href="/companion" className="w-full sm:w-auto">
+                  <motion.button
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.97 }}
+                    className="flex items-center justify-center gap-2 glass border border-[var(--glass-border)] hover:bg-black/5 dark:hover:bg-white/5 text-[var(--color-text)] font-semibold rounded-2xl px-6 py-4 text-[15px] transition-all w-full sm:w-auto shadow-xs"
+                    suppressHydrationWarning
+                  >
+                    <span>The Companion Deep Dive</span>
+                    <ArrowRight className="w-4 h-4 opacity-70" />
+                  </motion.button>
+                </Link>
+              </motion.div>
+              
+              <motion.div variants={slideUpVariants} className="flex flex-wrap items-center gap-3 text-sm text-[var(--color-text-muted)] mt-5">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--color-secondary)]/10 text-[var(--color-secondary)] text-xs font-semibold border border-[var(--color-secondary)]/20">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                  Autonomous AI Companion • Early Access Pilot
+                </span>
+                <Link href="/how-it-works" className="text-xs text-[var(--color-text-muted)] hover:text-[var(--color-secondary)] underline underline-offset-4 transition-colors">
+                  How It Works
+                </Link>
+                <span className="text-[var(--color-text-muted)]/40">•</span>
+                <Link href="/mentors" className="text-xs text-[var(--color-text-muted)] hover:text-[var(--color-secondary)] underline underline-offset-4 transition-colors">
+                  Mentors
+                </Link>
               </motion.div>
             </div>
 

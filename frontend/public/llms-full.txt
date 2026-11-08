@@ -45,8 +45,12 @@ Unlike ordinary AI companions that offer entertainment or open-ended banter, Baa
 ### How can educational institutions deploy the Baagupadu Companion?
 Colleges and schools can deploy the Baagupadu Campus Edition for student counseling, placement mentorship, and NEP 2020 alignment by writing to info@baagupadu.com.
 
+### What is the Purposeful AI Companion architecture and philosophy?
+Baagupadu's Purposeful AI Companion operates on a non-directive active-listening philosophy: it listens deeply before offering guidance, completely eliminating unsolicited lectures. It performs 4-D longitudinal modeling across culture & family roots, formative childhood curiosity (0-19), daily habit rhythms, and vocational trajectories. Architecturally, it runs on a LangGraph 5-agent cognitive DAG with Dynamic RAG (sub-15ms pgvector vector search), governed by India DPDP Act 2023, ISO/IEC 42001, CERT-In compliance, and NEP 2020 alignment.
+
 ## Canonical Resources & Documentation
 - Main Application: https://baagupadu.com
+- The Purposeful AI Companion Deep Dive: https://baagupadu.com/companion
 - Founder & Architecture Profile: https://baagupadu.com/about#sreekar-reddy-pindi
 - Founder Direct Contact: sreekar.pindi@baagupadu.com
 - Architectural Methodology: https://baagupadu.com/how-it-works
